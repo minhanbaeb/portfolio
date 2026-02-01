@@ -1,792 +1,776 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | 배민한</title>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --primary-color: #0f4c81; /* 신뢰감 있는 딥 블루 */
+            --secondary-color: #20c997; /* 성장을 상징하는 민트 */
+            --bg-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-main: #212529;
+            --text-sub: #6c757d;
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --container-width: 1024px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+        }
+
+        /* --- Layout Utilities --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .section { padding: 80px 0; }
+        
+        /* --- Typography --- */
+        h1, h2, h3, h4 { font-weight: 700; color: var(--primary-color); }
+        
+        /* --- Section 1: Hero (Trinity Layout) --- */
+        #hero {
+            text-align: center;
+            padding-top: 100px;
+            padding-bottom: 80px;
+            background: white;
+            overflow: hidden;
+        }
+        /* [추가] 포트폴리오 배지 스타일 */
+        .portfolio-badge {
+            display: inline-block;
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            line-height: 1.3;
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Trinity Diagram */
+        .keyword-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            padding: 20px;
+        }
+        /* 삼각형 배경 (SVG Data URI) */
+        .keyword-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            width: 70%;
+            height: 80%;
+            /* 점선 삼각형 */
+            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 200 173' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 5 L195 168 L5 168 Z' fill='none' stroke='%23e9ecef' stroke-width='4' stroke-linejoin='round' stroke-dasharray='10,10'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            z-index: 0;
+            opacity: 0.8;
+        }
+        /* 중앙 핵 (Core) */
+        .keyword-container::after {
+            content: '';
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--surface-color);
+            border: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            z-index: 0;
+            box-shadow: 0 0 0 10px rgba(32, 201, 151, 0.1);
+        }
+        .keyword-tag {
+            background: var(--surface-color);
+            border: 1px solid #dee2e6;
+            padding: 25px;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 340px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .keyword-tag:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 40px rgba(32, 201, 151, 0.15);
+        }
+        /* 트리니티 배치 */
+        .keyword-tag:nth-child(1) { grid-column: 1 / -1; justify-self: center; margin-bottom: 20px; }
+        .keyword-tag:nth-child(2) { grid-column: 1 / 2; justify-self: end; }
+        .keyword-tag:nth-child(3) { grid-column: 2 / 3; justify-self: start; }
+        
+        .keyword-title { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 8px; display: block; }
+        .keyword-desc { display: block; font-size: 0.9rem; font-weight: 400; color: var(--text-sub); line-height: 1.5; word-break: keep-all; }
+
+        /* --- Section 2: Summary --- */
+        #summary { display: block; }
+        .card {
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+        .career-item {
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .career-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .career-role { font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+        .career-date { font-size: 0.95rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 4px; display: block;}
+        .career-desc { font-size: 1rem; color: var(--text-sub); margin-bottom: 25px; line-height: 1.7; }
+        .sub-project-list {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+        }
+        .sub-project-title {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .sub-project-item {
+            list-style: none;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.6;
+        }
+        .pj-num { font-weight: 800; color: var(--secondary-color); margin-right: 10px; min-width: 25px; }
+
+        /* --- Section 3 & 4: Projects --- */
+        #project { background-color: white; }
+        .project-header { margin-bottom: 30px; }
+        .project-label {
+            display: inline-block;
+            color: var(--secondary-color);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .project-title { font-size: 2rem; margin-bottom: 10px; line-height: 1.3; }
+        .project-intro { font-size: 1.1rem; color: var(--text-sub); }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .detail-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+        .detail-item h4::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Result Box & Chart */
+        .result-box {
+            background: rgba(32, 201, 151, 0.08);
+            border: 1px solid var(--secondary-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .result-box { flex-direction: row; align-items: center; }
+            .result-text { flex: 1.2; padding-right: 20px; }
+            .result-chart { flex: 1; border-left: 1px solid rgba(32, 201, 151, 0.3); padding-left: 20px; }
+        }
+        .result-highlight { font-weight: 800; color: #0ca678; font-size: 1.1em; }
+
+        /* Chart Animation */
+        .chart-item { margin-bottom: 35px; }
+        .chart-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-main); font-weight: 700; }
+        
+        /* Horizontal Bars (Project 01) */
+        .chart-bars-h { display: flex; flex-direction: column; gap: 6px; }
+        .bar-row-h { display: flex; align-items: center; font-size: 0.75rem; color: var(--text-sub); }
+        .bar-label-sm { width: 45px; flex-shrink: 0; text-align: right; margin-right: 10px; font-size: 0.7rem; }
+        .bar-track { flex-grow: 1; background: transparent; height: 8px; display: flex; align-items: center; }
+        /* 애니메이션 키프레임 정의 */
+        @keyframes growBar { from { width: 0; } }
+        @keyframes growBarV { from { height: 0; } }
+
+        /* JS로 제어할 예정이므로 기본 상태는 width/height가 있어야 함 (JS 없을 때 대비) 
+           하지만 JS가 있다면 JS가 0으로 세팅 후 애니메이션 실행 */
+        .bar-fill-prev { height: 8px; background-color: #adb5bd; border-radius: 4px; width: 0; }
+        .bar-fill-curr { height: 8px; background-color: var(--secondary-color); border-radius: 4px; width: 0; }
+
+        /* Vertical Bars (Project 02) - Improved Layout */
+        .chart-bars-v { display: flex; flex-direction: row; align-items: flex-end; height: 140px; gap: 20px; padding-bottom: 5px; border-bottom: 1px solid #eee; position: relative; }
+        .v-bar-group { width: 45%; height: 100%; position: relative; display: flex; flex-direction: column; justify-content: flex-end; }
+        
+        /* Stacked Bar Classes */
+        .v-bar-total { width: 100%; background: #dee2e6; border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; z-index: 1; transition: height 1s ease-out; }
+        .v-bar-obsolete { width: 100%; background: var(--primary-color); border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; z-index: 2; transition: height 1s ease-out; }
+        
+        /* Independent Bars for Promo Efficiency */
+        .v-bar-cost { width: 100%; background: #ffc9c9; border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; }
+        .v-bar-sales { width: 100%; background: var(--secondary-color); border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; }
+
+        /* Label Positioning */
+        .v-bar-val-top { 
+            position: absolute; 
+            bottom: 100%; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            margin-bottom: 6px; 
+            font-size: 0.8rem; 
+            font-weight: bold; 
+            color: var(--text-main); 
+            white-space: nowrap; 
+        }
+        /* [수정] 막대 안쪽 상단에 배치 (Total 재고용) */
+        .v-bar-val-inside-top {
+            position: absolute;
+            top: 5px; /* 막대 안쪽 상단 */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--text-main); /* 밝은 배경이므로 어두운 글자 */
+            white-space: nowrap;
+            z-index: 3;
+        }
+
+        .v-bar-val-in { 
+            position: absolute; 
+            top: 5px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            font-size: 0.7rem; 
+            color: white; 
+            white-space: nowrap; 
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            width: 100%;
+            text-align: center;
+        }
+        
+        .v-bar-axis { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: var(--text-sub); white-space: nowrap; font-weight: 600;}
+
+        /* Detail/Task Styles */
+        details.project-details { border: 1px solid #e9ecef; border-radius: 8px; overflow: hidden; transition: all 0.3s ease; }
+        details.project-details[open] { border-color: var(--secondary-color); background-color: #fff; }
+        summary.project-summary-btn { list-style: none; padding: 15px 20px; background-color: #f8f9fa; cursor: pointer; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; transition: background-color 0.2s; }
+        summary.project-summary-btn:hover { background-color: #f1f3f5; }
+        summary.project-summary-btn::after { content: '▼'; font-size: 0.8rem; color: var(--secondary-color); transition: transform 0.3s; }
+        details[open] summary.project-summary-btn::after { transform: rotate(180deg); }
+        .project-details-content { padding: 30px; border-top: 1px solid #e9ecef; display: grid; gap: 30px; animation: slideDown 0.3s ease-out; }
+        
+        .task-container { display: flex; flex-direction: column; gap: 20px; padding-left: 10px; }
+        .task-sub-section { position: relative; }
+        .task-sub-title { color: var(--primary-color); font-size: 1rem; margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; }
+        .task-sub-section p { color: var(--text-sub); margin-bottom: 8px; font-size: 0.95rem; line-height: 1.7; }
+
+        .process-step { margin-bottom: 15px; }
+
+        /* Contact Section Button Hover */
+        .btn-contact:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(15, 76, 129, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 1.8rem; }
+            .keyword-container { grid-template-columns: 1fr; gap: 15px; }
+            .keyword-container::before, .keyword-container::after { display: none; }
+            .keyword-tag:nth-child(n) { grid-column: auto; justify-self: stretch; max-width: 100%; }
+            .result-chart { border-left: none; padding-left: 0; margin-top: 20px; border-top: 1px solid rgba(32, 201, 151, 0.3); padding-top: 20px; }
+        }
+    </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ko"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Portfolio | 배민한&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- CSS Reset &amp; Variables --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--primary-color: #0f4c81; /* 신뢰감 있는 딥 블루 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--secondary-color: #20c997; /* 성장을 상징하는 민트 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--bg-color: #f8f9fa;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--surface-color: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--text-main: #212529;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--text-sub: #6c757d;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--border-radius: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--shadow: 0 4px 20px rgba(0, 0, 0, 0.05);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>--container-width: 1024px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-main);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--bg-color);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- Layout Utilities --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: var(--container-width);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 0 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section { padding: 80px 0; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- Typography --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>h1, h2, h3, h4 { font-weight: 700; color: var(--primary-color); }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- Section 1: Hero (Trinity Layout) --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#hero {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-top: 100px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 80px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* [추가] 포트폴리오 배지 스타일 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.portfolio-badge {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 16px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 800;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.hero-title {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 50px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.3;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 2;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Trinity Diagram */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-container {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: 1fr 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 800px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 삼각형 배경 (SVG Data URI) */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-container::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -40%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 70%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 80%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>/* 점선 삼각형 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 200 173' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 5 L195 168 L5 168 Z' fill='none' stroke='%23e9ecef' stroke-width='4' stroke-linejoin='round' stroke-dasharray='10,10'/%3E%3C/svg%3E");</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-repeat: no-repeat;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-position: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-size: contain;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.8;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 중앙 핵 (Core) */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-container::after {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 55%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translate(-50%, -50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--surface-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 4px solid var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 0;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 0 0 10px rgba(32, 201, 151, 0.1);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-tag {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: var(--surface-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #dee2e6;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(0,0,0,0.08);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.3s, box-shadow 0.3s;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>max-width: 340px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 1;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-tag:hover {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-5px);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-color: var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 15px 40px rgba(32, 201, 151, 0.15);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 트리니티 배치 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-tag:nth-child(1) { grid-column: 1 / -1; justify-self: center; margin-bottom: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-tag:nth-child(2) { grid-column: 1 / 2; justify-self: end; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-tag:nth-child(3) { grid-column: 2 / 3; justify-self: start; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-title { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 8px; display: block; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.keyword-desc { display: block; font-size: 0.9rem; font-weight: 400; color: var(--text-sub); line-height: 1.5; word-break: keep-all; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- Section 2: Summary --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#summary { display: block; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.card {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: var(--surface-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: var(--border-radius);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 40px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: var(--shadow);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.section-title {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.5rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-left: 5px solid var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-left: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.career-item {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #f1f3f5;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.career-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.career-role { font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.career-date { font-size: 0.95rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 4px; display: block;}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.career-desc { font-size: 1rem; color: var(--text-sub); margin-bottom: 25px; line-height: 1.7; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.sub-project-list {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f8f9fa;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.sub-project-title {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--primary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 0.5px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.sub-project-item {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>list-style: none;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.95rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: flex-start;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.pj-num { font-weight: 800; color: var(--secondary-color); margin-right: 10px; min-width: 25px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* --- Section 3 &amp; 4: Projects --- */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>#project { background-color: white; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-header { margin-bottom: 30px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-label {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 800;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-transform: uppercase;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>letter-spacing: 1px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-title { font-size: 2rem; margin-bottom: 10px; line-height: 1.3; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-intro { font-size: 1.1rem; color: var(--text-sub); }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-grid {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: 1fr;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 30px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.detail-item h4 {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-main);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.detail-item h4::before {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background-color: var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Result Box &amp; Chart */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-box {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(32, 201, 151, 0.08);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid var(--secondary-color);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.result-box { flex-direction: row; align-items: center; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.result-text { flex: 1.2; padding-right: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.result-chart { flex: 1; border-left: 1px solid rgba(32, 201, 151, 0.3); padding-left: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.result-highlight { font-weight: 800; color: #0ca678; font-size: 1.1em; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Chart Animation */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chart-item { margin-bottom: 35px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chart-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-main); font-weight: 700; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Horizontal Bars (Project 01) */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chart-bars-h { display: flex; flex-direction: column; gap: 6px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bar-row-h { display: flex; align-items: center; font-size: 0.75rem; color: var(--text-sub); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bar-label-sm { width: 45px; flex-shrink: 0; text-align: right; margin-right: 10px; font-size: 0.7rem; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bar-track { flex-grow: 1; background: transparent; height: 8px; display: flex; align-items: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* 애니메이션 키프레임 정의 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes growBar { from { width: 0; } }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>@keyframes growBarV { from { height: 0; } }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* JS로 제어할 예정이므로 기본 상태는 width/height가 있어야 함 (JS 없을 때 대비)<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">           </span>하지만 JS가 있다면 JS가 0으로 세팅 후 애니메이션 실행 */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bar-fill-prev { height: 8px; background-color: #adb5bd; border-radius: 4px; width: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.bar-fill-curr { height: 8px; background-color: var(--secondary-color); border-radius: 4px; width: 0; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Vertical Bars (Project 02) - Improved Layout */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.chart-bars-v { display: flex; flex-direction: row; align-items: flex-end; height: 140px; gap: 20px; padding-bottom: 5px; border-bottom: 1px solid #eee; position: relative; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-group { width: 45%; height: 100%; position: relative; display: flex; flex-direction: column; justify-content: flex-end; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Stacked Bar Classes */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-total { width: 100%; background: #dee2e6; border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; z-index: 1; transition: height 1s ease-out; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-obsolete { width: 100%; background: var(--primary-color); border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; z-index: 2; transition: height 1s ease-out; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Independent Bars for Promo Efficiency */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-cost { width: 100%; background: #ffc9c9; border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-sales { width: 100%; background: var(--secondary-color); border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Label Positioning */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-val-top {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>bottom: 100%;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 6px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.8rem;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-main);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* [수정] 막대 안쪽 상단에 배치 (Total 재고용) */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-val-inside-top {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 5px; /* 막대 안쪽 상단 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.75rem;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: var(--text-main); /* 밝은 배경이므로 어두운 글자 */</p>
-<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>z-index: 3;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-val-in {<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>position: absolute;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>top: 5px;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.7rem;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: white;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>white-space: nowrap;<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-shadow: 0 1px 2px rgba(0,0,0,0.3);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.v-bar-axis { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: var(--text-sub); white-space: nowrap; font-weight: 600;}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Detail/Task Styles */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>details.project-details { border: 1px solid #e9ecef; border-radius: 8px; overflow: hidden; transition: all 0.3s ease; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>details.project-details[open] { border-color: var(--secondary-color); background-color: #fff; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>summary.project-summary-btn { list-style: none; padding: 15px 20px; background-color: #f8f9fa; cursor: pointer; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; transition: background-color 0.2s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>summary.project-summary-btn:hover { background-color: #f1f3f5; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>summary.project-summary-btn::after { content: '▼'; font-size: 0.8rem; color: var(--secondary-color); transition: transform 0.3s; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>details[open] summary.project-summary-btn::after { transform: rotate(180deg); }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.project-details-content { padding: 30px; border-top: 1px solid #e9ecef; display: grid; gap: 30px; animation: slideDown 0.3s ease-out; }</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.task-container { display: flex; flex-direction: column; gap: 20px; padding-left: 10px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.task-sub-section { position: relative; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.task-sub-title { color: var(--primary-color); font-size: 1rem; margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.task-sub-section p { color: var(--text-sub); margin-bottom: 8px; font-size: 0.95rem; line-height: 1.7; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>.process-step { margin-bottom: 15px; }</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>/* Contact Section Button Hover */</p>
-<p class="p1"><span class="Apple-converted-space">        </span>.btn-contact:hover {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-3px);</p>
-<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 15px rgba(15, 76, 129, 0.3);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.hero-title { font-size: 1.8rem; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.keyword-container { grid-template-columns: 1fr; gap: 15px; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.keyword-container::before, .keyword-container::after { display: none; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.keyword-tag:nth-child(n) { grid-column: auto; justify-self: stretch; max-width: 100%; }</p>
-<p class="p1"><span class="Apple-converted-space">            </span>.result-chart { border-left: none; padding-left: 0; margin-top: 20px; border-top: 1px solid rgba(32, 201, 151, 0.3); padding-top: 20px; }</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="hero"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- [추가] 포트폴리오 식별 배지 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="portfolio-badge"&gt;2026 Analytics Portfolio&lt;/span&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- [수정] 프로필 이미지 영역 삭제 --&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="hero-title"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>사유(事由)를 사유(思惟)해,&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>문제를 성과로 연결하는 배민한 입니다.</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/h1&gt;</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="keyword-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="keyword-tag"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="keyword-title"&gt;탐구심&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="keyword-desc"&gt;데이터와 현상 뒤에 숨은 원인을 집요하게 질문하고 검증하려 함&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="keyword-tag"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="keyword-title"&gt;목표지향성&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="keyword-desc"&gt;제약 조건 속에서도 목표 달성을 위한 실행 가능한 대안을 끝까지 탐색&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="keyword-tag"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="keyword-title"&gt;구조화&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="keyword-desc"&gt;복잡한 문제를 의사결정이 가능한 단계와 지표로 구조화함&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container" id="summary"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3 class="section-title"&gt;주요 경력 및 프로젝트&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="career-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="career-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="career-date"&gt;2022.10 ~ 현재&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="career-role"&gt;신라면세점 서울점 | 영업관리&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="career-desc"&gt;화장품·패션 카테고리의 매출·재고·구매 데이터 분석을 기반으로 프로모션 전략 수립, 손익 관리, 브랜드 운영 전반에 대한 의사결정 지원 및 실행을 담당&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="sub-project-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;strong class="sub-project-title"&gt;🏆 주요 프로젝트 (요약)&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li class="sub-project-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span class="pj-num"&gt;01.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span&gt;구매 수량 기반(PCS) 할인 스킴 설계를 통한 한국 화장품 카테고리 KPI 구조 개선&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li class="sub-project-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span class="pj-num"&gt;02.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span&gt;해외 패션 BTQ C브랜드 재고 구조 분석 및 운영 전략 재설계를 통한 재고 건전화&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;li class="sub-project-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span class="pj-num"&gt;03.&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span&gt;한국 패션 M브랜드 거래 구조 분석 및 거래선 다변화를 통한 공헌이익 개선&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Project 01 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="project1" class="section" style="background-color: white;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;header class="project-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="project-label"&gt;Project 01&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="project-title"&gt;한국 화장품 브랜드 PCS 할인 스킴 설계&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="project-intro"&gt;구매 수량 기반 할인 설계를 통한 카테고리 전체 매출 활성화 프로젝트&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="project-grid"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Project 01 Result --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4&gt;결과물 (Result)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="margin-bottom: 15px;"&gt;✅ PCS 할인 도입을 통해 105개 중 &lt;span class="result-highlight"&gt;87개 브랜드&lt;/span&gt;에서 UPT, AOV 개선 효과를 확인, 카테고리 확장성 검증&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="margin-bottom: 15px;"&gt;✅ 카테고리 전체 AOV &lt;span class="result-highlight"&gt;+22.7%&lt;/span&gt;, UPT &lt;span class="result-highlight"&gt;+2.9개&lt;/span&gt; 증가로 구매 수량 기반 프로모션의 구조적 효과 입증&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;✅ &lt;strong&gt;[핵심 성과]&lt;/strong&gt; 실버 멤버십 고객 AOV &lt;span class="result-highlight"&gt;+32.8%&lt;/span&gt;로 멤버십 하위 고객을 성장 레버로 전환&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-chart"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="chart-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-label"&gt;&lt;span&gt;Brand Improvement&lt;/span&gt;&lt;span&gt;87 / 105&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div style="background:#e9ecef;border-radius:10px;height:10px;width:100%"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;span style="background:var(--secondary-color);height:100%;border-radius:10px;display:block;width:83%"&gt;&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="chart-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-label"&gt;&lt;span&gt;Category AOV&lt;/span&gt;&lt;span&gt;+22.7%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-bars-h"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;Before&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-prev" data-width="70%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;After&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-curr" data-width="86%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="chart-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-label"&gt;&lt;span&gt;Silver Member AOV&lt;/span&gt;&lt;span style="color:var(--secondary-color);"&gt;+32.8%&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-bars-h"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;Before&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-prev" data-width="65%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;After&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-curr" data-width="95%"&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Project 01 Details --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;details class="project-details"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;summary class="project-summary-btn"&gt;상세 분석 과정 및 역량 보기&lt;/summary&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="project-details-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;개요 (Objective)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;브랜드별·멤버십별로 파편화된 기존 할인 구조가 카테고리 전체의 UPT(객당 구매 수량) 및 AOV(객단가) 개선에 한계를 보이는 상황에서, 고객 등급과 브랜드 가격대에 관계없이 확장 적용 가능한 &lt;strong&gt;구매 수량 기반 할인(PCS) 전략&lt;/strong&gt;을 설계·검증하여 카테고리 핵심 KPI를 개선하고자 했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;진행한 일 (Task)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="task-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;배경&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;카테고리 매출 볼륨은 증가 추세였으나, UPT와 AOV는 2분기 연속 둔화되는 상반된 흐름을 보였습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;특히 저단가 브랜드에서 구매 수량 감소가 두드러졌으며, 이는 카테고리 전반의 성장 효율 저하로 이어지고 있었습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;문제 정의&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;기존 증정 프로모션은 고단가 브랜드 및 상위 멤버십 고객에게만 반응이 집중되는 경향이 있었고, 구매 수량 증가보다는 단일 상품 구매에 대한 보상 효과에 그쳐 카테고리 전체 개선으로는 연결되지 않았습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;또한, 거래 건수가 가장 많은 실버 등급 고객의 객단가가 가장 낮은 구조로 인해, 멤버십 등급별 할인율 조정만으로는 실질적인 성과를 기대하기 어려웠습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;해결 전략&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;UPT와 AOV를 동시에 개선하기 위해서는 ①특정 브랜드에 국한되지 않고 ②구매 수량 자체를 의사결정 변수로 만들며 ③멤버십 하위 고객일수록 체감 효과가 큰 프로모션 구조가 필요하다고 판단했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;이에 따라 고객의 장바구니 구성 행동을 직접적으로 유도할 수 있는 &lt;strong&gt;PCS(구매 수량 기반 할인) 프로모션&lt;/strong&gt;을 핵심 대안으로 설정했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;성장한 점 (Growth)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;로컬 접근성이 높은 한국 화장품 카테고리에서 멤버십 하위 고객 유입과 구매 전환이 구조적으로 어렵다는 한계를 확인했습니다. 그러나 &lt;strong&gt;PCS 할인이 멤버십 등급 간 허들을 낮추는 역할을 수행하며&lt;/strong&gt;, 골드 멤버십 미만 고객의 평균 구매 수량을 유의미하게 끌어올리는 데 효과적이었습니다. 이를 통해 멤버십 등급 할인 외에도, &lt;strong&gt;구매 행동을 기반으로 한 멤버십 상향 유도 레버리지&lt;/strong&gt;를 새롭게 발견할 수 있었습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/details&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;hr style="max-width: 1024px; margin: 0 auto; border: 0; border-top: 1px dashed #dee2e6;"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Project 02 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;header class="project-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="project-label"&gt;Project 02&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="project-title"&gt;해외 패션 BTQ C브랜드&lt;br&gt;재고 구조 분석 및 운영 전략 재설계&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="project-intro"&gt;자산 리스크 축소 및 매출 성장 선순환 구축 프로젝트&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="project-grid"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Project 02 Result --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4&gt;결과물 (Result)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="margin-bottom: 20px;"&gt;✅ 전체 재고 $5.4M → $1.3M, 체화 재고 $3.2M → $0.65M 축소&lt;br&gt;&lt;span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;"&gt;→ 정상 재고 판매에 따른 자연 감소를 감안하더라도, 체화 재고 절대액 기준 약 80% 감축을 달성하며 &lt;strong&gt;재고 자산 리스크(Inventory Asset Risk)를 구조적으로 해소&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="margin-bottom: 20px;"&gt;✅ 프로모션 비용 8억 원 투입으로 21억 원 매출 창출&lt;br&gt;&lt;span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;"&gt;→ 판매 가능성이 낮아 추가 평가 손실이 예상되던 저효율 재고를 현금 자산으로 전환, 재무적 손실 확정 구간을 선제적으로 차단&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;✅ &lt;strong&gt;[핵심 성과]&lt;/strong&gt; 확보된 유동성으로 Best SKU 리오더($1.5M) 재개&lt;br&gt;&lt;span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;"&gt;→ 상품 경쟁력 회복과 고객 트래픽 증가로 이어지며 &lt;strong&gt;2025년 10월 브랜드 역대 최고 월매출 $1.2M 달성&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Vertical Charts for Project 02 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-chart"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Legend for Inventory Chart --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div style="display: flex; justify-content: flex-end; gap: 12px; font-size: 0.75rem; margin-bottom: 15px; color: var(--text-sub);"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div style="display: flex; align-items: center;"&gt;&lt;span style="width: 10px; height: 10px; background: #dee2e6; border-radius: 2px; margin-right: 5px;"&gt;&lt;/span&gt;전체 재고&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div style="display: flex; align-items: center;"&gt;&lt;span style="width: 10px; height: 10px; background: var(--primary-color); border-radius: 2px; margin-right: 5px;"&gt;&lt;/span&gt;체화 재고&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Chart 1: Inventory (Stacked Bar with fixed labels) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="chart-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;!-- [수정] Risk Down 텍스트 삭제 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-label"&gt;&lt;span&gt;Inventory Risk ($)&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-bars-v" style="height: 150px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;!-- Sep '23 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="v-bar-group" style="width: 42%;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;!-- Total: 100% (5.4M) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div class="v-bar-total" data-height="100%"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                             </span>&lt;!-- [수정] 값을 막대 안쪽으로 이동 (class 변경) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                             </span>&lt;span class="v-bar-val-inside-top"&gt;$5.4M&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;!-- Obsolete: ~59% (3.2M) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div class="v-bar-obsolete" data-height="59%"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;span class="v-bar-val-in"&gt;$3.2M&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;span class="v-bar-axis"&gt;Sep '23&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;!-- Arrow --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div style="font-size: 1.2rem; color: #adb5bd; padding-bottom: 20px; align-self: center;"&gt;→&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;!-- Jan '26 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="v-bar-group" style="width: 42%;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;!-- Total: ~24% (1.3M) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div class="v-bar-total" data-height="24%"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;span class="v-bar-val-top"&gt;$1.3M&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;!-- Obsolete: ~12% (0.65M) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div class="v-bar-obsolete" data-height="12%"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;span class="v-bar-val-in" style="top: auto; bottom: 2px; font-size:0.65rem;"&gt;$0.65M&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;span class="v-bar-axis"&gt;Jan '26&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                            </span></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Chart 2: Efficiency (Independent Bars with fixed labels) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="chart-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-label"&gt;&lt;span&gt;Promo Efficiency&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-bars-v" style="height:100px; gap: 20px;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;!-- Cost: 8억 (approx 38% of 21) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="v-bar-group" style="width: 45%;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div class="v-bar-cost" data-height="38%"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;span class="v-bar-val-top" style="color:#e88655; margin-bottom: 3px;"&gt;8억&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;span class="v-bar-axis"&gt;Cost&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;!-- Sales: 21억 (100%) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="v-bar-group" style="width: 45%;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;div class="v-bar-sales" data-height="100%"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                            </span>&lt;span class="v-bar-val-top" style="color:var(--secondary-color); margin-bottom: 3px;"&gt;21억&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                        </span>&lt;span class="v-bar-axis"&gt;Sales&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Project 02 Details --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;details class="project-details"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;summary class="project-summary-btn"&gt;상세 분석 과정 및 역량 보기&lt;/summary&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="project-details-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;개요 (Objective)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;코로나 기간 동안 누적된 장기 체화 재고를 전략적으로 소진해 묶여 있던 자금을 회수하고, 이를 베스트 상품 재투자로 연결함으로써 브랜드의 매출 성장 엔진을 재가동하고자 했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;진행한 일 (Task)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="task-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;배경&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;코로나 이전 면세 호황기에 대량 발주된 재고가 팬데믹 기간 동안 소진되지 못하며 장기 체화 재고로 전환되었습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;문제 정의&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;과도한 체화 재고가 매입 예산(OTB)을 잠식하며 트렌드 대응 상품 및 베스트 SKU 발주가 불가능한 상태였고, 이는 &lt;strong&gt;‘신규 상품 부재 → 매출 둔화 → 재고 적체 심화’&lt;/strong&gt;의 악순환 구조를 고착화시키고 있었습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;해결 전략&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;악순환을 끊기 위한 핵심은 체화 재고의 현금화라고 판단했습니다. 단기 성과가 아닌 1년 6개월 단위의 장기 로드맵을 수립해, 구재고 소진 → 유동성 확보 → 핵심 상품 재투자로 이어지는 선순환 구조를 목표로 설정했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;과정 (Process)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="process-list"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="process-step"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;strong&gt;Action 1. 재고 구조 분석 및 타겟 설정&lt;/strong&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>전체 재고를 SKU·입고 시점·회전율 기준으로 전수 분석하여 1년 이상 체화 재고를 핵심 관리 대상으로 정의했습니다. 단순 물량 기준이 아닌, 향후 &lt;strong&gt;재고자산평가손익 관점에서 손실 가능성이 높은 악성 재고&lt;/strong&gt;를 우선 소진 타겟으로 선정하며 재무 리스크를 선제적으로 관리했습니다.</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="process-step"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;strong&gt;Action 2. 전략적 소진 (Exit Strategy)&lt;/strong&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>무차별 할인 대신, 구매 가능성이 높은 고객군을 중심으로 타겟 마케팅 기반 프로모션을 설계했습니다. 총 8억 원의 프로모션 예산을 &lt;strong&gt;‘비용’이 아닌 ‘자산 회수 수단’&lt;/strong&gt;으로 활용해 약 21억 원 규모의 저효율 재고를 매출로 전환했습니다.</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="process-step"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;strong&gt;Action 3. 선순환 투자 (Re-investment)&lt;/strong&gt;&lt;br&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>재고 소진으로 확보된 유동성을 활용해, 품절로 판매 기회를 상실하고 있던 베스트 SKU에 $1.5M 규모의 리오더를 실행했습니다. 상품 경쟁력 회복은 고객 트래픽 증가로 이어졌고, 그 결과 &lt;strong&gt;2025년 10월 브랜드 역대 최고 매출($1.2M)&lt;/strong&gt;을 달성했습니다.</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;성장한 점 (Growth)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;재고 관리는 비용을 줄이기 위한 방어적 활동이 아니라, 적절한 손익 판단과 실행을 통해 &lt;strong&gt;매출 성장을 촉발하는 전략적 레버&lt;/strong&gt;가 될 수 있음을 경험했습니다. 손실을 감수한 단기 결단이, 더 큰 성장 기회로 회수되는 비즈니스 선순환 구조를 직접 설계하고 검증했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;나의 역량 (Competency)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;재고를 현금 흐름(Cash Flow) 관점에서 해석하는 분석 역량과, 1년 이상 지속되는 고난도 프로젝트를 구조적으로 관리하며 목표 수치를 달성해내는 &lt;strong&gt;실행 중심의 프로젝트 리딩 역량&lt;/strong&gt;을 확보했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/details&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;hr style="max-width: 1024px; margin: 0 auto; border: 0; border-top: 1px dashed #dee2e6;"&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- [추가됨] Project 03 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;header class="project-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="project-label"&gt;Project 03&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="project-title"&gt;한국 패션 M브랜드 거래 구조 분석을 통한&lt;br&gt;비수기 수익성 개선&lt;/h2&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="project-intro"&gt;거래선 다변화 기반의 구조적 이익 모델 전환 프로젝트&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="project-grid"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                </span></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Project 03 Result --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4&gt;결과물 (Result)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-box"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-text"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="margin-bottom: 20px;"&gt;✅ 독점 벤더 의존도 85% → 50% 축소&lt;br&gt;&lt;span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;"&gt;→ 특정 벤더 발주 중단 시 발생하던 비수기 매출 공백을 완화하고, 다수 거래선을 기반으로 한 공급 안정성 및 협상력 확보&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p style="margin-bottom: 20px;"&gt;✅ 거래선 다변화 및 직매입 전환을 통해 브랜드 공헌이익율(CM) &lt;span class="result-highlight"&gt;+1.2%p 개선&lt;/span&gt; (2.8% → 4.0%)&lt;br&gt;&lt;span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;"&gt;→ 매출 볼륨 확대가 아닌, 수익성 중심 운영 구조로 전환&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;✅ &lt;strong&gt;[핵심 성과]&lt;/strong&gt; 매출 볼륨 감소에도 불구하고 마진 구조 개선을 통해 연간 공헌이익 &lt;span class="result-highlight"&gt;약 14억 원 추가 확보&lt;/span&gt;&lt;br&gt;&lt;span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;"&gt;→ 비수기 방어를 넘어, 브랜드 손익 구조의 체질 개선 달성&lt;/span&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;!-- Project 03 Charts --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-chart"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Chart 1: Contribution Margin --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="chart-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-label"&gt;&lt;span&gt;Brand Contribution Margin (%)&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-bars-h"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;Before&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-prev" data-width="40%"&gt;&lt;/span&gt;&lt;span style="margin-left:8px; font-size:0.75rem;"&gt;2.8%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;After&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-curr" data-width="60%"&gt;&lt;/span&gt;&lt;span style="margin-left:8px; font-weight:bold; color:var(--secondary-color); font-size:0.75rem;"&gt;4.0%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;!-- Chart 2: Vendor Dependence --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="chart-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-label"&gt;&lt;span&gt;Vendor Dependence&lt;/span&gt;&lt;span style="color:var(--secondary-color); font-size:0.8rem;"&gt;Risk Down&lt;/span&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="chart-bars-h"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;Before&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-prev" data-width="85%"&gt;&lt;/span&gt;&lt;span style="margin-left:8px; font-size:0.75rem;"&gt;85%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;div class="bar-row-h"&gt;&lt;span class="bar-label-sm"&gt;After&lt;/span&gt;&lt;div class="bar-track"&gt;&lt;span class="bar-fill-curr" data-width="50%"&gt;&lt;/span&gt;&lt;span style="margin-left:8px; font-weight:bold; color:var(--secondary-color); font-size:0.75rem;"&gt;50%&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Project 03 Details --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;details class="project-details"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;summary class="project-summary-btn"&gt;상세 분석 과정 및 역량 보기&lt;/summary&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="project-details-content"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;개요 (Objective)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;특정 거래선 의존도가 85%에 달해, 해당 벤더의 발주 중단 시 3분기 매출이 급감하는 구조적 취약점을 해결하고자 했습니다. 비수기 대체 거래선을 발굴하고 이를 고마진 구조로 정착시켜, 단기 매출 방어를 넘어 브랜드의 수익 체질을 개선하는 것을 목표로 설정했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;진행한 일 (Task)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="task-container"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;문제 정의&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;매출의 대부분이 특정 벤더(Vendor A)에 집중된 박리다매 구조로, 해당 벤더가 매입을 중단하는 3분기에는 대체 수단이 없어 브랜드 전체가 비수기 타격을 반복적으로 겪고 있었습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;이로 인해 매출 규모 대비 공헌이익이 낮고, 매출 변동성에 손익이 과도하게 노출되는 구조적 한계가 존재했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;div class="task-sub-section"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;h5 class="task-sub-title"&gt;해결 전략&lt;/h5&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;초기에는 3분기 매출 방어를 위한 대체 거래선 발굴로 접근했습니다. 그러나 거래선 다변화 과정에서 협상력이 개선되고, 고마진 구조로의 전환 가능성이 확인되며 전략의 방향을 &lt;strong&gt;‘비수기 방어’에서 ‘구조적 이익률 개선’&lt;/strong&gt;으로 확장했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;p&gt;이에 따라 비수기 대응이 가능한 신규 거래선을 단계적으로 확보하고 수요가 높은 상품군에 대해서는 발주를 확대해 마진 구조를 점진적으로 개선했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;성장한 점 (Growth)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;단기적인 비수기 매출 방어 활동이 거래 구조와 마진 구조를 재설계하는 계기가 될 수 있음을 경험했습니다. 매출 볼륨(Top-line)이 일부 감소하더라도, 마진율이 높은 건전한 구조(Bottom-line)로 전환하는 것이 장기적으로 더 큰 이익을 창출한다는 점을 데이터로 입증했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="detail-item"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4&gt;나의 역량 (Competency)&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p&gt;매출·마진·공급 리스크를 함께 고려해 거래 구조를 수익성 관점에서 재설계하는 분석 역량과, 단기 이슈를 장기 전략으로 확장하는 비즈니스 관점의 문제 해결 역량을 강화했습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">                </span>&lt;/details&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Contact Section --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="section" style="background-color: #f1f3f5;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="container" style="text-align: center;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 style="color: var(--primary-color); margin-bottom: 20px;"&gt;Thank You&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;p style="color: var(--text-sub); margin-bottom: 0;"&gt;긴 글 읽어주셔서 감사합니다.&lt;br&gt;데이터로 성과를 만드는 분석가, 배민한이었습니다.&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer style="text-align: center; padding: 40px 0; color: #adb5bd; font-size: 0.8rem;"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&amp;copy; 2026 Analytics Portfolio | Bae Min-Han</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Scroll Trigger Animation Script --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.addEventListener("DOMContentLoaded", function() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>// 관찰할 대상 요소들 (가로 막대, 세로 막대)</p>
-<p class="p1"><span class="Apple-converted-space">            </span>const bars = document.querySelectorAll('.bar-fill-prev, .bar-fill-curr, .v-bar-total, .v-bar-obsolete, .v-bar-cost, .v-bar-sales');</p>
-<p class="p2"><span class="Apple-converted-space">            </span></p>
-<p class="p1"><span class="Apple-converted-space">            </span>const observer = new IntersectionObserver((entries) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                </span>entries.forEach(entry =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">                    </span>if (entry.isIntersecting) {</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const target = entry.target;</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// HTML에 심어둔 data-width, data-height 값을 가져옴</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const targetWidth = target.getAttribute('data-width');</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>const targetHeight = target.getAttribute('data-height');</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// 가로 막대 애니메이션 트리거</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (target.classList.contains('bar-fill-prev')) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>target.style.width = targetWidth;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>target.style.animation = 'growBar 1.2s ease-out forwards';</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (target.classList.contains('bar-fill-curr')) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>target.style.width = targetWidth;</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>target.style.animation = 'growBar 1.2s ease-out 0.2s forwards'; // 0.2초 딜레이</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// 세로 막대 애니메이션 트리거 (Inventory &amp; Promo)</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>if (target.classList.contains('v-bar-total') || target.classList.contains('v-bar-obsolete') || target.classList.contains('v-bar-cost') || target.classList.contains('v-bar-sales')) {</p>
-<p class="p1"><span class="Apple-converted-space">                            </span>target.style.height = targetHeight;</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
-<p class="p2"><span class="Apple-converted-space">                        </span></p>
-<p class="p1"><span class="Apple-converted-space">                        </span>// 한 번 애니메이션 실행 후에는 관찰 중단 (성능 최적화)</p>
-<p class="p1"><span class="Apple-converted-space">                        </span>observer.unobserve(target);<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">                </span>});</p>
-<p class="p1"><span class="Apple-converted-space">            </span>}, { threshold: 0.2 }); // 요소의 20%가 보일 때 실행</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">            </span>bars.forEach(bar =&gt; observer.observe(bar));</p>
-<p class="p1"><span class="Apple-converted-space">        </span>});</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+
+    <section id="hero">
+        <div class="container">
+            <!-- [추가] 포트폴리오 식별 배지 -->
+            <span class="portfolio-badge">2026 Analytics Portfolio</span>
+
+            <!-- [수정] 프로필 이미지 영역 삭제 -->
+            
+            <h1 class="hero-title">
+                사유(事由)를 사유(思惟)해,<br>
+                문제를 성과로 연결하는 배민한 입니다.
+            </h1>
+            
+            <div class="keyword-container">
+                <div class="keyword-tag">
+                    <span class="keyword-title">탐구심</span>
+                    <span class="keyword-desc">데이터와 현상 뒤에 숨은 원인을 집요하게 질문하고 검증하려 함</span>
+                </div>
+                <div class="keyword-tag">
+                    <span class="keyword-title">목표지향성</span>
+                    <span class="keyword-desc">제약 조건 속에서도 목표 달성을 위한 실행 가능한 대안을 끝까지 탐색</span>
+                </div>
+                <div class="keyword-tag">
+                    <span class="keyword-title">구조화</span>
+                    <span class="keyword-desc">복잡한 문제를 의사결정이 가능한 단계와 지표로 구조화함</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container" id="summary">
+            <div class="card">
+                <h3 class="section-title">주요 경력 및 프로젝트</h3>
+                <div class="career-list">
+                    <div class="career-item">
+                        <span class="career-date">2022.10 ~ 현재</span>
+                        <div class="career-role">신라면세점 서울점 | 영업관리</div>
+                        <p class="career-desc">화장품·패션 카테고리의 매출·재고·구매 데이터 분석을 기반으로 프로모션 전략 수립, 손익 관리, 브랜드 운영 전반에 대한 의사결정 지원 및 실행을 담당</p>
+                        
+                        <div class="sub-project-list">
+                            <strong class="sub-project-title">🏆 주요 프로젝트 (요약)</strong>
+                            <ul>
+                                <li class="sub-project-item">
+                                    <span class="pj-num">01.</span>
+                                    <span>구매 수량 기반(PCS) 할인 스킴 설계를 통한 한국 화장품 카테고리 KPI 구조 개선</span>
+                                </li>
+                                <li class="sub-project-item">
+                                    <span class="pj-num">02.</span>
+                                    <span>해외 패션 BTQ C브랜드 재고 구조 분석 및 운영 전략 재설계를 통한 재고 건전화</span>
+                                </li>
+                                <li class="sub-project-item">
+                                    <span class="pj-num">03.</span>
+                                    <span>한국 패션 M브랜드 거래 구조 분석 및 거래선 다변화를 통한 공헌이익 개선</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project 01 -->
+    <section id="project1" class="section" style="background-color: white;">
+        <div class="container">
+            <header class="project-header">
+                <span class="project-label">Project 01</span>
+                <h2 class="project-title">한국 화장품 브랜드 PCS 할인 스킴 설계</h2>
+                <p class="project-intro">구매 수량 기반 할인 설계를 통한 카테고리 전체 매출 활성화 프로젝트</p>
+            </header>
+
+            <div class="project-grid">
+                
+                <!-- Project 01 Result -->
+                <div class="detail-item">
+                    <h4>결과물 (Result)</h4>
+                    <div class="result-box">
+                        <div class="result-text">
+                            <p style="margin-bottom: 15px;">✅ PCS 할인 도입을 통해 105개 중 <span class="result-highlight">87개 브랜드</span>에서 UPT, AOV 개선 효과를 확인, 카테고리 확장성 검증</p>
+                            <p style="margin-bottom: 15px;">✅ 카테고리 전체 AOV <span class="result-highlight">+22.7%</span>, UPT <span class="result-highlight">+2.9개</span> 증가로 구매 수량 기반 프로모션의 구조적 효과 입증</p>
+                            <p>✅ <strong>[핵심 성과]</strong> 실버 멤버십 고객 AOV <span class="result-highlight">+32.8%</span>로 멤버십 하위 고객을 성장 레버로 전환</p>
+                        </div>
+                        <div class="result-chart">
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Brand Improvement</span><span>87 / 105</span></div>
+                                <div style="background:#e9ecef;border-radius:10px;height:10px;width:100%">
+                                    <span style="background:var(--secondary-color);height:100%;border-radius:10px;display:block;width:83%"></span>
+                                </div>
+                            </div>
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Category AOV</span><span>+22.7%</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="70%"></span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="86%"></span></div></div>
+                                </div>
+                            </div>
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Silver Member AOV</span><span style="color:var(--secondary-color);">+32.8%</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="65%"></span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="95%"></span></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 01 Details -->
+                <details class="project-details">
+                    <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
+                    <div class="project-details-content">
+                        <div class="detail-item">
+                            <h4>개요 (Objective)</h4>
+                            <p>브랜드별·멤버십별로 파편화된 기존 할인 구조가 카테고리 전체의 UPT(객당 구매 수량) 및 AOV(객단가) 개선에 한계를 보이는 상황에서, 고객 등급과 브랜드 가격대에 관계없이 확장 적용 가능한 <strong>구매 수량 기반 할인(PCS) 전략</strong>을 설계·검증하여 카테고리 핵심 KPI를 개선하고자 했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>진행한 일 (Task)</h4>
+                            <div class="task-container">
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">배경</h5>
+                                    <p>카테고리 매출 볼륨은 증가 추세였으나, UPT와 AOV는 2분기 연속 둔화되는 상반된 흐름을 보였습니다.</p>
+                                    <p>특히 저단가 브랜드에서 구매 수량 감소가 두드러졌으며, 이는 카테고리 전반의 성장 효율 저하로 이어지고 있었습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">문제 정의</h5>
+                                    <p>기존 증정 프로모션은 고단가 브랜드 및 상위 멤버십 고객에게만 반응이 집중되는 경향이 있었고, 구매 수량 증가보다는 단일 상품 구매에 대한 보상 효과에 그쳐 카테고리 전체 개선으로는 연결되지 않았습니다.</p>
+                                    <p>또한, 거래 건수가 가장 많은 실버 등급 고객의 객단가가 가장 낮은 구조로 인해, 멤버십 등급별 할인율 조정만으로는 실질적인 성과를 기대하기 어려웠습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">해결 전략</h5>
+                                    <p>UPT와 AOV를 동시에 개선하기 위해서는 ①특정 브랜드에 국한되지 않고 ②구매 수량 자체를 의사결정 변수로 만들며 ③멤버십 하위 고객일수록 체감 효과가 큰 프로모션 구조가 필요하다고 판단했습니다.</p>
+                                    <p>이에 따라 고객의 장바구니 구성 행동을 직접적으로 유도할 수 있는 <strong>PCS(구매 수량 기반 할인) 프로모션</strong>을 핵심 대안으로 설정했습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>성장한 점 (Growth)</h4>
+                            <p>로컬 접근성이 높은 한국 화장품 카테고리에서 멤버십 하위 고객 유입과 구매 전환이 구조적으로 어렵다는 한계를 확인했습니다. 그러나 <strong>PCS 할인이 멤버십 등급 간 허들을 낮추는 역할을 수행하며</strong>, 골드 멤버십 미만 고객의 평균 구매 수량을 유의미하게 끌어올리는 데 효과적이었습니다. 이를 통해 멤버십 등급 할인 외에도, <strong>구매 행동을 기반으로 한 멤버십 상향 유도 레버리지</strong>를 새롭게 발견할 수 있었습니다.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <hr style="max-width: 1024px; margin: 0 auto; border: 0; border-top: 1px dashed #dee2e6;">
+
+    <!-- Project 02 -->
+    <section class="section">
+        <div class="container">
+            <header class="project-header">
+                <span class="project-label">Project 02</span>
+                <h2 class="project-title">해외 패션 BTQ C브랜드<br>재고 구조 분석 및 운영 전략 재설계</h2>
+                <p class="project-intro">자산 리스크 축소 및 매출 성장 선순환 구축 프로젝트</p>
+            </header>
+
+            <div class="project-grid">
+                
+                <!-- Project 02 Result -->
+                <div class="detail-item">
+                    <h4>결과물 (Result)</h4>
+                    <div class="result-box">
+                        <div class="result-text">
+                            <p style="margin-bottom: 20px;">✅ 전체 재고 $5.4M → $1.3M, 체화 재고 $3.2M → $0.65M 축소<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 정상 재고 판매에 따른 자연 감소를 감안하더라도, 체화 재고 절대액 기준 약 80% 감축을 달성하며 <strong>재고 자산 리스크(Inventory Asset Risk)를 구조적으로 해소</strong></span></p>
+                            <p style="margin-bottom: 20px;">✅ 프로모션 비용 8억 원 투입으로 21억 원 매출 창출<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 판매 가능성이 낮아 추가 평가 손실이 예상되던 저효율 재고를 현금 자산으로 전환, 재무적 손실 확정 구간을 선제적으로 차단</span></p>
+                            <p>✅ <strong>[핵심 성과]</strong> 확보된 유동성으로 Best SKU 리오더($1.5M) 재개<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 상품 경쟁력 회복과 고객 트래픽 증가로 이어지며 <strong>2025년 10월 브랜드 역대 최고 월매출 $1.2M 달성</strong></span></p>
+                        </div>
+                        
+                        <!-- Vertical Charts for Project 02 -->
+                        <div class="result-chart">
+                            <!-- Legend for Inventory Chart -->
+                            <div style="display: flex; justify-content: flex-end; gap: 12px; font-size: 0.75rem; margin-bottom: 15px; color: var(--text-sub);">
+                                <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #dee2e6; border-radius: 2px; margin-right: 5px;"></span>전체 재고</div>
+                                <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: var(--primary-color); border-radius: 2px; margin-right: 5px;"></span>체화 재고</div>
+                            </div>
+
+                            <!-- Chart 1: Inventory (Stacked Bar with fixed labels) -->
+                            <div class="chart-item">
+                                <!-- [수정] Risk Down 텍스트 삭제 -->
+                                <div class="chart-label"><span>Inventory Risk ($)</span></div>
+                                <div class="chart-bars-v" style="height: 150px;">
+                                    <!-- Sep '23 -->
+                                    <div class="v-bar-group" style="width: 42%;">
+                                        <!-- Total: 100% (5.4M) -->
+                                        <div class="v-bar-total" data-height="100%">
+                                             <!-- [수정] 값을 막대 안쪽으로 이동 (class 변경) -->
+                                             <span class="v-bar-val-inside-top">$5.4M</span>
+                                        </div>
+                                        <!-- Obsolete: ~59% (3.2M) -->
+                                        <div class="v-bar-obsolete" data-height="59%">
+                                            <span class="v-bar-val-in">$3.2M</span>
+                                        </div>
+                                        <span class="v-bar-axis">Sep '23</span>
+                                    </div>
+
+                                    <!-- Arrow -->
+                                    <div style="font-size: 1.2rem; color: #adb5bd; padding-bottom: 20px; align-self: center;">→</div>
+
+                                    <!-- Jan '26 -->
+                                    <div class="v-bar-group" style="width: 42%;">
+                                        <!-- Total: ~24% (1.3M) -->
+                                        <div class="v-bar-total" data-height="24%">
+                                            <span class="v-bar-val-top">$1.3M</span>
+                                        </div>
+                                        <!-- Obsolete: ~12% (0.65M) -->
+                                        <div class="v-bar-obsolete" data-height="12%">
+                                            <span class="v-bar-val-in" style="top: auto; bottom: 2px; font-size:0.65rem;">$0.65M</span>
+                                        </div>
+                                        <span class="v-bar-axis">Jan '26</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Chart 2: Efficiency (Independent Bars with fixed labels) -->
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Promo Efficiency</span></div>
+                                <div class="chart-bars-v" style="height:100px; gap: 20px;">
+                                    <!-- Cost: 8억 (approx 38% of 21) -->
+                                    <div class="v-bar-group" style="width: 45%;">
+                                        <div class="v-bar-cost" data-height="38%">
+                                            <span class="v-bar-val-top" style="color:#e88655; margin-bottom: 3px;">8억</span>
+                                        </div>
+                                        <span class="v-bar-axis">Cost</span>
+                                    </div>
+                                    <!-- Sales: 21억 (100%) -->
+                                    <div class="v-bar-group" style="width: 45%;">
+                                        <div class="v-bar-sales" data-height="100%">
+                                            <span class="v-bar-val-top" style="color:var(--secondary-color); margin-bottom: 3px;">21억</span>
+                                        </div>
+                                        <span class="v-bar-axis">Sales</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 02 Details -->
+                <details class="project-details">
+                    <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
+                    <div class="project-details-content">
+                        <div class="detail-item">
+                            <h4>개요 (Objective)</h4>
+                            <p>코로나 기간 동안 누적된 장기 체화 재고를 전략적으로 소진해 묶여 있던 자금을 회수하고, 이를 베스트 상품 재투자로 연결함으로써 브랜드의 매출 성장 엔진을 재가동하고자 했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>진행한 일 (Task)</h4>
+                            <div class="task-container">
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">배경</h5>
+                                    <p>코로나 이전 면세 호황기에 대량 발주된 재고가 팬데믹 기간 동안 소진되지 못하며 장기 체화 재고로 전환되었습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">문제 정의</h5>
+                                    <p>과도한 체화 재고가 매입 예산(OTB)을 잠식하며 트렌드 대응 상품 및 베스트 SKU 발주가 불가능한 상태였고, 이는 <strong>‘신규 상품 부재 → 매출 둔화 → 재고 적체 심화’</strong>의 악순환 구조를 고착화시키고 있었습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">해결 전략</h5>
+                                    <p>악순환을 끊기 위한 핵심은 체화 재고의 현금화라고 판단했습니다. 단기 성과가 아닌 1년 6개월 단위의 장기 로드맵을 수립해, 구재고 소진 → 유동성 확보 → 핵심 상품 재투자로 이어지는 선순환 구조를 목표로 설정했습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>과정 (Process)</h4>
+                            <div class="process-list">
+                                <div class="process-step">
+                                    <strong>Action 1. 재고 구조 분석 및 타겟 설정</strong><br>
+                                    전체 재고를 SKU·입고 시점·회전율 기준으로 전수 분석하여 1년 이상 체화 재고를 핵심 관리 대상으로 정의했습니다. 단순 물량 기준이 아닌, 향후 <strong>재고자산평가손익 관점에서 손실 가능성이 높은 악성 재고</strong>를 우선 소진 타겟으로 선정하며 재무 리스크를 선제적으로 관리했습니다.
+                                </div>
+                                <div class="process-step">
+                                    <strong>Action 2. 전략적 소진 (Exit Strategy)</strong><br>
+                                    무차별 할인 대신, 구매 가능성이 높은 고객군을 중심으로 타겟 마케팅 기반 프로모션을 설계했습니다. 총 8억 원의 프로모션 예산을 <strong>‘비용’이 아닌 ‘자산 회수 수단’</strong>으로 활용해 약 21억 원 규모의 저효율 재고를 매출로 전환했습니다.
+                                </div>
+                                <div class="process-step">
+                                    <strong>Action 3. 선순환 투자 (Re-investment)</strong><br>
+                                    재고 소진으로 확보된 유동성을 활용해, 품절로 판매 기회를 상실하고 있던 베스트 SKU에 $1.5M 규모의 리오더를 실행했습니다. 상품 경쟁력 회복은 고객 트래픽 증가로 이어졌고, 그 결과 <strong>2025년 10월 브랜드 역대 최고 매출($1.2M)</strong>을 달성했습니다.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>성장한 점 (Growth)</h4>
+                            <p>재고 관리는 비용을 줄이기 위한 방어적 활동이 아니라, 적절한 손익 판단과 실행을 통해 <strong>매출 성장을 촉발하는 전략적 레버</strong>가 될 수 있음을 경험했습니다. 손실을 감수한 단기 결단이, 더 큰 성장 기회로 회수되는 비즈니스 선순환 구조를 직접 설계하고 검증했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>나의 역량 (Competency)</h4>
+                            <p>재고를 현금 흐름(Cash Flow) 관점에서 해석하는 분석 역량과, 1년 이상 지속되는 고난도 프로젝트를 구조적으로 관리하며 목표 수치를 달성해내는 <strong>실행 중심의 프로젝트 리딩 역량</strong>을 확보했습니다.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <hr style="max-width: 1024px; margin: 0 auto; border: 0; border-top: 1px dashed #dee2e6;">
+
+    <!-- [추가됨] Project 03 -->
+    <section class="section">
+        <div class="container">
+            <header class="project-header">
+                <span class="project-label">Project 03</span>
+                <h2 class="project-title">한국 패션 M브랜드 거래 구조 분석을 통한<br>비수기 수익성 개선</h2>
+                <p class="project-intro">거래선 다변화 기반의 구조적 이익 모델 전환 프로젝트</p>
+            </header>
+
+            <div class="project-grid">
+                
+                <!-- Project 03 Result -->
+                <div class="detail-item">
+                    <h4>결과물 (Result)</h4>
+                    <div class="result-box">
+                        <div class="result-text">
+                            <p style="margin-bottom: 20px;">✅ 독점 벤더 의존도 85% → 50% 축소<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 특정 벤더 발주 중단 시 발생하던 비수기 매출 공백을 완화하고, 다수 거래선을 기반으로 한 공급 안정성 및 협상력 확보</span></p>
+                            <p style="margin-bottom: 20px;">✅ 거래선 다변화 및 직매입 전환을 통해 브랜드 공헌이익율(CM) <span class="result-highlight">+1.2%p 개선</span> (2.8% → 4.0%)<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 매출 볼륨 확대가 아닌, 수익성 중심 운영 구조로 전환</span></p>
+                            <p>✅ <strong>[핵심 성과]</strong> 매출 볼륨 감소에도 불구하고 마진 구조 개선을 통해 연간 공헌이익 <span class="result-highlight">약 14억 원 추가 확보</span><br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 비수기 방어를 넘어, 브랜드 손익 구조의 체질 개선 달성</span></p>
+                        </div>
+                        
+                        <!-- Project 03 Charts -->
+                        <div class="result-chart">
+                            <!-- Chart 1: Contribution Margin -->
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Brand Contribution Margin (%)</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="40%"></span><span style="margin-left:8px; font-size:0.75rem;">2.8%</span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="60%"></span><span style="margin-left:8px; font-weight:bold; color:var(--secondary-color); font-size:0.75rem;">4.0%</span></div></div>
+                                </div>
+                            </div>
+
+                            <!-- Chart 2: Vendor Dependence -->
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Vendor Dependence</span><span style="color:var(--secondary-color); font-size:0.8rem;">Risk Down</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="85%"></span><span style="margin-left:8px; font-size:0.75rem;">85%</span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="50%"></span><span style="margin-left:8px; font-weight:bold; color:var(--secondary-color); font-size:0.75rem;">50%</span></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 03 Details -->
+                <details class="project-details">
+                    <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
+                    <div class="project-details-content">
+                        <div class="detail-item">
+                            <h4>개요 (Objective)</h4>
+                            <p>특정 거래선 의존도가 85%에 달해, 해당 벤더의 발주 중단 시 3분기 매출이 급감하는 구조적 취약점을 해결하고자 했습니다. 비수기 대체 거래선을 발굴하고 이를 고마진 구조로 정착시켜, 단기 매출 방어를 넘어 브랜드의 수익 체질을 개선하는 것을 목표로 설정했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>진행한 일 (Task)</h4>
+                            <div class="task-container">
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">문제 정의</h5>
+                                    <p>매출의 대부분이 특정 벤더(Vendor A)에 집중된 박리다매 구조로, 해당 벤더가 매입을 중단하는 3분기에는 대체 수단이 없어 브랜드 전체가 비수기 타격을 반복적으로 겪고 있었습니다.</p>
+                                    <p>이로 인해 매출 규모 대비 공헌이익이 낮고, 매출 변동성에 손익이 과도하게 노출되는 구조적 한계가 존재했습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">해결 전략</h5>
+                                    <p>초기에는 3분기 매출 방어를 위한 대체 거래선 발굴로 접근했습니다. 그러나 거래선 다변화 과정에서 협상력이 개선되고, 고마진 구조로의 전환 가능성이 확인되며 전략의 방향을 <strong>‘비수기 방어’에서 ‘구조적 이익률 개선’</strong>으로 확장했습니다.</p>
+                                    <p>이에 따라 비수기 대응이 가능한 신규 거래선을 단계적으로 확보하고 수요가 높은 상품군에 대해서는 발주를 확대해 마진 구조를 점진적으로 개선했습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>성장한 점 (Growth)</h4>
+                            <p>단기적인 비수기 매출 방어 활동이 거래 구조와 마진 구조를 재설계하는 계기가 될 수 있음을 경험했습니다. 매출 볼륨(Top-line)이 일부 감소하더라도, 마진율이 높은 건전한 구조(Bottom-line)로 전환하는 것이 장기적으로 더 큰 이익을 창출한다는 점을 데이터로 입증했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>나의 역량 (Competency)</h4>
+                            <p>매출·마진·공급 리스크를 함께 고려해 거래 구조를 수익성 관점에서 재설계하는 분석 역량과, 단기 이슈를 장기 전략으로 확장하는 비즈니스 관점의 문제 해결 역량을 강화했습니다.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" style="background-color: #f1f3f5;">
+        <div class="container" style="text-align: center;">
+            <h3 style="color: var(--primary-color); margin-bottom: 20px;">Thank You</h3>
+            <p style="color: var(--text-sub); margin-bottom: 0;">긴 글 읽어주셔서 감사합니다.<br>데이터로 성과를 만드는 분석가, 배민한이었습니다.</p>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px 0; color: #adb5bd; font-size: 0.8rem;">
+        &copy; 2026 Analytics Portfolio | Bae Min-Han
+    </footer>
+
+    <!-- Scroll Trigger Animation Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 관찰할 대상 요소들 (가로 막대, 세로 막대)
+            const bars = document.querySelectorAll('.bar-fill-prev, .bar-fill-curr, .v-bar-total, .v-bar-obsolete, .v-bar-cost, .v-bar-sales');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        
+                        // HTML에 심어둔 data-width, data-height 값을 가져옴
+                        const targetWidth = target.getAttribute('data-width');
+                        const targetHeight = target.getAttribute('data-height');
+
+                        // 가로 막대 애니메이션 트리거
+                        if (target.classList.contains('bar-fill-prev')) {
+                            target.style.width = targetWidth;
+                            target.style.animation = 'growBar 1.2s ease-out forwards';
+                        }
+                        if (target.classList.contains('bar-fill-curr')) {
+                            target.style.width = targetWidth;
+                            target.style.animation = 'growBar 1.2s ease-out 0.2s forwards'; // 0.2초 딜레이
+                        }
+
+                        // 세로 막대 애니메이션 트리거 (Inventory & Promo)
+                        if (target.classList.contains('v-bar-total') || target.classList.contains('v-bar-obsolete') || target.classList.contains('v-bar-cost') || target.classList.contains('v-bar-sales')) {
+                            target.style.height = targetHeight;
+                        }
+                        
+                        // 한 번 애니메이션 실행 후에는 관찰 중단 (성능 최적화)
+                        observer.unobserve(target); 
+                    }
+                });
+            }, { threshold: 0.2 }); // 요소의 20%가 보일 때 실행
+
+            bars.forEach(bar => observer.observe(bar));
+        });
+    </script>
 </body>
 </html>
