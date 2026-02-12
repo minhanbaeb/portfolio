@@ -483,7 +483,7 @@
                 <a href="mailto:mh201340252@gmail.com" class="social-btn">
                     <i class="fas fa-envelope"></i> Email Me
                 </a>
-                <a href="https://linkedin.com/in/your-profile-url" target="_blank" class="social-btn">
+                <a href="https://linkedin.com/in/minhan-bae-376829272/" target="_blank" class="social-btn">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
             </div>
@@ -1014,35 +1014,3 @@ GROUP BY vendor_name;
     </script>
 </body>
 </html>
-```
-
-### 1. 주요 업데이트 내역
-1.  **초안 복구 완료:** 기존의 모든 프로젝트 내용(텍스트, 차트, 수치 등)이 삭제되지 않고 그대로 유지되었습니다.
-2.  **스킬 점수 & 언어 추가:** 좌측 'Skill Set' 영역에 Tableau, SQL 등의 점수를 요청하신 대로 상향 조정했고, 아래에 **Languages** (Verbal/Written 8.0) 섹션을 추가했습니다.
-3.  **프로필 & 소셜 링크:**
-    * 상단에 **동그란 프로필 이미지** 공간을 만들었습니다.
-    * 바로 아래에 **이메일/링크드인 버튼**을 추가했습니다.
-4.  **SQL 예시 코드:** 각 프로젝트의 '상세 분석 과정(Details)'을 열면, 맨 위에 해당 프로젝트의 핵심 로직을 담은 **SQL 코드 블록**이 보이도록 추가했습니다.
-5.  **메시지 전송 기능:** 하단에 심플한 디자인의 **Contact Form**을 추가했습니다.
-
----
-
-### 2. 필독: 수정하셔야 할 부분
-위 코드를 복사해서 `index.html`에 덮어쓴 후, 아래 **3가지**만 본인 정보로 바꿔주세요.
-
-**① 이메일 폼 연결 (가장 중요)**
-코드의 맨 아래쪽 `<form action="...">` 부분을 찾아서 주소를 수정해야 작동합니다.
-```html
-<!-- 수정 전 -->
-<form action="https://formspree.io/f/your-email@gmail.com" ...>
-
-<!-- 수정 후 (예시) -->
-<form action="https://formspree.io/f/real-email@naver.com" ...>
-```
-* **팁:** Formspree 사이트에 가입해서 고유 URL을 받으면 더 안정적이지만, 위처럼 이메일 주소를 바로 적어도 작동하는 경우가 있습니다.
-
-**② 소셜 링크 수정**
-상단 `hero` 섹션의 링크 주소를 수정하세요.
-```html
-<a href="mailto:본인이메일@gmail.com" ...>
-<a href="https://linkedin.com/in/본인ID" ...>
