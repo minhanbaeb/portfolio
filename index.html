@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio | 배민한</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <!-- 아이콘 사용을 위한 FontAwesome 추가 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- CSS Reset & Variables --- */
         :root {
-            --primary-color: #0f4c81;
-            --secondary-color: #20c997;
+            --primary-color: #0f4c81; /* 신뢰감 있는 딥 블루 */
+            --secondary-color: #20c997; /* 성장을 상징하는 민트 */
             --bg-color: #f8f9fa;
             --surface-color: #ffffff;
             --text-main: #212529;
@@ -22,192 +23,1026 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: "Pretendard Variable", sans-serif;
+            font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
             line-height: 1.6;
             color: var(--text-main);
             background-color: var(--bg-color);
         }
 
-        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 20px; }
+        /* --- Layout Utilities --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
         .section { padding: 80px 0; }
+        
+        /* --- Typography --- */
         h1, h2, h3, h4 { font-weight: 700; color: var(--primary-color); }
+        
+        /* --- Section 1: Hero (Trinity Layout) --- */
+        #hero {
+            text-align: center;
+            padding-top: 80px;
+            padding-bottom: 80px;
+            background: white;
+            overflow: hidden;
+        }
 
-        /* --- Hero Section --- */
-        #hero { text-align: center; padding: 100px 0 80px; background: white; }
+        /* [추가] 프로필 이미지 스타일 */
+        .profile-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 30px;
+        }
         .profile-img {
-            width: 150px; height: 150px; border-radius: 50%;
-            object-fit: cover; margin-bottom: 20px;
-            border: 4px solid var(--secondary-color);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--surface-color);
+            box-shadow: 0 8px 20px rgba(32, 201, 151, 0.3);
+            background-color: #eee; /* 이미지 없을 때 배경색 */
         }
+        
+        /* [추가] 소셜 링크 (이메일, 링크드인) */
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: #f1f3f5;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .social-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(15, 76, 129, 0.2);
+        }
+
+        /* 포트폴리오 배지 스타일 */
         .portfolio-badge {
-            display: inline-block; color: var(--secondary-color); border: 1px solid var(--secondary-color);
-            padding: 8px 16px; border-radius: 30px; font-size: 0.9rem; font-weight: 800;
-            margin-bottom: 20px; text-transform: uppercase;
-        }
-        .hero-title { font-size: 2.5rem; margin-bottom: 40px; line-height: 1.3; }
-
-        /* --- Summary Grid --- */
-        .summary-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        @media (min-width: 768px) { .summary-grid { grid-template-columns: 320px 1fr; } }
-
-        .card { background: var(--surface-color); border-radius: var(--border-radius); padding: 30px; box-shadow: var(--shadow); }
-        .section-title-sm { font-size: 1.1rem; margin-bottom: 20px; border-left: 4px solid var(--secondary-color); padding-left: 10px; }
-
-        /* Skill & Language Bars */
-        .skill-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; }
-        .skill-info { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; }
-        .skill-bar-bg { width: 100%; height: 8px; background: #e9ecef; border-radius: 4px; overflow: hidden; }
-        .skill-bar-fill { height: 100%; background: var(--primary-color); width: 0; transition: width 1.2s ease-out; }
-        .lang-fill { background: var(--secondary-color); }
-
-        /* --- Project SQL Code Block --- */
-        .code-header { font-size: 0.85rem; color: var(--text-sub); margin-top: 20px; margin-bottom: 5px; font-weight: 600; }
-        pre {
-            background: #2d3436; color: #fab1a0; padding: 15px; border-radius: 8px;
-            font-size: 0.85rem; overflow-x: auto; margin-bottom: 20px;
+            display: inline-block;
+            color: var(--secondary-color);
+            border: 1px solid var(--secondary-color);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
-        /* --- Contact Form --- */
-        .contact-form { max-width: 600px; margin: 0 auto; text-align: left; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit;
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            line-height: 1.3;
+            position: relative;
+            z-index: 2;
         }
+        
+        /* Trinity Diagram */
+        .keyword-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            max-width: 800px;
+            margin: 40px auto 0; /* 마진 조정 */
+            position: relative;
+            padding: 20px;
+        }
+        .keyword-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -40%);
+            width: 70%;
+            height: 80%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 200 173' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M100 5 L195 168 L5 168 Z' fill='none' stroke='%23e9ecef' stroke-width='4' stroke-linejoin='round' stroke-dasharray='10,10'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            z-index: 0;
+            opacity: 0.8;
+        }
+        .keyword-container::after {
+            content: '';
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: var(--surface-color);
+            border: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            z-index: 0;
+            box-shadow: 0 0 0 10px rgba(32, 201, 151, 0.1);
+        }
+        .keyword-tag {
+            background: var(--surface-color);
+            border: 1px solid #dee2e6;
+            padding: 25px;
+            border-radius: 20px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            max-width: 340px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .keyword-tag:hover { 
+            transform: translateY(-5px); 
+            border-color: var(--secondary-color);
+            box-shadow: 0 15px 40px rgba(32, 201, 151, 0.15);
+        }
+        .keyword-tag:nth-child(1) { grid-column: 1 / -1; justify-self: center; margin-bottom: 20px; }
+        .keyword-tag:nth-child(2) { grid-column: 1 / 2; justify-self: end; }
+        .keyword-tag:nth-child(3) { grid-column: 2 / 3; justify-self: start; }
+        
+        .keyword-title { color: var(--primary-color); font-size: 1.1rem; margin-bottom: 8px; display: block; }
+        .keyword-desc { display: block; font-size: 0.9rem; font-weight: 400; color: var(--text-sub); line-height: 1.5; word-break: keep-all; }
+
+        /* --- Section 2: Summary (Grid Layout) --- */
+        #summary { display: block; }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .summary-grid {
+                grid-template-columns: 280px 1fr;
+            }
+        }
+
+        .card {
+            background: var(--surface-color);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+        .skill-card {
+            padding: 30px;
+            height: fit-content;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+        .section-title-sm {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: var(--primary-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Skills Styles */
+        .skill-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .skill-item {
+            width: 100%;
+        }
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+        .skill-score {
+            font-size: 0.85rem;
+            color: var(--text-sub);
+            font-weight: 500;
+        }
+        .skill-bar-bg {
+            width: 100%;
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 5px;
+            width: 0;
+            transition: width 1.5s ease-out; /* 부드러운 애니메이션 */
+        }
+        /* [추가] 언어 바 색상 */
+        .lang-fill { background-color: var(--secondary-color); }
+
+        /* Career Styles */
+        .career-item {
+            border-bottom: 1px solid #f1f3f5;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        .career-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .career-role { font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+        .career-date { font-size: 0.95rem; color: var(--secondary-color); font-weight: 600; margin-bottom: 4px; display: block;}
+        .career-desc { font-size: 1rem; color: var(--text-sub); margin-bottom: 25px; line-height: 1.7; }
+        .sub-project-list {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+        }
+        .sub-project-title {
+            font-size: 1rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .sub-project-item {
+            list-style: none;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.6;
+        }
+        .pj-num { font-weight: 800; color: var(--secondary-color); margin-right: 10px; min-width: 25px; }
+
+        /* --- Projects --- */
+        #project { background-color: white; }
+        .project-header { margin-bottom: 30px; }
+        .project-label {
+            display: inline-block;
+            color: var(--secondary-color);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .project-title { font-size: 2rem; margin-bottom: 10px; line-height: 1.3; }
+        .project-intro { font-size: 1.1rem; color: var(--text-sub); }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .detail-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+        }
+        .detail-item h4::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--secondary-color);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* Result Box & Chart */
+        .result-box {
+            background: rgba(32, 201, 151, 0.08);
+            border: 1px solid var(--secondary-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .result-box { flex-direction: row; align-items: center; }
+            .result-text { flex: 1.2; padding-right: 20px; }
+            .result-chart { flex: 1; border-left: 1px solid rgba(32, 201, 151, 0.3); padding-left: 20px; }
+        }
+        .result-highlight { font-weight: 800; color: #0ca678; font-size: 1.1em; }
+
+        /* Chart Animation Styles (Same as before) */
+        .chart-item { margin-bottom: 35px; }
+        .chart-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-main); font-weight: 700; }
+        .chart-bars-h { display: flex; flex-direction: column; gap: 6px; }
+        .bar-row-h { display: flex; align-items: center; font-size: 0.75rem; color: var(--text-sub); }
+        .bar-label-sm { width: 45px; flex-shrink: 0; text-align: right; margin-right: 10px; font-size: 0.7rem; }
+        .bar-track { flex-grow: 1; background: transparent; height: 8px; display: flex; align-items: center; }
+        @keyframes growBar { from { width: 0; } }
+        .bar-fill-prev { height: 8px; background-color: #adb5bd; border-radius: 4px; width: 0; }
+        .bar-fill-curr { height: 8px; background-color: var(--secondary-color); border-radius: 4px; width: 0; }
+
+        .chart-bars-v { display: flex; flex-direction: row; align-items: flex-end; height: 140px; gap: 20px; padding-bottom: 5px; border-bottom: 1px solid #eee; position: relative; }
+        .v-bar-group { width: 45%; height: 100%; position: relative; display: flex; flex-direction: column; justify-content: flex-end; }
+        .v-bar-total { width: 100%; background: #dee2e6; border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; z-index: 1; transition: height 1s ease-out; }
+        .v-bar-obsolete { width: 100%; background: var(--primary-color); border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; z-index: 2; transition: height 1s ease-out; }
+        .v-bar-cost { width: 100%; background: #ffc9c9; border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; }
+        .v-bar-sales { width: 100%; background: var(--secondary-color); border-radius: 6px 6px 0 0; position: absolute; bottom: 0; height: 0; }
+        .v-bar-val-top { position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); margin-bottom: 6px; font-size: 0.8rem; font-weight: bold; color: var(--text-main); white-space: nowrap; }
+        .v-bar-val-inside-top { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; font-weight: bold; color: var(--text-main); white-space: nowrap; z-index: 3; }
+        .v-bar-val-in { position: absolute; top: 5px; left: 50%; transform: translateX(-50%); font-size: 0.7rem; color: white; white-space: nowrap; text-shadow: 0 1px 2px rgba(0,0,0,0.3); width: 100%; text-align: center; }
+        .v-bar-axis { position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); font-size: 0.75rem; color: var(--text-sub); white-space: nowrap; font-weight: 600;}
+
+        /* Detail/Task Styles */
+        details.project-details { border: 1px solid #e9ecef; border-radius: 8px; overflow: hidden; transition: all 0.3s ease; }
+        details.project-details[open] { border-color: var(--secondary-color); background-color: #fff; }
+        summary.project-summary-btn { list-style: none; padding: 15px 20px; background-color: #f8f9fa; cursor: pointer; font-weight: 700; color: var(--text-main); display: flex; justify-content: space-between; align-items: center; transition: background-color 0.2s; }
+        summary.project-summary-btn:hover { background-color: #f1f3f5; }
+        summary.project-summary-btn::after { content: '▼'; font-size: 0.8rem; color: var(--secondary-color); transition: transform 0.3s; }
+        details[open] summary.project-summary-btn::after { transform: rotate(180deg); }
+        .project-details-content { padding: 30px; border-top: 1px solid #e9ecef; display: grid; gap: 30px; animation: slideDown 0.3s ease-out; }
+        
+        .task-container { display: flex; flex-direction: column; gap: 20px; padding-left: 10px; }
+        .task-sub-section { position: relative; }
+        .task-sub-title { color: var(--primary-color); font-size: 1rem; margin-bottom: 8px; font-weight: 700; display: flex; align-items: center; }
+        .task-sub-section p { color: var(--text-sub); margin-bottom: 8px; font-size: 0.95rem; line-height: 1.7; }
+        .process-step { margin-bottom: 15px; }
+
+        /* [추가] Code Block Style */
+        .code-container { margin-top: 15px; }
+        .code-title { font-size: 0.85rem; font-weight: 700; color: #6c757d; margin-bottom: 5px; display: block; }
+        .code-block {
+            background-color: #2b303b;
+            color: #c0c5ce;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            overflow-x: auto;
+            position: relative;
+        }
+        .code-block::before {
+            content: 'SQL';
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: #65737e;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* [추가] Contact Form Style */
+        .contact-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ced4da;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        .form-control:focus { border-color: var(--primary-color); outline: none; }
         .btn-submit {
-            background: var(--primary-color); color: white; border: none; padding: 12px 30px;
-            border-radius: 8px; cursor: pointer; font-weight: 700; width: 100%; transition: 0.3s;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
         }
-        .btn-submit:hover { background: #0a3d66; }
+        .btn-submit:hover { background-color: #0c3e69; }
 
-        .social-links { margin-top: 20px; display: flex; justify-content: center; gap: 20px; }
-        .social-links a { color: var(--primary-color); font-size: 1.5rem; text-decoration: none; transition: 0.3s; }
-        .social-links a:hover { color: var(--secondary-color); }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 1.8rem; }
+            .keyword-container { grid-template-columns: 1fr; gap: 15px; }
+            .keyword-container::before, .keyword-container::after { display: none; }
+            .keyword-tag:nth-child(n) { grid-column: auto; justify-self: stretch; max-width: 100%; }
+            .result-chart { border-left: none; padding-left: 0; margin-top: 20px; border-top: 1px solid rgba(32, 201, 151, 0.3); padding-top: 20px; }
+            .summary-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
 
     <section id="hero">
         <div class="container">
-            <img src="profile.jpg" alt="배민한 프로필" class="profile-img">
-            <br>
-            <span class="portfolio-badge">Analytics Portfolio</span>
-            <h1 class="hero-title">문제를 데이터로 사유(思惟)하여<br>실질적인 성과를 도출합니다.</h1>
+            <!-- [추가] 프로필 이미지 -->
+            <div class="profile-container">
+                <!-- 
+                   [이미지 업로드 가이드]
+                   1. 깃허브 리포지토리에 'profile.jpg'라는 이름으로 본인의 사진을 업로드하세요.
+                   2. 만약 파일명이 다르다면 아래 src="profile.jpg"를 src="파일명.jpg"로 수정하세요.
+                -->
+                <img src="profile.jpg" alt="배민한 프로필" class="profile-img" onerror="this.style.backgroundColor='#ddd'; this.alt='이미지 없음';">
+            </div>
+
+            <!-- 포트폴리오 식별 배지 -->
+            <span class="portfolio-badge">2026 Analytics Portfolio</span>
             
+            <h1 class="hero-title">
+                사유(事由)를 사유(思惟)해,<br>
+                문제를 성과로 연결하는 배민한 입니다.
+            </h1>
+
+            <!-- [추가] 소셜 링크 & 이메일 -->
             <div class="social-links">
-                <a href="mailto:your-email@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-                <a href="https://linkedin.com/in/minhan-bae-376829272/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:your-email@gmail.com" class="social-btn">
+                    <i class="fas fa-envelope"></i> Email Me
+                </a>
+                <a href="https://linkedin.com/in/your-profile-url" target="_blank" class="social-btn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+            
+            <div class="keyword-container">
+                <div class="keyword-tag">
+                    <span class="keyword-title">탐구심</span>
+                    <span class="keyword-desc">데이터와 현상 뒤에 숨은 원인을 집요하게 질문하고 검증하려 함</span>
+                </div>
+                <div class="keyword-tag">
+                    <span class="keyword-title">목표지향성</span>
+                    <span class="keyword-desc">제약 조건 속에서도 목표 달성을 위한 실행 가능한 대안을 끝까지 탐색</span>
+                </div>
+                <div class="keyword-tag">
+                    <span class="keyword-title">구조화</span>
+                    <span class="keyword-desc">복잡한 문제를 의사결정이 가능한 단계와 지표로 구조화함</span>
+                </div>
             </div>
         </div>
     </section>
 
     <section class="section">
-        <div class="container">
+        <div class="container" id="summary">
+            <!-- 2단 그리드 (좌: 스킬 / 우: 경력) -->
             <div class="summary-grid">
-                <aside>
-                    <div class="card">
-                        <h4 class="section-title-sm">Technical Skills</h4>
-                        <div class="skill-list">
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Tableau</span><span>8.5/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
+                
+                <!-- 1. Skill Set & Language (Left Side) -->
+                <div class="card skill-card">
+                    <h4 class="section-title-sm">Skill Set</h4>
+                    <div class="skill-list">
+                        <!-- [수정] Tableau: 8.5/10 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Tableau</span><span class="skill-score">8.5/10</span>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>SQL (MySQL)</span><span>8.5/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Excel (VBA)</span><span>8/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80%"></div></div>
-                            </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Python</span><span>7.5/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75%"></div></div>
-                            </div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
                         </div>
-
-                        <h4 class="section-title-sm">Languages</h4>
-                        <div class="skill-list">
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Verbal English</span><span>8/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill lang-fill" data-width="80%"></div></div>
+                        <!-- [수정] SQL: 8.5/10 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>SQL (MySQL)</span><span class="skill-score">8.5/10</span>
                             </div>
-                            <div class="skill-item">
-                                <div class="skill-info"><span>Written English</span><span>8/10</span></div>
-                                <div class="skill-bar-bg"><div class="skill-bar-fill lang-fill" data-width="80%"></div></div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
+                        </div>
+                        <!-- [수정] Excel: 8/10 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Excel</span><span class="skill-score">8.0/10</span>
                             </div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80%"></div></div>
+                        </div>
+                        <!-- [수정] Python: 7.5/10 -->
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Python</span><span class="skill-score">7.5/10</span>
+                            </div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="75%"></div></div>
                         </div>
                     </div>
-                </aside>
 
-                <div class="card">
-                    <h3 style="margin-bottom: 20px;">Core Projects</h3>
-                    
-                    <div style="margin-bottom: 40px;">
-                        <h4 style="color: var(--secondary-color);">#01 PCS 할인 스킴 분석 SQL</h4>
-                        <div class="code-header">-- 멤버십 등급별 UPT 및 AOV 산출 쿼리</div>
-                        <pre>
-SELECT 
-    membership_level,
-    COUNT(order_id) as total_orders,
-    SUM(quantity) / COUNT(order_id) as UPT,
-    SUM(amount) / COUNT(order_id) as AOV
-FROM sales_data
-WHERE category = 'K-Beauty'
-GROUP BY 1;</pre>
-                    </div>
-
-                    <div>
-                        <h4 style="color: var(--secondary-color);">#02 체화 재고 리스크 분석 SQL</h4>
-                        <div class="code-header">-- 1년 이상 장기 미판매 SKU 추출</div>
-                        <pre>
-SELECT 
-    sku_id, 
-    last_sale_date,
-    stock_qty,
-    DATEDIFF('2026-02-12', last_sale_date) as aging_days
-FROM inventory
-WHERE stock_qty > 0 
-  AND last_sale_date < DATE_SUB(NOW(), INTERVAL 1 YEAR);</pre>
+                    <!-- [추가] Language Skills -->
+                    <h4 class="section-title-sm" style="margin-top: 40px;">Languages</h4>
+                    <div class="skill-list">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Verbal English</span><span class="skill-score">8.0/10</span>
+                            </div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill lang-fill" data-width="80%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <span>Written English</span><span class="skill-score">8.0/10</span>
+                            </div>
+                            <div class="skill-bar-bg"><div class="skill-bar-fill lang-fill" data-width="80%"></div></div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- 2. Career Section (Right Side) - 기존 내용 유지 -->
+                <div class="card">
+                    <h3 class="section-title">주요 경력 및 프로젝트</h3>
+                    <div class="career-list">
+                        <div class="career-item">
+                            <span class="career-date">2022.10 ~ 현재</span>
+                            <div class="career-role">신라면세점 서울점 | 영업관리</div>
+                            <p class="career-desc">화장품·패션 카테고리의 매출·재고·구매 데이터 분석을 기반으로 프로모션 전략 수립, 손익 관리, 브랜드 운영 전반에 대한 의사결정 지원 및 실행을 담당</p>
+                            
+                            <div class="sub-project-list">
+                                <strong class="sub-project-title">🏆 주요 프로젝트 (요약)</strong>
+                                <ul>
+                                    <li class="sub-project-item">
+                                        <span class="pj-num">01.</span>
+                                        <span>구매 수량 기반(PCS) 할인 스킴 설계를 통한 한국 화장품 카테고리 KPI 구조 개선</span>
+                                    </li>
+                                    <li class="sub-project-item">
+                                        <span class="pj-num">02.</span>
+                                        <span>해외 패션 BTQ C브랜드 재고 구조 분석 및 운영 전략 재설계를 통한 재고 건전화</span>
+                                    </li>
+                                    <li class="sub-project-item">
+                                        <span class="pj-num">03.</span>
+                                        <span>한국 패션 M브랜드 거래 구조 분석 및 거래선 다변화를 통한 공헌이익 개선</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div> <!-- End Grid -->
+        </div>
+    </section>
+
+    <!-- Project 01 -->
+    <section id="project1" class="section" style="background-color: white;">
+        <div class="container">
+            <header class="project-header">
+                <span class="project-label">Project 01</span>
+                <h2 class="project-title">한국 화장품 브랜드 PCS 할인 스킴 설계</h2>
+                <p class="project-intro">구매 수량 기반 할인 설계를 통한 카테고리 전체 매출 활성화 프로젝트</p>
+            </header>
+
+            <div class="project-grid">
+                
+                <!-- Project 01 Result -->
+                <div class="detail-item">
+                    <h4>결과물 (Result)</h4>
+                    <div class="result-box">
+                        <div class="result-text">
+                            <p style="margin-bottom: 15px;">✅ PCS 할인 도입을 통해 105개 중 <span class="result-highlight">87개 브랜드</span>에서 UPT, AOV 개선 효과를 확인, 카테고리 확장성 검증</p>
+                            <p style="margin-bottom: 15px;">✅ 카테고리 전체 AOV <span class="result-highlight">+22.7%</span>, UPT <span class="result-highlight">+2.9개</span> 증가로 구매 수량 기반 프로모션의 구조적 효과 입증</p>
+                            <p>✅ <strong>[핵심 성과]</strong> 실버 멤버십 고객 AOV <span class="result-highlight">+32.8%</span>로 멤버십 하위 고객을 성장 레버로 전환</p>
+                        </div>
+                        <div class="result-chart">
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Brand Improvement</span><span>87 / 105</span></div>
+                                <div style="background:#e9ecef;border-radius:10px;height:10px;width:100%">
+                                    <span style="background:var(--secondary-color);height:100%;border-radius:10px;display:block;width:83%"></span>
+                                </div>
+                            </div>
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Category AOV</span><span>+22.7%</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="70%"></span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="86%"></span></div></div>
+                                </div>
+                            </div>
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Silver Member AOV</span><span style="color:var(--secondary-color);">+32.8%</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="65%"></span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="95%"></span></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 01 Details -->
+                <details class="project-details">
+                    <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
+                    <div class="project-details-content">
+                        <!-- [추가] SQL Code for Project 01 -->
+                        <div class="code-container">
+                            <span class="code-title"><i class="fas fa-code"></i> Analysis Logic (SQL Example)</span>
+                            <pre class="code-block">
+/* 멤버십 등급별 평균 구매 수량(UPT) 및 객단가(AOV) 비교 분석 */
+SELECT 
+    membership_level,
+    COUNT(DISTINCT order_id) AS total_orders,
+    SUM(quantity) / COUNT(DISTINCT order_id) AS avg_upt,
+    SUM(total_amount) / COUNT(DISTINCT order_id) AS avg_aov
+FROM k_beauty_sales
+WHERE sale_date BETWEEN '2025-01-01' AND '2025-06-30'
+GROUP BY membership_level
+ORDER BY avg_upt ASC;
+/* → 실버 등급의 UPT가 타 등급 대비 현저히 낮음을 확인, 타겟 설정 근거 마련 */</pre>
+                        </div>
+
+                        <div class="detail-item">
+                            <h4>개요 (Objective)</h4>
+                            <p>브랜드별·멤버십별로 파편화된 기존 할인 구조가 카테고리 전체의 UPT(객당 구매 수량) 및 AOV(객단가) 개선에 한계를 보이는 상황에서, 고객 등급과 브랜드 가격대에 관계없이 확장 적용 가능한 <strong>구매 수량 기반 할인(PCS) 전략</strong>을 설계·검증하여 카테고리 핵심 KPI를 개선하고자 했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>진행한 일 (Task)</h4>
+                            <div class="task-container">
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">배경</h5>
+                                    <p>카테고리 매출 볼륨은 증가 추세였으나, UPT와 AOV는 2분기 연속 둔화되는 상반된 흐름을 보였습니다.</p>
+                                    <p>특히 저단가 브랜드에서 구매 수량 감소가 두드러졌으며, 이는 카테고리 전반의 성장 효율 저하로 이어지고 있었습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">문제 정의</h5>
+                                    <p>기존 증정 프로모션은 고단가 브랜드 및 상위 멤버십 고객에게만 반응이 집중되는 경향이 있었고, 구매 수량 증가보다는 단일 상품 구매에 대한 보상 효과에 그쳐 카테고리 전체 개선으로는 연결되지 않았습니다.</p>
+                                    <p>또한, 거래 건수가 가장 많은 실버 등급 고객의 객단가가 가장 낮은 구조로 인해, 멤버십 등급별 할인율 조정만으로는 실질적인 성과를 기대하기 어려웠습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">해결 전략</h5>
+                                    <p>UPT와 AOV를 동시에 개선하기 위해서는 ①특정 브랜드에 국한되지 않고 ②구매 수량 자체를 의사결정 변수로 만들며 ③멤버십 하위 고객일수록 체감 효과가 큰 프로모션 구조가 필요하다고 판단했습니다.</p>
+                                    <p>이에 따라 고객의 장바구니 구성 행동을 직접적으로 유도할 수 있는 <strong>PCS(구매 수량 기반 할인) 프로모션</strong>을 핵심 대안으로 설정했습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>성장한 점 (Growth)</h4>
+                            <p>로컬 접근성이 높은 한국 화장품 카테고리에서 멤버십 하위 고객 유입과 구매 전환이 구조적으로 어렵다는 한계를 확인했습니다. 그러나 <strong>PCS 할인이 멤버십 등급 간 허들을 낮추는 역할을 수행하며</strong>, 골드 멤버십 미만 고객의 평균 구매 수량을 유의미하게 끌어올리는 데 효과적이었습니다. 이를 통해 멤버십 등급 할인 외에도, <strong>구매 행동을 기반으로 한 멤버십 상향 유도 레버리지</strong>를 새롭게 발견할 수 있었습니다.</p>
+                        </div>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
 
-    <section class="section" style="background: white; text-align: center;">
+    <hr style="max-width: 1024px; margin: 0 auto; border: 0; border-top: 1px dashed #dee2e6;">
+
+    <!-- Project 02 -->
+    <section class="section">
         <div class="container">
-            <h2 style="margin-bottom: 40px;">Get In Touch</h2>
-            <form action="https://formspree.io/f/mh201340252@gmail.com" method="POST" class="contact-form">
-                <div class="form-group">
-                    <label>성함</label>
-                    <input type="text" name="name" placeholder="홍길동" required>
+            <header class="project-header">
+                <span class="project-label">Project 02</span>
+                <h2 class="project-title">해외 패션 BTQ C브랜드<br>재고 구조 분석 및 운영 전략 재설계</h2>
+                <p class="project-intro">자산 리스크 축소 및 매출 성장 선순환 구축 프로젝트</p>
+            </header>
+
+            <div class="project-grid">
+                
+                <!-- Project 02 Result -->
+                <div class="detail-item">
+                    <h4>결과물 (Result)</h4>
+                    <div class="result-box">
+                        <div class="result-text">
+                            <p style="margin-bottom: 20px;">✅ 전체 재고 $5.4M → $1.3M, 체화 재고 $3.2M → $0.65M 축소<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 정상 재고 판매에 따른 자연 감소를 감안하더라도, 체화 재고 절대액 기준 약 80% 감축을 달성하며 <strong>재고 자산 리스크(Inventory Asset Risk)를 구조적으로 해소</strong></span></p>
+                            <p style="margin-bottom: 20px;">✅ 프로모션 비용 8억 원 투입으로 21억 원 매출 창출<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 판매 가능성이 낮아 추가 평가 손실이 예상되던 저효율 재고를 현금 자산으로 전환, 재무적 손실 확정 구간을 선제적으로 차단</span></p>
+                            <p>✅ <strong>[핵심 성과]</strong> 확보된 유동성으로 Best SKU 리오더($1.5M) 재개<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 상품 경쟁력 회복과 고객 트래픽 증가로 이어지며 <strong>2025년 10월 브랜드 역대 최고 월매출 $1.2M 달성</strong></span></p>
+                        </div>
+                        
+                        <!-- Vertical Charts for Project 02 -->
+                        <div class="result-chart">
+                            <div style="display: flex; justify-content: flex-end; gap: 12px; font-size: 0.75rem; margin-bottom: 15px; color: var(--text-sub);">
+                                <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: #dee2e6; border-radius: 2px; margin-right: 5px;"></span>전체 재고</div>
+                                <div style="display: flex; align-items: center;"><span style="width: 10px; height: 10px; background: var(--primary-color); border-radius: 2px; margin-right: 5px;"></span>체화 재고</div>
+                            </div>
+
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Inventory Risk ($)</span></div>
+                                <div class="chart-bars-v" style="height: 150px;">
+                                    <!-- Sep '23 -->
+                                    <div class="v-bar-group" style="width: 42%;">
+                                        <div class="v-bar-total" data-height="100%">
+                                            <span class="v-bar-val-inside-top">$5.4M</span>
+                                        </div>
+                                        <div class="v-bar-obsolete" data-height="59%">
+                                            <span class="v-bar-val-in">$3.2M</span>
+                                        </div>
+                                        <span class="v-bar-axis">Sep '23</span>
+                                    </div>
+                                    <div style="font-size: 1.2rem; color: #adb5bd; padding-bottom: 20px; align-self: center;">→</div>
+                                    <!-- Jan '26 -->
+                                    <div class="v-bar-group" style="width: 42%;">
+                                        <div class="v-bar-total" data-height="24%">
+                                            <span class="v-bar-val-top">$1.3M</span>
+                                        </div>
+                                        <div class="v-bar-obsolete" data-height="12%">
+                                            <span class="v-bar-val-in" style="top: auto; bottom: 2px; font-size:0.65rem;">$0.65M</span>
+                                        </div>
+                                        <span class="v-bar-axis">Jan '26</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Promo Efficiency</span></div>
+                                <div class="chart-bars-v" style="height:100px; gap: 20px;">
+                                    <div class="v-bar-group" style="width: 45%;">
+                                        <div class="v-bar-cost" data-height="38%">
+                                            <span class="v-bar-val-top" style="color:#e88655; margin-bottom: 3px;">8억</span>
+                                        </div>
+                                        <span class="v-bar-axis">Cost</span>
+                                    </div>
+                                    <div class="v-bar-group" style="width: 45%;">
+                                        <div class="v-bar-sales" data-height="100%">
+                                            <span class="v-bar-val-top" style="color:var(--secondary-color); margin-bottom: 3px;">21억</span>
+                                        </div>
+                                        <span class="v-bar-axis">Sales</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>회신 받을 이메일</label>
-                    <input type="email" name="_replyto" placeholder="example@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label>메시지</label>
-                    <textarea name="message" rows="5" placeholder="내용을 입력해주세요" required></textarea>
-                </div>
-                <button type="submit" class="btn-submit">메시지 보내기</button>
-            </form>
+
+                <!-- Project 02 Details -->
+                <details class="project-details">
+                    <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
+                    <div class="project-details-content">
+                        <!-- [추가] SQL Code for Project 02 -->
+                        <div class="code-container">
+                            <span class="code-title"><i class="fas fa-code"></i> Analysis Logic (SQL Example)</span>
+                            <pre class="code-block">
+/* 1년 이상 경과된 체화 재고(Obsolete Stock) 식별 및 가치 산출 */
+SELECT 
+    b.brand_name,
+    i.sku_code,
+    i.current_stock,
+    DATEDIFF(NOW(), i.last_inbound_date) AS stock_aging_days,
+    (i.current_stock * p.unit_cost) AS inventory_value
+FROM inventory i
+JOIN products p ON i.sku_code = p.sku_code
+JOIN brands b ON p.brand_id = b.brand_id
+WHERE DATEDIFF(NOW(), i.last_inbound_date) >= 365 
+  AND i.current_stock > 0;
+/* → 입고일 기준 365일 이상 경과한 악성 재고 리스트 추출하여 프로모션 대상 선정 */</pre>
+                        </div>
+
+                        <div class="detail-item">
+                            <h4>개요 (Objective)</h4>
+                            <p>코로나 기간 동안 누적된 장기 체화 재고를 전략적으로 소진해 묶여 있던 자금을 회수하고, 이를 베스트 상품 재투자로 연결함으로써 브랜드의 매출 성장 엔진을 재가동하고자 했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>진행한 일 (Task)</h4>
+                            <div class="task-container">
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">배경</h5>
+                                    <p>코로나 이전 면세 호황기에 대량 발주된 재고가 팬데믹 기간 동안 소진되지 못하며 장기 체화 재고로 전환되었습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">문제 정의</h5>
+                                    <p>과도한 체화 재고가 매입 예산(OTB)을 잠식하며 트렌드 대응 상품 및 베스트 SKU 발주가 불가능한 상태였고, 이는 <strong>‘신규 상품 부재 → 매출 둔화 → 재고 적체 심화’</strong>의 악순환 구조를 고착화시키고 있었습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">해결 전략</h5>
+                                    <p>악순환을 끊기 위한 핵심은 체화 재고의 현금화라고 판단했습니다. 단기 성과가 아닌 1년 6개월 단위의 장기 로드맵을 수립해, 구재고 소진 → 유동성 확보 → 핵심 상품 재투자로 이어지는 선순환 구조를 목표로 설정했습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>과정 (Process)</h4>
+                            <div class="process-list">
+                                <div class="process-step">
+                                    <strong>Action 1. 재고 구조 분석 및 타겟 설정</strong><br>
+                                    전체 재고를 SKU·입고 시점·회전율 기준으로 전수 분석하여 1년 이상 체화 재고를 핵심 관리 대상으로 정의했습니다. 단순 물량 기준이 아닌, 향후 <strong>재고자산평가손익 관점에서 손실 가능성이 높은 악성 재고</strong>를 우선 소진 타겟으로 선정하며 재무 리스크를 선제적으로 관리했습니다.
+                                </div>
+                                <div class="process-step">
+                                    <strong>Action 2. 전략적 소진 (Exit Strategy)</strong><br>
+                                    무차별 할인 대신, 구매 가능성이 높은 고객군을 중심으로 타겟 마케팅 기반 프로모션을 설계했습니다. 총 8억 원의 프로모션 예산을 <strong>‘비용’이 아닌 ‘자산 회수 수단’</strong>으로 활용해 약 21억 원 규모의 저효율 재고를 매출로 전환했습니다.
+                                </div>
+                                <div class="process-step">
+                                    <strong>Action 3. 선순환 투자 (Re-investment)</strong><br>
+                                    재고 소진으로 확보된 유동성을 활용해, 품절로 판매 기회를 상실하고 있던 베스트 SKU에 $1.5M 규모의 리오더를 실행했습니다. 상품 경쟁력 회복은 고객 트래픽 증가로 이어졌고, 그 결과 <strong>2025년 10월 브랜드 역대 최고 매출($1.2M)</strong>을 달성했습니다.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>성장한 점 (Growth)</h4>
+                            <p>재고 관리는 비용을 줄이기 위한 방어적 활동이 아니라, 적절한 손익 판단과 실행을 통해 <strong>매출 성장을 촉발하는 전략적 레버</strong>가 될 수 있음을 경험했습니다. 손실을 감수한 단기 결단이, 더 큰 성장 기회로 회수되는 비즈니스 선순환 구조를 직접 설계하고 검증했습니다.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
         </div>
     </section>
 
+    <hr style="max-width: 1024px; margin: 0 auto; border: 0; border-top: 1px dashed #dee2e6;">
+
+    <!-- Project 03 -->
+    <section class="section">
+        <div class="container">
+            <header class="project-header">
+                <span class="project-label">Project 03</span>
+                <h2 class="project-title">한국 패션 M브랜드 거래 구조 분석을 통한<br>비수기 수익성 개선</h2>
+                <p class="project-intro">거래선 다변화 기반의 구조적 이익 모델 전환 프로젝트</p>
+            </header>
+
+            <div class="project-grid">
+                
+                <!-- Project 03 Result -->
+                <div class="detail-item">
+                    <h4>결과물 (Result)</h4>
+                    <div class="result-box">
+                        <div class="result-text">
+                            <p style="margin-bottom: 20px;">✅ 독점 벤더 의존도 85% → 50% 축소<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 특정 벤더 발주 중단 시 발생하던 비수기 매출 공백을 완화하고, 다수 거래선을 기반으로 한 공급 안정성 및 협상력 확보</span></p>
+                            <p style="margin-bottom: 20px;">✅ 거래선 다변화 및 직매입 전환을 통해 브랜드 공헌이익율(CM) <span class="result-highlight">+1.2%p 개선</span> (2.8% → 4.0%)<br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 매출 볼륨 확대가 아닌, 수익성 중심 운영 구조로 전환</span></p>
+                            <p>✅ <strong>[핵심 성과]</strong> 매출 볼륨 감소에도 불구하고 마진 구조 개선을 통해 연간 공헌이익 <span class="result-highlight">약 14억 원 추가 확보</span><br><span style="display:block; margin-top:5px; font-size:0.9rem; color:var(--text-sub); line-height:1.5;">→ 비수기 방어를 넘어, 브랜드 손익 구조의 체질 개선 달성</span></p>
+                        </div>
+                        
+                        <!-- Project 03 Charts -->
+                        <div class="result-chart">
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Brand Contribution Margin (%)</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="40%"></span><span style="margin-left:8px; font-size:0.75rem;">2.8%</span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="60%"></span><span style="margin-left:8px; font-weight:bold; color:var(--secondary-color); font-size:0.75rem;">4.0%</span></div></div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item">
+                                <div class="chart-label"><span>Vendor Dependence</span><span style="color:var(--secondary-color); font-size:0.8rem;">Risk Down</span></div>
+                                <div class="chart-bars-h">
+                                    <div class="bar-row-h"><span class="bar-label-sm">Before</span><div class="bar-track"><span class="bar-fill-prev" data-width="85%"></span><span style="margin-left:8px; font-size:0.75rem;">85%</span></div></div>
+                                    <div class="bar-row-h"><span class="bar-label-sm">After</span><div class="bar-track"><span class="bar-fill-curr" data-width="50%"></span><span style="margin-left:8px; font-weight:bold; color:var(--secondary-color); font-size:0.75rem;">50%</span></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 03 Details -->
+                <details class="project-details">
+                    <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
+                    <div class="project-details-content">
+                        <!-- [추가] SQL Code for Project 03 -->
+                        <div class="code-container">
+                            <span class="code-title"><i class="fas fa-code"></i> Analysis Logic (SQL Example)</span>
+                            <pre class="code-block">
+/* 벤더별 매출 비중 및 공헌이익률(CM%) 분석 */
+SELECT 
+    vendor_name,
+    SUM(net_sales) AS total_sales,
+    (SUM(net_sales) / (SELECT SUM(net_sales) FROM sales_data WHERE brand = 'M')) * 100 AS sales_share,
+    (SUM(contribution_margin) / SUM(net_sales)) * 100 AS cm_rate
+FROM sales_data
+WHERE brand = 'M' AND year = 2025
+GROUP BY vendor_name;
+/* → Vendor A의 의존도가 85%로 과도하게 높음을 식별하고, 비수기 공급 리스크 확인 */</pre>
+                        </div>
+
+                        <div class="detail-item">
+                            <h4>개요 (Objective)</h4>
+                            <p>특정 거래선 의존도가 85%에 달해, 해당 벤더의 발주 중단 시 3분기 매출이 급감하는 구조적 취약점을 해결하고자 했습니다. 비수기 대체 거래선을 발굴하고 이를 고마진 구조로 정착시켜, 단기 매출 방어를 넘어 브랜드의 수익 체질을 개선하는 것을 목표로 설정했습니다.</p>
+                        </div>
+                        <div class="detail-item">
+                            <h4>진행한 일 (Task)</h4>
+                            <div class="task-container">
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">문제 정의</h5>
+                                    <p>매출의 대부분이 특정 벤더(Vendor A)에 집중된 박리다매 구조로, 해당 벤더가 매입을 중단하는 3분기에는 대체 수단이 없어 브랜드 전체가 비수기 타격을 반복적으로 겪고 있었습니다.</p>
+                                    <p>이로 인해 매출 규모 대비 공헌이익이 낮고, 매출 변동성에 손익이 과도하게 노출되는 구조적 한계가 존재했습니다.</p>
+                                </div>
+                                <div class="task-sub-section">
+                                    <h5 class="task-sub-title">해결 전략</h5>
+                                    <p>초기에는 3분기 매출 방어를 위한 대체 거래선 발굴로 접근했습니다. 그러나 거래선 다변화 과정에서 협상력이 개선되고, 고마진 구조로의 전환 가능성이 확인되며 전략의 방향을 <strong>‘비수기 방어’에서 ‘구조적 이익률 개선’</strong>으로 확장했습니다.</p>
+                                    <p>이에 따라 비수기 대응이 가능한 신규 거래선을 단계적으로 확보하고 수요가 높은 상품군에 대해서는 발주를 확대해 마진 구조를 점진적으로 개선했습니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <h4>성장한 점 (Growth)</h4>
+                            <p>단기적인 비수기 매출 방어 활동이 거래 구조와 마진 구조를 재설계하는 계기가 될 수 있음을 경험했습니다. 매출 볼륨(Top-line)이 일부 감소하더라도, 마진율이 높은 건전한 구조(Bottom-line)로 전환하는 것이 장기적으로 더 큰 이익을 창출한다는 점을 데이터로 입증했습니다.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- [추가] Contact Form Section -->
+    <section class="section" style="background-color: #f1f3f5;">
+        <div class="container" style="text-align: center;">
+            <h3 style="color: var(--primary-color); margin-bottom: 30px;">Get In Touch</h3>
+            
+            <div class="contact-box">
+                <!-- 
+                   [이메일 전송 기능 설정]
+                   아래 form action 속성의 이메일 주소를 본인의 이메일로 변경하세요.
+                   예: action="https://formspree.io/f/본인이메일"
+                   Formspree는 별도 회원가입 후 폼 주소를 받아야 할 수도 있습니다.
+                   가장 간단하게는 본인의 실제 이메일을 action에 넣는 것입니다.
+                -->
+                <form action="https://formspree.io/f/your-email@gmail.com" method="POST">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" placeholder="성함을 입력해주세요" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="_replyto" class="form-control" placeholder="회신 받으실 이메일" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea name="message" class="form-control" rows="5" placeholder="내용을 입력해주세요" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">메시지 보내기</button>
+                </form>
+            </div>
+
+            <p style="color: var(--text-sub); margin-top: 40px; margin-bottom: 0;">긴 글 읽어주셔서 감사합니다.<br>데이터로 성과를 만드는 분석가, 배민한이었습니다.</p>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 40px 0; color: #adb5bd; font-size: 0.8rem;">
+        &copy; 2026 Analytics Portfolio | Bae Min-Han
+    </footer>
+
+    <!-- Scroll Trigger Animation Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const bars = document.querySelectorAll('.skill-bar-fill');
+            // 관찰할 대상 요소들 (기존 + 언어 바 추가)
+            const bars = document.querySelectorAll('.bar-fill-prev, .bar-fill-curr, .v-bar-total, .v-bar-obsolete, .v-bar-cost, .v-bar-sales, .skill-bar-fill');
+            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.width = entry.target.getAttribute('data-width');
+                        const target = entry.target;
+                        const targetWidth = target.getAttribute('data-width');
+                        const targetHeight = target.getAttribute('data-height');
+
+                        // 가로 막대 애니메이션
+                        if (target.classList.contains('bar-fill-prev') || target.classList.contains('skill-bar-fill')) {
+                            target.style.width = targetWidth;
+                            // 언어 바인 경우 색상 클래스가 이미 CSS로 적용됨
+                        }
+                        if (target.classList.contains('bar-fill-curr')) {
+                            target.style.width = targetWidth;
+                            target.style.transitionDelay = '0.2s'; // 딜레이
+                        }
+
+                        // 세로 막대 애니메이션
+                        if (target.classList.contains('v-bar-total') || target.classList.contains('v-bar-obsolete') || target.classList.contains('v-bar-cost') || target.classList.contains('v-bar-sales')) {
+                            target.style.height = targetHeight;
+                        }
+                        
+                        observer.unobserve(target); 
                     }
                 });
-            }, { threshold: 0.5 });
+            }, { threshold: 0.2 });
+
             bars.forEach(bar => observer.observe(bar));
         });
     </script>
 </body>
 </html>
+```
+
+### 1. 주요 업데이트 내역
+1.  **초안 복구 완료:** 기존의 모든 프로젝트 내용(텍스트, 차트, 수치 등)이 삭제되지 않고 그대로 유지되었습니다.
+2.  **스킬 점수 & 언어 추가:** 좌측 'Skill Set' 영역에 Tableau, SQL 등의 점수를 요청하신 대로 상향 조정했고, 아래에 **Languages** (Verbal/Written 8.0) 섹션을 추가했습니다.
+3.  **프로필 & 소셜 링크:**
+    * 상단에 **동그란 프로필 이미지** 공간을 만들었습니다.
+    * 바로 아래에 **이메일/링크드인 버튼**을 추가했습니다.
+4.  **SQL 예시 코드:** 각 프로젝트의 '상세 분석 과정(Details)'을 열면, 맨 위에 해당 프로젝트의 핵심 로직을 담은 **SQL 코드 블록**이 보이도록 추가했습니다.
+5.  **메시지 전송 기능:** 하단에 심플한 디자인의 **Contact Form**을 추가했습니다.
+
+---
+
+### 2. 필독: 수정하셔야 할 부분
+위 코드를 복사해서 `index.html`에 덮어쓴 후, 아래 **3가지**만 본인 정보로 바꿔주세요.
+
+**① 이메일 폼 연결 (가장 중요)**
+코드의 맨 아래쪽 `<form action="...">` 부분을 찾아서 주소를 수정해야 작동합니다.
+```html
+<!-- 수정 전 -->
+<form action="https://formspree.io/f/your-email@gmail.com" ...>
+
+<!-- 수정 후 (예시) -->
+<form action="https://formspree.io/f/real-email@naver.com" ...>
+```
+* **팁:** Formspree 사이트에 가입해서 고유 URL을 받으면 더 안정적이지만, 위처럼 이메일 주소를 바로 적어도 작동하는 경우가 있습니다.
+
+**② 소셜 링크 수정**
+상단 `hero` 섹션의 링크 주소를 수정하세요.
+```html
+<a href="mailto:본인이메일@gmail.com" ...>
+<a href="https://linkedin.com/in/본인ID" ...>
