@@ -184,10 +184,10 @@
             <div class="social-links">
                 <!-- 이메일 표시 -->
                 <div class="email-display">
-                    <i class="fas fa-envelope"></i> your-email@gmail.com
+                    <i class="fas fa-envelope"></i> mh201340252@gmail.com
                 </div>
                 <!-- 링크드인 버튼 -->
-                <a href="https://linkedin.com/in/your-profile-url" target="_blank" class="social-btn">
+                <a href="https://linkedin.com/in/minhan-bae-376829272" target="_blank" class="social-btn">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
             </div>
@@ -329,32 +329,32 @@
                             <pre class="code-block" contenteditable="true">
 <span class="sql-comment">/*
 [Table Schema Reference]
-- customers: customer_id, membership_level, join_date
-- orders: order_id, customer_id, order_date, total_paid
-- order_items: order_id, sku_code, qty, price
+- customers: passport_no, membership_level, join_date
+- orders: bill_no, passport_no, order_date, total_paid
+- order_items: bill_no, sku_code, qty, price
 - products: sku_code, category, brand_name
 */
 
--- [Step 1] 화장품 카테고리(K-Beauty)의 멤버십 등급별 장바구니 분석(UPT, AOV)
+-- [Step 1] 화장품 카테고리(K-Beauty)의 멤버십 등급별 구매 행태 분석(UPT, AOV)
 -- 다중 테이블 JOIN을 통해 고객 등급별 구매 행태를 구조화</span>
 
 <span class="sql-keyword">WITH</span> target_orders <span class="sql-keyword">AS</span> (
     <span class="sql-keyword">SELECT</span> 
-        o.order_id,
+        o.bill_no,
         c.membership_level,
         o.total_paid,
         <span class="sql-func">SUM</span>(oi.qty) <span class="sql-keyword">AS</span> total_qty
     <span class="sql-keyword">FROM</span> orders o
-    <span class="sql-keyword">JOIN</span> customers c <span class="sql-keyword">ON</span> o.customer_id = c.customer_id
-    <span class="sql-keyword">JOIN</span> order_items oi <span class="sql-keyword">ON</span> o.order_id = oi.order_id
+    <span class="sql-keyword">JOIN</span> customers c <span class="sql-keyword">ON</span> o.passport_no = c.passport_no
+    <span class="sql-keyword">JOIN</span> order_items oi <span class="sql-keyword">ON</span> o.bill_no = oi.bill_no
     <span class="sql-keyword">JOIN</span> products p <span class="sql-keyword">ON</span> oi.sku_code = p.sku_code
     <span class="sql-keyword">WHERE</span> p.category = <span class="sql-string">'K-Beauty'</span>
-      <span class="sql-keyword">AND</span> o.order_date <span class="sql-keyword">BETWEEN</span> <span class="sql-string">'2025-01-01'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'2025-06-30'</span>
-    <span class="sql-keyword">GROUP BY</span> o.order_id, c.membership_level, o.total_paid
+      <span class="sql-keyword">AND</span> o.order_date <span class="sql-keyword">BETWEEN</span> <span class="sql-string">'2023-01-01'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'2023-06-30'</span>
+    <span class="sql-keyword">GROUP BY</span> o.bill_no, c.membership_level, o.total_paid
 )
 <span class="sql-keyword">SELECT</span> 
     membership_level,
-    <span class="sql-func">COUNT</span>(order_id) <span class="sql-keyword">AS</span> order_cnt,
+    <span class="sql-func">COUNT</span>(bill_no) <span class="sql-keyword">AS</span> order_cnt,
     <span class="sql-func">ROUND</span>(<span class="sql-func">AVG</span>(total_qty), 1) <span class="sql-keyword">AS</span> avg_upt,  <span class="sql-comment">-- 객당 구매수량 (목표 지표 1)</span>
     <span class="sql-func">ROUND</span>(<span class="sql-func">AVG</span>(total_paid), 0) <span class="sql-keyword">AS</span> avg_aov  <span class="sql-comment">-- 객단가 (목표 지표 2)</span>
 <span class="sql-keyword">FROM</span> target_orders
@@ -469,8 +469,8 @@
                             <pre class="code-block" contenteditable="true">
 <span class="sql-comment">/*
 [Table Schema Reference]
-- brands: brand_id, brand_name
-- products: sku_code, brand_id, unit_cost, retail_price
+- brands: brand_code, brand_name
+- products: sku_code, brand_code, unit_cost, retail_price
 - inventory: sku_code, current_stock, last_inbound_date
 */
 
@@ -486,7 +486,7 @@
         <span class="sql-func">DATEDIFF</span>(<span class="sql-func">CURRENT_DATE</span>, i.last_inbound_date) <span class="sql-keyword">AS</span> aging_days
     <span class="sql-keyword">FROM</span> inventory i
     <span class="sql-keyword">JOIN</span> products p <span class="sql-keyword">ON</span> i.sku_code = p.sku_code
-    <span class="sql-keyword">JOIN</span> brands b <span class="sql-keyword">ON</span> p.brand_id = b.brand_id
+    <span class="sql-keyword">JOIN</span> brands b <span class="sql-keyword">ON</span> p.brand_code = b.brand_code
     <span class="sql-keyword">WHERE</span> b.brand_name = <span class="sql-string">'C_Brand'</span> 
       <span class="sql-keyword">AND</span> i.current_stock > 0
 )
@@ -597,8 +597,8 @@
                             <pre class="code-block" contenteditable="true">
 <span class="sql-comment">/*
 [Table Schema Reference]
-- vendors: vendor_id, vendor_name, contract_type
-- products: sku_code, brand_id, vendor_id
+- vendors: vendor_code, vendor_name, contract_type
+- products: sku_code, brand_name, vendor_code
 - sales_summary: sale_date, sku_code, net_revenue, cogs (Cost of Goods Sold)
 */
 
@@ -612,9 +612,9 @@
         <span class="sql-func">SUM</span>(s.net_revenue - s.cogs) <span class="sql-keyword">AS</span> total_cm <span class="sql-comment">-- 공헌이익(매출 - 변동비)</span>
     <span class="sql-keyword">FROM</span> sales_summary s
     <span class="sql-keyword">JOIN</span> products p <span class="sql-keyword">ON</span> s.sku_code = p.sku_code
-    <span class="sql-keyword">JOIN</span> vendors v <span class="sql-keyword">ON</span> p.vendor_id = v.vendor_id
-    <span class="sql-keyword">WHERE</span> p.brand_id = <span class="sql-string">'M_Brand'</span>
-      <span class="sql-keyword">AND</span> s.sale_date <span class="sql-keyword">BETWEEN</span> <span class="sql-string">'2025-01-01'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'2025-12-31'</span>
+    <span class="sql-keyword">JOIN</span> vendors v <span class="sql-keyword">ON</span> p.vendor_code = v.vendor_code
+    <span class="sql-keyword">WHERE</span> p.brand_name = <span class="sql-string">'M_Brand'</span>
+      <span class="sql-keyword">AND</span> s.sale_date <span class="sql-keyword">BETWEEN</span> <span class="sql-string">'2024-01-01'</span> <span class="sql-keyword">AND</span> <span class="sql-string">'2024-12-31'</span>
     <span class="sql-keyword">GROUP BY</span> v.vendor_name
 )
 <span class="sql-keyword">SELECT</span> 
@@ -659,21 +659,21 @@
         <div class="container">
             <header class="project-header" style="text-align: left;">
                 <span class="project-label">Side Project</span>
-                <h2 class="project-title" style="font-size: 1.8rem;">데이터 분석 실무 강의 촬영</h2>
+                <h2 class="project-title" style="font-size: 1.8rem;">Tableau 실무 강의 촬영</h2>
                 <p class="project-intro">지식 공유 및 퍼스널 브랜딩 활동</p>
             </header>
 
             <div class="side-project-card">
                 <div>
-                    <span class="lecture-tag">온라인 강의 / 멘토링</span>
-                    <h3 style="margin-bottom: 10px; color: var(--text-main);">[강의명] 데이터 기반의 사고와 실무 적용 가이드</h3>
+                    <span class="lecture-tag">온라인 강의 </span>
+                    <h3 style="margin-bottom: 10px; color: var(--text-main);">[강의명]영업관리자 김프로가 들려주는 태블로 대시보딩 클래스</h3>
                     <p style="color: var(--text-sub); margin-bottom: 20px;">
                         <!-- [수정 필요] 여기에 실제 강의 설명을 적어주세요 -->
-                        현업에서 겪은 문제 해결 경험을 바탕으로, 데이터를 통해 비즈니스 임팩트를 창출하는 과정을 담은 실무 강의입니다. 데이터 추출(SQL)부터 대시보드 시각화(Tableau), 그리고 실제 비즈니스 의사결정 케이스 스터디까지 데이터 분석가의 A to Z를 다루고 있습니다.
+                        현업에서 겪은 문제 해결 경험을 바탕으로, 데이터를 통해 비즈니스 임팩트를 창출하는 과정을 담은 실무 강의입니다. KPI의 개념부터 데이터를 볼때 유의할 점, 대시보드 시각화(Tableau), 그리고 실제 비즈니스 의사결정 케이스 스터디까지 데이터 분석 실무의 A to Z를 다루고 있습니다.
                     </p>
                     <div style="display: flex; gap: 15px;">
                         <!-- [수정 필요] 실제 강의 링크를 href 안에 넣어주세요 -->
-                        <a href="#" target="_blank" style="text-decoration: none; color: var(--primary-color); font-weight: 700; font-size: 0.95rem;">
+                        <a href="https://class101.net/ko/products/67ea1620032b9f9dd4470e5e?utm_campaign=pdp_share&utm_content=share_feature&utm_medium=referral&utm_source=native_share_share&utm_term=67ea1620032b9f9dd4470e5e" target="_blank" style="text-decoration: none; color: var(--primary-color); font-weight: 700; font-size: 0.95rem;">
                             <i class="fas fa-play-circle"></i> 강의 보러가기
                         </a>
                     </div>
