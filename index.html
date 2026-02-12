@@ -49,7 +49,7 @@
             overflow: hidden;
         }
 
-        /* [추가] 프로필 이미지 스타일 */
+        /* 프로필 이미지 스타일 */
         .profile-container {
             position: relative;
             width: 160px;
@@ -66,30 +66,48 @@
             background-color: #eee; /* 이미지 없을 때 배경색 */
         }
         
-        /* [추가] 소셜 링크 (이메일, 링크드인) */
+        /* [수정] 소셜 링크 (이메일 텍스트 + 링크드인 버튼) */
         .social-links {
-            margin-top: 20px;
+            margin-top: 25px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
+        /* 이메일 표시용 (클릭 안됨, 텍스트) */
+        .email-display {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: #fff;
+            color: var(--text-main);
+            border: 1px solid #dee2e6;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+        .email-display i { color: var(--text-sub); }
+
+        /* 링크드인 버튼 (클릭 가능) */
         .social-btn {
             display: flex;
             align-items: center;
             gap: 8px;
             padding: 10px 20px;
             border-radius: 30px;
-            background-color: #f1f3f5;
-            color: var(--primary-color);
+            background-color: #0077b5; /* LinkedIn Color */
+            color: white;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
         .social-btn:hover {
-            background-color: var(--primary-color);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(15, 76, 129, 0.2);
+            background-color: #005582;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
         }
 
         /* 포트폴리오 배지 스타일 */
@@ -120,7 +138,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 30px;
             max-width: 800px;
-            margin: 40px auto 0; /* 마진 조정 */
+            margin: 40px auto 0;
             position: relative;
             padding: 20px;
         }
@@ -258,7 +276,6 @@
             width: 0;
             transition: width 1.5s ease-out; /* 부드러운 애니메이션 */
         }
-        /* [추가] 언어 바 색상 */
         .lang-fill { background-color: var(--secondary-color); }
 
         /* Career Styles */
@@ -350,7 +367,7 @@
         }
         .result-highlight { font-weight: 800; color: #0ca678; font-size: 1.1em; }
 
-        /* Chart Animation Styles (Same as before) */
+        /* Chart Animation Styles */
         .chart-item { margin-bottom: 35px; }
         .chart-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-main); font-weight: 700; }
         .chart-bars-h { display: flex; flex-direction: column; gap: 6px; }
@@ -387,7 +404,7 @@
         .task-sub-section p { color: var(--text-sub); margin-bottom: 8px; font-size: 0.95rem; line-height: 1.7; }
         .process-step { margin-bottom: 15px; }
 
-        /* [추가] Code Block Style */
+        /* Code Block Style */
         .code-container { margin-top: 15px; }
         .code-title { font-size: 0.85rem; font-weight: 700; color: #6c757d; margin-bottom: 5px; display: block; }
         .code-block {
@@ -411,40 +428,29 @@
             font-weight: bold;
         }
 
-        /* [추가] Contact Form Style */
-        .contact-box {
+        /* [추가] Side Project Style */
+        .side-project-card {
             background: white;
-            padding: 40px;
             border-radius: 12px;
-            box-shadow: var(--shadow);
-            max-width: 600px;
-            margin: 0 auto;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transition: transform 0.3s;
         }
-        .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
-        .form-control {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ced4da;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.2s;
-        }
-        .form-control:focus { border-color: var(--primary-color); outline: none; }
-        .btn-submit {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 6px;
-            font-size: 1rem;
+        .side-project-card:hover { transform: translateY(-5px); }
+        .lecture-tag {
+            display: inline-block;
+            background: #e7f5ff;
+            color: var(--primary-color);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.2s;
+            margin-bottom: 10px;
+            width: fit-content;
         }
-        .btn-submit:hover { background-color: #0c3e69; }
 
         @media (max-width: 768px) {
             .hero-title { font-size: 1.8rem; }
@@ -460,14 +466,12 @@
 
     <section id="hero">
         <div class="container">
-            <!-- [추가] 프로필 이미지 -->
+            <!-- 프로필 이미지 -->
             <div class="profile-container">
                 <!-- 
-                   [이미지 업로드 가이드]
-                   1. 깃허브 리포지토리에 'profile.jpg'라는 이름으로 본인의 사진을 업로드하세요.
-                   2. 만약 파일명이 다르다면 아래 src="profile.jpg"를 src="파일명.jpg"로 수정하세요.
+                   [주의] 이미지 파일명을 반드시 'profile.jpg'로 저장하여 GitHub에 업로드하세요.
                 -->
-                <img src="profile.jpg" alt="배민한 프로필" class="profile-img" onerror="this.style.backgroundColor='#ddd'; this.alt='이미지 없음';">
+                <img src="profile.jpg" alt="배민한 프로필" class="profile-img" onerror="this.style.backgroundColor='#eee'; this.alt='이미지 없음';">
             </div>
 
             <!-- 포트폴리오 식별 배지 -->
@@ -478,12 +482,14 @@
                 문제를 성과로 연결하는 배민한 입니다.
             </h1>
 
-            <!-- [추가] 소셜 링크 & 이메일 -->
+            <!-- [수정] 소셜 링크: 이메일 텍스트 & 링크드인 버튼 -->
             <div class="social-links">
-                <a href="mailto:mh201340252@gmail.com" class="social-btn">
-                    <i class="fas fa-envelope"></i> Email Me
-                </a>
-                <a href="https://linkedin.com/in/minhan-bae-376829272/" target="_blank" class="social-btn">
+                <!-- 1. 이메일 (단순 표시) -->
+                <div class="email-display">
+                    <i class="fas fa-envelope"></i> your-email@gmail.com
+                </div>
+                <!-- 2. 링크드인 (클릭 가능) -->
+                <a href="https://linkedin.com/in/your-profile-url" target="_blank" class="social-btn">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
             </div>
@@ -510,32 +516,28 @@
             <!-- 2단 그리드 (좌: 스킬 / 우: 경력) -->
             <div class="summary-grid">
                 
-                <!-- 1. Skill Set & Language (Left Side) -->
+                <!-- 1. Skill Set & Language -->
                 <div class="card skill-card">
                     <h4 class="section-title-sm">Skill Set</h4>
                     <div class="skill-list">
-                        <!-- [수정] Tableau: 8.5/10 -->
                         <div class="skill-item">
                             <div class="skill-info">
                                 <span>Tableau</span><span class="skill-score">8.5/10</span>
                             </div>
                             <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
                         </div>
-                        <!-- [수정] SQL: 8.5/10 -->
                         <div class="skill-item">
                             <div class="skill-info">
                                 <span>SQL (MySQL)</span><span class="skill-score">8.5/10</span>
                             </div>
                             <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="85%"></div></div>
                         </div>
-                        <!-- [수정] Excel: 8/10 -->
                         <div class="skill-item">
                             <div class="skill-info">
                                 <span>Excel</span><span class="skill-score">8.0/10</span>
                             </div>
                             <div class="skill-bar-bg"><div class="skill-bar-fill" data-width="80%"></div></div>
                         </div>
-                        <!-- [수정] Python: 7.5/10 -->
                         <div class="skill-item">
                             <div class="skill-info">
                                 <span>Python</span><span class="skill-score">7.5/10</span>
@@ -544,7 +546,6 @@
                         </div>
                     </div>
 
-                    <!-- [추가] Language Skills -->
                     <h4 class="section-title-sm" style="margin-top: 40px;">Languages</h4>
                     <div class="skill-list">
                         <div class="skill-item">
@@ -562,7 +563,7 @@
                     </div>
                 </div>
 
-                <!-- 2. Career Section (Right Side) - 기존 내용 유지 -->
+                <!-- 2. Career Section -->
                 <div class="card">
                     <h3 class="section-title">주요 경력 및 프로젝트</h3>
                     <div class="career-list">
@@ -645,11 +646,11 @@
                 <details class="project-details">
                     <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
                     <div class="project-details-content">
-                        <!-- [추가] SQL Code for Project 01 -->
+                        <!-- SQL Code for Project 01 -->
                         <div class="code-container">
                             <span class="code-title"><i class="fas fa-code"></i> Analysis Logic (SQL Example)</span>
-                            <pre class="code-block">
-/* 멤버십 등급별 평균 구매 수량(UPT) 및 객단가(AOV) 비교 분석 */
+                            <pre class="code-block" contenteditable="true">
+/* [수정 가능] 본인이 사용한 실제 쿼리로 이 부분을 수정하세요 */
 SELECT 
     membership_level,
     COUNT(DISTINCT order_id) AS total_orders,
@@ -658,8 +659,7 @@ SELECT
 FROM k_beauty_sales
 WHERE sale_date BETWEEN '2025-01-01' AND '2025-06-30'
 GROUP BY membership_level
-ORDER BY avg_upt ASC;
-/* → 실버 등급의 UPT가 타 등급 대비 현저히 낮음을 확인, 타겟 설정 근거 마련 */</pre>
+ORDER BY avg_upt ASC;</pre>
                         </div>
 
                         <div class="detail-item">
@@ -778,11 +778,11 @@ ORDER BY avg_upt ASC;
                 <details class="project-details">
                     <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
                     <div class="project-details-content">
-                        <!-- [추가] SQL Code for Project 02 -->
+                        <!-- SQL Code for Project 02 -->
                         <div class="code-container">
                             <span class="code-title"><i class="fas fa-code"></i> Analysis Logic (SQL Example)</span>
-                            <pre class="code-block">
-/* 1년 이상 경과된 체화 재고(Obsolete Stock) 식별 및 가치 산출 */
+                            <pre class="code-block" contenteditable="true">
+/* [수정 가능] 본인이 사용한 실제 쿼리로 이 부분을 수정하세요 */
 SELECT 
     b.brand_name,
     i.sku_code,
@@ -793,8 +793,7 @@ FROM inventory i
 JOIN products p ON i.sku_code = p.sku_code
 JOIN brands b ON p.brand_id = b.brand_id
 WHERE DATEDIFF(NOW(), i.last_inbound_date) >= 365 
-  AND i.current_stock > 0;
-/* → 입고일 기준 365일 이상 경과한 악성 재고 리스트 추출하여 프로모션 대상 선정 */</pre>
+  AND i.current_stock > 0;</pre>
                         </div>
 
                         <div class="detail-item">
@@ -893,11 +892,11 @@ WHERE DATEDIFF(NOW(), i.last_inbound_date) >= 365
                 <details class="project-details">
                     <summary class="project-summary-btn">상세 분석 과정 및 역량 보기</summary>
                     <div class="project-details-content">
-                        <!-- [추가] SQL Code for Project 03 -->
+                        <!-- SQL Code for Project 03 -->
                         <div class="code-container">
                             <span class="code-title"><i class="fas fa-code"></i> Analysis Logic (SQL Example)</span>
-                            <pre class="code-block">
-/* 벤더별 매출 비중 및 공헌이익률(CM%) 분석 */
+                            <pre class="code-block" contenteditable="true">
+/* [수정 가능] 본인이 사용한 실제 쿼리로 이 부분을 수정하세요 */
 SELECT 
     vendor_name,
     SUM(net_sales) AS total_sales,
@@ -905,8 +904,7 @@ SELECT
     (SUM(contribution_margin) / SUM(net_sales)) * 100 AS cm_rate
 FROM sales_data
 WHERE brand = 'M' AND year = 2025
-GROUP BY vendor_name;
-/* → Vendor A의 의존도가 85%로 과도하게 높음을 식별하고, 비수기 공급 리스크 확인 */</pre>
+GROUP BY vendor_name;</pre>
                         </div>
 
                         <div class="detail-item">
@@ -938,48 +936,45 @@ GROUP BY vendor_name;
         </div>
     </section>
 
-    <!-- [추가] Contact Form Section -->
-    <section class="section" style="background-color: #f1f3f5;">
-        <div class="container" style="text-align: center;">
-            <h3 style="color: var(--primary-color); margin-bottom: 30px;">Get In Touch</h3>
-            
-            <div class="contact-box">
-                <!-- 
-                   [이메일 전송 기능 설정]
-                   아래 form action 속성의 이메일 주소를 본인의 이메일로 변경하세요.
-                   예: action="https://formspree.io/f/본인이메일"
-                   Formspree는 별도 회원가입 후 폼 주소를 받아야 할 수도 있습니다.
-                   가장 간단하게는 본인의 실제 이메일을 action에 넣는 것입니다.
-                -->
-                <form action="https://formspree.io/f/mh201340252@gmail.com" method="POST">
-                    <div class="form-group">
-                        <label>Name</label>
-                        <input type="text" name="name" class="form-control" placeholder="성함을 입력해주세요" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" name="_replyto" class="form-control" placeholder="회신 받으실 이메일" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Message</label>
-                        <textarea name="message" class="form-control" rows="5" placeholder="내용을 입력해주세요" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">메시지 보내기</button>
-                </form>
-            </div>
+    <!-- [추가] Side Project Section -->
+    <section class="section" id="side-project" style="background-color: #f1f3f5;">
+        <div class="container">
+            <header class="project-header" style="text-align: left;">
+                <span class="project-label">Side Project</span>
+                <h2 class="project-title" style="font-size: 1.8rem;">데이터 분석 실무 강의 촬영</h2>
+                <p class="project-intro">지식 공유 및 퍼스널 브랜딩 활동</p>
+            </header>
 
-            <p style="color: var(--text-sub); margin-top: 40px; margin-bottom: 0;">긴 글 읽어주셔서 감사합니다.<br>데이터로 성과를 만드는 분석가, 배민한이었습니다.</p>
+            <div class="side-project-card">
+                <div>
+                    <span class="lecture-tag">온라인 강의 / 멘토링</span>
+                    <h3 style="margin-bottom: 10px; color: var(--text-main);">[강의명] 데이터 기반의 사고와 실무 적용 가이드</h3>
+                    <p style="color: var(--text-sub); margin-bottom: 20px;">
+                        <!-- [수정 필요] 여기에 강의 설명을 적어주세요 -->
+                        현업에서 겪은 문제 해결 경험을 바탕으로, 데이터를 통해 비즈니스 임팩트를 창출하는 과정을 담은 실무 강의입니다. SQL 기초부터 Tableau 시각화, 그리고 실제 비즈니스 케이스 스터디까지 포함되어 있습니다.
+                    </p>
+                    <div style="display: flex; gap: 15px;">
+                        <!-- [수정 필요] 강의 링크가 있다면 href를 수정하세요. 없다면 이 버튼을 지우셔도 됩니다. -->
+                        <a href="#" style="text-decoration: none; color: var(--primary-color); font-weight: 700; font-size: 0.95rem;">
+                            <i class="fas fa-play-circle"></i> 강의 보러가기
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 40px 0; color: #adb5bd; font-size: 0.8rem;">
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 60px 0; color: #adb5bd; font-size: 0.8rem; background: #fff;">
+        <p style="color: var(--text-main); font-size: 1.1rem; font-weight: 700; margin-bottom: 10px;">Thank You</p>
+        <p style="margin-bottom: 30px;">데이터로 성과를 만드는 분석가, 배민한이었습니다.</p>
         &copy; 2026 Analytics Portfolio | Bae Min-Han
     </footer>
 
     <!-- Scroll Trigger Animation Script -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 관찰할 대상 요소들 (기존 + 언어 바 추가)
+            // 관찰할 대상 요소들
             const bars = document.querySelectorAll('.bar-fill-prev, .bar-fill-curr, .v-bar-total, .v-bar-obsolete, .v-bar-cost, .v-bar-sales, .skill-bar-fill');
             
             const observer = new IntersectionObserver((entries) => {
@@ -992,11 +987,10 @@ GROUP BY vendor_name;
                         // 가로 막대 애니메이션
                         if (target.classList.contains('bar-fill-prev') || target.classList.contains('skill-bar-fill')) {
                             target.style.width = targetWidth;
-                            // 언어 바인 경우 색상 클래스가 이미 CSS로 적용됨
                         }
                         if (target.classList.contains('bar-fill-curr')) {
                             target.style.width = targetWidth;
-                            target.style.transitionDelay = '0.2s'; // 딜레이
+                            target.style.transitionDelay = '0.2s';
                         }
 
                         // 세로 막대 애니메이션
