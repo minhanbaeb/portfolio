@@ -19,24 +19,6 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
         }
-        /* 태블로 반응형 래퍼 */
-        .tableau-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            width: 100%;
-            border-radius: 0.75rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
-        .tableau-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
         /* 활성화된 네비게이션 링크 스타일 */
         .nav-link.active {
             color: #2563eb;
@@ -50,103 +32,111 @@
             background-color: #2563eb;
             margin-top: 4px;
         }
+        /* 모바일 스크롤바 숨기기 (깔끔한 UI) */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
-<body class="font-sans text-gray-800 antialiased bg-gray-50">
+<body class="font-sans text-gray-800 antialiased bg-gray-50 overflow-x-hidden">
 
-    <!-- Header / GNB -->
+    <!-- Header / GNB (모바일 스와이프 최적화) -->
     <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0 font-bold text-xl tracking-tight text-blue-600">
+            <div class="flex flex-col md:flex-row justify-between items-center py-2 md:py-0 md:h-16">
+                <div class="flex-shrink-0 font-extrabold text-lg md:text-xl tracking-tight text-blue-600 mb-2 md:mb-0 w-full md:w-auto text-center md:text-left">
                     <a href="#section1" class="scroll-link">Minhan's Portfolio.</a>
                 </div>
-                <nav class="hidden md:flex space-x-8">
-                    <!-- 앵커 링크 -->
-                    <a href="#section1" class="nav-link scroll-link text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors">Intro</a>
-                    <a href="#section2" class="nav-link scroll-link text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors">Profile</a>
-                    <a href="#section3" class="nav-link scroll-link text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors">Core Competencies</a>
-                    <a href="#section4" class="nav-link scroll-link text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors">PROJECT 1</a>
-                    <a href="#section5" class="nav-link scroll-link text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors">PROJECT 2</a>
-                    <a href="#section6" class="nav-link scroll-link text-gray-600 hover:text-blue-600 text-sm font-medium transition-colors">PROJECT 3</a>
+                <!-- 모바일에서는 가로 스크롤, PC에서는 우측 정렬 -->
+                <nav class="flex overflow-x-auto space-x-5 md:space-x-8 w-full md:w-auto pb-1 md:pb-0 px-2 md:px-0 no-scrollbar justify-start md:justify-end text-sm whitespace-nowrap">
+                    <a href="#section1" class="nav-link scroll-link text-gray-600 hover:text-blue-600 font-medium transition-colors">Intro</a>
+                    <a href="#section2" class="nav-link scroll-link text-gray-600 hover:text-blue-600 font-medium transition-colors">Profile</a>
+                    <a href="#section3" class="nav-link scroll-link text-gray-600 hover:text-blue-600 font-medium transition-colors">Competencies</a>
+                    <a href="#section4" class="nav-link scroll-link text-gray-600 hover:text-blue-600 font-medium transition-colors">Project 1</a>
+                    <a href="#section5" class="nav-link scroll-link text-gray-600 hover:text-blue-600 font-medium transition-colors">Project 2</a>
+                    <a href="#section6" class="nav-link scroll-link text-gray-600 hover:text-blue-600 font-medium transition-colors">Project 3</a>
                 </nav>
             </div>
         </div>
     </header>
 
-    <main class="pt-16">
+    <!-- 모바일 헤더 높이에 맞춘 여백 조정 -->
+    <main class="pt-20 md:pt-16">
         <!-- Section 1: 소개 (Hero) -->
-        <section id="section1" class="scroll-mt-16 min-h-screen flex items-center justify-center bg-white relative overflow-hidden px-4">
+        <section id="section1" class="scroll-mt-20 min-h-screen flex items-center justify-center bg-white relative overflow-hidden px-4 py-12 md:py-24">
             <div class="max-w-5xl mx-auto text-center" data-aos="fade-up" data-aos-duration="1000">
-                <p class="text-blue-600 font-semibold tracking-wide uppercase mb-3">Analyst처럼 일하는 Sales Manager</p>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
+                <p class="text-blue-600 font-semibold tracking-wide uppercase mb-3 text-sm md:text-base">Analyst처럼 일하는 Sales Manager</p>
+                <h1 class="text-4xl md:text-7xl font-extrabold text-gray-900 mb-6 leading-tight">
                     문제를 기회로, <br/> <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500">기회를 성과로 연결합니다.</span>
                 </h1>
-                <p class="text-xl text-gray-500 mb-12 max-w-2xl mx-auto">
-                    단순히 데이터 추출을 넘어서, 현장과 가장 가까운 곳에서 문제를 정의하고 <br/>실행가능한 액션플랜을 고민하고 실행하면서 성과를 만들어왔습니다.
+                <p class="text-base md:text-xl text-gray-500 mb-10 md:mb-12 max-w-2xl mx-auto px-2">
+                    단순히 데이터 추출을 넘어서, 현장과 가장 가까운 곳에서 문제를 정의하고 <br class="hidden md:block"/>실행가능한 액션플랜을 고민하고 실행하면서 성과를 만들어왔습니다.
                 </p>
                 
                 <!-- 강력한 성과 후킹(Hooking) 앵커 버튼 영역 -->
-                <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+                <div class="flex flex-col md:flex-row items-stretch justify-center gap-3 md:gap-6 w-full max-w-sm md:max-w-none mx-auto">
                     <!-- Project 1 Hook -->
-                    <a href="#section4" class="scroll-link w-full md:w-auto inline-flex items-center justify-between px-6 py-4 rounded-2xl bg-white border border-gray-200 hover:border-blue-500 shadow-sm hover:shadow-lg transition-all group cursor-pointer">
+                    <a href="#section4" class="scroll-link flex items-center justify-between px-5 py-3.5 md:px-6 md:py-4 rounded-2xl bg-white border border-gray-200 hover:border-blue-500 shadow-sm hover:shadow-md transition-all group cursor-pointer">
                         <div class="flex items-center text-left">
-                            <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold mr-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">01</div>
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold mr-3 md:mr-4 group-hover:bg-blue-600 group-hover:text-white transition-colors text-sm md:text-base">01</div>
                             <div>
-                                <p class="text-xs text-gray-500 font-medium mb-0.5 uppercase tracking-wider">Pricing Strategy</p>
-                                <p class="text-gray-900 font-extrabold text-lg group-hover:text-blue-600 transition-colors">객단가 +22.7% 상승</p>
+                                <p class="text-[10px] md:text-xs text-gray-500 font-medium mb-0.5 uppercase tracking-wider">Pricing Strategy</p>
+                                <p class="text-gray-900 font-extrabold text-base md:text-lg group-hover:text-blue-600 transition-colors">객단가 +22.7% 상승</p>
                             </div>
                         </div>
-                        <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 ml-6 transition-colors transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400 group-hover:text-blue-500 ml-4 md:ml-6 transition-colors transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </a>
 
                     <!-- Project 2 Hook -->
-                    <a href="#section5" class="scroll-link w-full md:w-auto inline-flex items-center justify-between px-6 py-4 rounded-2xl bg-white border border-gray-200 hover:border-indigo-500 shadow-sm hover:shadow-lg transition-all group cursor-pointer">
+                    <a href="#section5" class="scroll-link flex items-center justify-between px-5 py-3.5 md:px-6 md:py-4 rounded-2xl bg-white border border-gray-200 hover:border-indigo-500 shadow-sm hover:shadow-md transition-all group cursor-pointer">
                         <div class="flex items-center text-left">
-                            <div class="w-12 h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold mr-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors">02</div>
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold mr-3 md:mr-4 group-hover:bg-indigo-600 group-hover:text-white transition-colors text-sm md:text-base">02</div>
                             <div>
-                                <p class="text-xs text-gray-500 font-medium mb-0.5 uppercase tracking-wider">Inventory Mgmt</p>
-                                <p class="text-gray-900 font-extrabold text-lg group-hover:text-indigo-600 transition-colors">악성 체화재고 -80%</p>
+                                <p class="text-[10px] md:text-xs text-gray-500 font-medium mb-0.5 uppercase tracking-wider">Inventory Mgmt</p>
+                                <p class="text-gray-900 font-extrabold text-base md:text-lg group-hover:text-indigo-600 transition-colors">악성 체화재고 -80%</p>
                             </div>
                         </div>
-                        <svg class="w-5 h-5 text-gray-400 group-hover:text-indigo-500 ml-6 transition-colors transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400 group-hover:text-indigo-500 ml-4 md:ml-6 transition-colors transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </a>
 
                     <!-- Project 3 Hook -->
-                    <a href="#section6" class="scroll-link w-full md:w-auto inline-flex items-center justify-between px-6 py-4 rounded-2xl bg-white border border-gray-200 hover:border-emerald-500 shadow-sm hover:shadow-lg transition-all group cursor-pointer">
+                    <a href="#section6" class="scroll-link flex items-center justify-between px-5 py-3.5 md:px-6 md:py-4 rounded-2xl bg-white border border-gray-200 hover:border-emerald-500 shadow-sm hover:shadow-md transition-all group cursor-pointer">
                         <div class="flex items-center text-left">
-                            <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold mr-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors">03</div>
+                            <div class="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold mr-3 md:mr-4 group-hover:bg-emerald-600 group-hover:text-white transition-colors text-sm md:text-base">03</div>
                             <div>
-                                <p class="text-xs text-gray-500 font-medium mb-0.5 uppercase tracking-wider">Profitability</p>
-                                <p class="text-gray-900 font-extrabold text-lg group-hover:text-emerald-600 transition-colors">공헌이익률 +82%</p>
+                                <p class="text-[10px] md:text-xs text-gray-500 font-medium mb-0.5 uppercase tracking-wider">Profitability</p>
+                                <p class="text-gray-900 font-extrabold text-base md:text-lg group-hover:text-emerald-600 transition-colors">공헌이익률 +82%</p>
                             </div>
                         </div>
-                        <svg class="w-5 h-5 text-gray-400 group-hover:text-emerald-500 ml-6 transition-colors transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        <svg class="w-4 h-4 md:w-5 md:h-5 text-gray-400 group-hover:text-emerald-500 ml-4 md:ml-6 transition-colors transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </a>
                 </div>
             </div>
         </section>
 
         <!-- Section 2: 프로필 (Profile) -->
-        <section id="section2" class="scroll-mt-16 py-24 bg-gray-50 px-4">
+        <section id="section2" class="scroll-mt-20 py-16 md:py-24 bg-gray-50 px-4">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">Profile</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <!-- 프로필 이미지 영역: github에 newprofile.jpg를 올리면 자동으로 나타납니다 -->
-                    <div data-aos="fade-right" class="bg-gray-200 aspect-square rounded-2xl flex items-center justify-center shadow-inner overflow-hidden group">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-16" data-aos="fade-up">Profile</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div data-aos="fade-right" class="w-2/3 md:w-full mx-auto bg-gray-200 aspect-square rounded-2xl flex items-center justify-center shadow-inner overflow-hidden group">
                         <img src="./newprofile.jpg" alt="배민한 프로필" class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105" onerror="this.onerror=null; this.src='https://via.placeholder.com/600?text=Upload+newprofile.jpg';">
                     </div>
                     <div data-aos="fade-left">
-                        <h3 class="text-2xl font-bold mb-4">배민한 (BAE MINHAN)</h3>
-                        <p class="text-gray-600 mb-8 leading-relaxed text-justify">
+                        <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4">배민한 (BAE MINHAN)</h3>
+                        <p class="text-sm md:text-base text-gray-600 mb-6 md:mb-8 leading-relaxed text-left md:text-justify">
                             화장품 및 패션 카테고리의 매출, 재고, 고객 데이터를 다각도로 분석하여 프로모션 기획부터 손익 관리, KPI 개선까지 비즈니스 전반의 최적화를 주도해왔습니다. 특히 각 브랜드의 비즈니스 모델에 맞는 핵심 성과 지표를 직접 설계하고, 이를 누구나 직관적으로 파악할 수 있도록 BI 대시보드로 시각화하여 데이터 기반의 의사결정을 돕는 데 탁월한 강점을 가지고 있습니다.
                         </p>
-                        <ul class="space-y-6 text-gray-600">
+                        <ul class="space-y-4 md:space-y-6 text-gray-600 text-sm md:text-base">
                             <li class="flex items-start">
-                                <span class="font-bold text-gray-800 w-24 flex-shrink-0">경력</span> 
+                                <span class="font-bold text-gray-800 w-20 md:w-24 flex-shrink-0">경력</span> 
                                 <div class="flex-1">
-                                    <span class="font-semibold text-gray-800 block mb-2">신라면세점 서울점 | 영업관리 (22.08 ~ 현재)</span>
-                                    <ul class="list-disc pl-4 text-sm text-gray-500 space-y-1.5 leading-relaxed">
+                                    <span class="font-semibold text-gray-800 block mb-1 md:mb-2">신라면세점 서울점 | 영업관리 (22.08 ~ 현재)</span>
+                                    <ul class="list-disc pl-4 text-xs md:text-sm text-gray-500 space-y-1 md:space-y-1.5 leading-relaxed">
                                         <li>화장품/패션 카테고리 매출 및 재고 데이터 분석</li>
                                         <li>핵심 브랜드 KPI 대시보드 구축 및 비즈니스 인사이트 도출</li>
                                         <li>프로모션 효율 분석을 통한 마케팅 예산 및 재고 회전율 최적화</li>
@@ -154,16 +144,16 @@
                                 </div>
                             </li>
                             <li class="flex items-start">
-                                <span class="font-bold text-gray-800 w-24 flex-shrink-0">학력</span> 
+                                <span class="font-bold text-gray-800 w-20 md:w-24 flex-shrink-0">학력</span> 
                                 <div class="flex-1">
                                     <span class="font-semibold text-gray-800 block">경기대학교 호텔경영학과 졸업 (13.03 ~ 20.02)</span>
-                                    <p class="text-sm text-gray-500 mt-1.5">↳ 2017년 경기대학교 호텔경영학과 학생회장 역임</p>
+                                    <p class="text-xs md:text-sm text-gray-500 mt-1">↳ 2017년 경기대학교 호텔경영학과 학생회장 역임</p>
                                 </div>
                             </li>
                             <li class="flex items-start">
-                                <span class="font-bold text-gray-800 w-24 flex-shrink-0">기타</span> 
+                                <span class="font-bold text-gray-800 w-20 md:w-24 flex-shrink-0">기타</span> 
                                 <div class="flex-1">
-                                    <ul class="list-disc pl-4 text-sm text-gray-500 space-y-1.5 leading-relaxed">
+                                    <ul class="list-disc pl-4 text-xs md:text-sm text-gray-500 space-y-1 md:space-y-1.5 leading-relaxed">
                                         <li>영국워킹홀리데이 (18.03~20.01)</li>
                                         <li>경영정보시각화(Tableau), 컴퓨터활용능력1급 자격증 보유</li>
                                         <li class="font-semibold text-blue-600">클래스101 - 태블로 실무활용 강의 런칭 (25.06)</li>
@@ -171,12 +161,12 @@
                                 </div>
                             </li>
                             <li class="flex items-start">
-                                <span class="font-bold text-gray-800 w-24 flex-shrink-0">Address</span> 
+                                <span class="font-bold text-gray-800 w-20 md:w-24 flex-shrink-0">Address</span> 
                                 <span class="text-gray-600 flex-1">서울특별시 동대문구 이문동</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="font-bold text-gray-800 w-24 flex-shrink-0">Email</span> 
-                                <span class="text-gray-600 flex-1">mh201340252@gmail.com</span>
+                                <span class="font-bold text-gray-800 w-20 md:w-24 flex-shrink-0">Email</span> 
+                                <span class="text-gray-600 flex-1 break-all">mh201340252@gmail.com</span>
                             </li>
                         </ul>
                     </div>
@@ -185,37 +175,35 @@
         </section>
 
         <!-- Section 3: 핵심 역량 (Competency - Chart.js) -->
-        <section id="section3" class="scroll-mt-16 py-24 bg-white px-4">
+        <section id="section3" class="scroll-mt-20 py-16 md:py-24 bg-white px-4">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-4" data-aos="fade-up">Core Competencies</h2>
-                <p class="text-center text-gray-500 mb-16" data-aos="fade-up" data-aos-delay="100"></p>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <div data-aos="fade-right" class="order-2 lg:order-1 space-y-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-10 md:mb-16" data-aos="fade-up">Core Competencies</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
+                    <div data-aos="fade-right" class="order-2 lg:order-1 space-y-6 md:space-y-8">
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Data Analytics & SQL</h4>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-blue-600 h-2.5 rounded-full" style="width: 85%"></div>
+                            <h4 class="text-lg md:text-xl font-bold mb-2">Data Analytics & SQL</h4>
+                            <div class="w-full bg-gray-200 rounded-full h-2 md:h-2.5">
+                                <div class="bg-blue-600 h-2 md:h-2.5 rounded-full" style="width: 85%"></div>
                             </div>
-                            <p class="text-sm text-gray-500 mt-2">SQL, Excel을 활용한 대용량 데이터 전처리 및 탐색적 데이터 분석(EDA)</p>
+                            <p class="text-xs md:text-sm text-gray-500 mt-2">SQL, Excel을 활용한 대용량 데이터 전처리 및 탐색적 데이터 분석(EDA)</p>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Data Visualization & BI</h4>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-blue-500 h-2.5 rounded-full" style="width: 87%"></div>
+                            <h4 class="text-lg md:text-xl font-bold mb-2">Data Visualization & BI</h4>
+                            <div class="w-full bg-gray-200 rounded-full h-2 md:h-2.5">
+                                <div class="bg-blue-500 h-2 md:h-2.5 rounded-full" style="width: 87%"></div>
                             </div>
-                            <p class="text-sm text-gray-500 mt-2">Tableau를 활용한 주요 KPI 모니터링 대시보드 구축</p>
+                            <p class="text-xs md:text-sm text-gray-500 mt-2">Tableau를 활용한 주요 KPI 모니터링 대시보드 구축</p>
                         </div>
                         <div>
-                            <h4 class="text-xl font-bold mb-2">Business Insights & Strategy</h4>
-                            <div class="w-full bg-gray-200 rounded-full h-2.5">
-                                <div class="bg-indigo-500 h-2.5 rounded-full" style="width: 89%"></div>
+                            <h4 class="text-lg md:text-xl font-bold mb-2">Business Insights & Strategy</h4>
+                            <div class="w-full bg-gray-200 rounded-full h-2 md:h-2.5">
+                                <div class="bg-indigo-500 h-2 md:h-2.5 rounded-full" style="width: 89%"></div>
                             </div>
-                            <p class="text-sm text-gray-500 mt-2">지표(KPI) 설계, A/B 테스트 기획, 비즈니스 임팩트 도출</p>
+                            <p class="text-xs md:text-sm text-gray-500 mt-2">지표(KPI) 설계, A/B 테스트 기획, 비즈니스 임팩트 도출</p>
                         </div>
                     </div>
                     <div data-aos="fade-left" class="order-1 lg:order-2 flex justify-center">
-                        <div class="w-full max-w-md relative">
+                        <div class="w-full max-w-xs md:max-w-md relative">
                             <canvas id="competencyChart"></canvas>
                         </div>
                     </div>
@@ -224,52 +212,52 @@
         </section>
 
         <!-- Section 4: 프로젝트 1 (Pricing Strategy) -->
-        <section id="section4" class="scroll-mt-16 py-24 bg-gray-50 px-4">
+        <section id="section4" class="scroll-mt-20 py-16 md:py-24 bg-gray-50 px-4">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">Project 01</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-16" data-aos="fade-up">Project 01</h2>
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
                     <div class="grid grid-cols-1 lg:grid-cols-2">
-                        <div class="bg-blue-600 text-white h-auto flex flex-col justify-center p-8 lg:p-12 relative overflow-hidden">
+                        <div class="bg-blue-600 text-white h-auto flex flex-col justify-center p-6 sm:p-8 lg:p-12 relative overflow-hidden">
                             <div class="absolute -right-10 -top-10 w-48 h-48 bg-white opacity-5 rounded-full"></div>
                             <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-white opacity-10 rounded-full"></div>
                             
-                            <h4 class="text-sm font-bold mb-6 opacity-80 tracking-wider uppercase relative z-10">Key Performance</h4>
-                            <div class="text-6xl md:text-7xl font-extrabold mb-2 relative z-10">+22.7<span class="text-3xl md:text-4xl">%</span></div>
-                            <p class="text-blue-100 mb-8 font-medium text-lg relative z-10">전체 AOV(객단가) 상승</p>
+                            <h4 class="text-xs md:text-sm font-bold mb-4 md:mb-6 opacity-80 tracking-wider uppercase relative z-10">Key Performance</h4>
+                            <div class="text-5xl md:text-7xl font-extrabold mb-1 md:mb-2 relative z-10">+22.7<span class="text-3xl md:text-4xl">%</span></div>
+                            <p class="text-blue-100 mb-6 md:mb-8 font-medium text-sm md:text-lg relative z-10">전체 AOV(객단가) 상승</p>
                             
-                            <div class="grid grid-cols-2 gap-3 relative z-10">
+                            <div class="grid grid-cols-2 gap-2 md:gap-3 relative z-10">
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">+28.5%</div>
-                                    <div class="text-xs md:text-sm text-blue-100">전체 매출액 상승</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">+28.5%</div>
+                                    <div class="text-[10px] md:text-sm text-blue-100">전체 매출액 상승</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">+15.2%</div>
-                                    <div class="text-xs md:text-sm text-blue-100">총 이익액 상승</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">+15.2%</div>
+                                    <div class="text-[10px] md:text-sm text-blue-100">총 이익액 상승</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">+32.8%</div>
-                                    <div class="text-xs md:text-sm text-blue-100">실버 등급 AOV 개선</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">+32.8%</div>
+                                    <div class="text-[10px] md:text-sm text-blue-100">실버 등급 AOV 개선</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">83%</div>
-                                    <div class="text-xs md:text-sm text-blue-100">성과 개선 성공률</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">83%</div>
+                                    <div class="text-[10px] md:text-sm text-blue-100">성과 개선 성공률</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-10 lg:p-12 flex flex-col justify-center">
-                            <span class="text-sm font-semibold text-blue-600 tracking-wide uppercase mb-2">Pricing Strategy & Analysis</span>
-                            <h3 class="text-3xl font-bold mb-4">한국 화장품 브랜드 PCS 할인 스킴 설계 및 성과 분석</h3>
-                            <p class="text-gray-600 mb-6 leading-relaxed">
+                        <div class="p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
+                            <span class="text-xs md:text-sm font-semibold text-blue-600 tracking-wide uppercase mb-2">Pricing Strategy & Analysis</span>
+                            <h3 class="text-xl md:text-3xl font-bold mb-3 md:mb-4 leading-snug">한국 화장품 브랜드 PCS 할인 스킴 설계 및 성과 분석</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-5 md:mb-6 leading-relaxed">
                                 고객의 구매 수량(PCS)에 따른 계단식 할인 구조를 설계하여 소량 구매 패턴을 타파하고, 객단가(AOV)와 총이익을 동시 개선한 전략 프로젝트입니다.
                             </p>
-                            <div class="flex flex-wrap gap-2 mb-8">
-                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">RFM Analysis</span>
-                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Data Analysis</span>
-                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Pricing Strategy</span>
-                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">SQL</span>
+                            <div class="flex flex-wrap gap-2 mb-6 md:mb-8">
+                                <span class="px-2.5 md:px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs md:text-sm">RFM Analysis</span>
+                                <span class="px-2.5 md:px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs md:text-sm">Data Analysis</span>
+                                <span class="px-2.5 md:px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs md:text-sm">Pricing Strategy</span>
+                                <span class="px-2.5 md:px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs md:text-sm">SQL</span>
                             </div>
-                            <button onclick="openModal('proj1', '한국 화장품 브랜드 PCS 할인 스킴 설계 및 성과 분석')" class="text-blue-600 font-semibold hover:text-blue-800 transition-colors inline-flex items-center text-left">
-                                상세 보기 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="openModal('proj1', '한국 화장품 브랜드 PCS 할인 스킴 설계')" class="text-blue-600 text-sm md:text-base font-semibold hover:text-blue-800 transition-colors inline-flex items-center text-left">
+                                상세 보기 <svg class="w-4 h-4 ml-1.5 md:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                             </button>
                         </div>
                     </div>
@@ -278,50 +266,50 @@
         </section>
 
         <!-- Section 5: 프로젝트 2 (Inventory Optimization) -->
-        <section id="section5" class="scroll-mt-16 py-24 bg-white px-4">
+        <section id="section5" class="scroll-mt-20 py-16 md:py-24 bg-white px-4">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">Project 02</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-16" data-aos="fade-up">Project 02</h2>
                 <div class="bg-gray-50 rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
                     <div class="grid grid-cols-1 lg:grid-cols-2">
-                        <div class="p-10 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
-                            <span class="text-sm font-semibold text-indigo-600 tracking-wide uppercase mb-2">Inventory Optimization</span>
-                            <h3 class="text-3xl font-bold mb-4">해외 패션 BTQ C브랜드 재고 구조 분석 및 운영 전략 재설계</h3>
-                            <p class="text-gray-600 mb-6 leading-relaxed">
+                        <div class="p-6 sm:p-8 lg:p-12 flex flex-col justify-center order-2 lg:order-1">
+                            <span class="text-xs md:text-sm font-semibold text-indigo-600 tracking-wide uppercase mb-2">Inventory Optimization</span>
+                            <h3 class="text-xl md:text-3xl font-bold mb-3 md:mb-4 leading-snug">해외 패션 BTQ C브랜드 재고 구조 분석 및 운영 전략 재설계</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-5 md:mb-6 leading-relaxed">
                                 체화 재고 비중이 과다한 브랜드의 재고 연령(Aging) 분석과 ABC 등급제를 도입하여 자산 회전율을 극대화하고 현금 흐름을 개선한 프로젝트입니다.
                             </p>
-                            <div class="flex flex-wrap gap-2 mb-8">
-                                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-sm">Inventory Management</span>
-                                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-sm">GMROI</span>
-                                <span class="px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-sm">Communication</span>
+                            <div class="flex flex-wrap gap-2 mb-6 md:mb-8">
+                                <span class="px-2.5 md:px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs md:text-sm">Inventory</span>
+                                <span class="px-2.5 md:px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs md:text-sm">GMROI</span>
+                                <span class="px-2.5 md:px-3 py-1 bg-white border border-gray-200 text-gray-600 rounded-full text-xs md:text-sm">Communication</span>
                             </div>
-                            <button onclick="openModal('proj2', '해외 패션 BTQ C브랜드 재고 구조 분석 및 운영 전략 재설계')" class="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors inline-flex items-center text-left">
-                                상세 보기 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="openModal('proj2', '해외 패션 BTQ 재고 구조 분석 및 운영 전략')" class="text-indigo-600 text-sm md:text-base font-semibold hover:text-indigo-800 transition-colors inline-flex items-center text-left">
+                                상세 보기 <svg class="w-4 h-4 ml-1.5 md:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                             </button>
                         </div>
-                        <div class="bg-indigo-600 text-white h-auto flex flex-col justify-center p-8 lg:p-12 relative overflow-hidden order-1 lg:order-2">
+                        <div class="bg-indigo-600 text-white h-auto flex flex-col justify-center p-6 sm:p-8 lg:p-12 relative overflow-hidden order-1 lg:order-2">
                             <div class="absolute -right-10 -top-10 w-48 h-48 bg-white opacity-5 rounded-full"></div>
                             <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-white opacity-10 rounded-full"></div>
                             
-                            <h4 class="text-sm font-bold mb-6 opacity-80 tracking-wider uppercase relative z-10">Key Performance</h4>
-                            <div class="text-6xl md:text-7xl font-extrabold mb-2 relative z-10">-80<span class="text-3xl md:text-4xl">%</span></div>
-                            <p class="text-indigo-100 mb-8 font-medium text-lg relative z-10">악성 체화 재고 감축</p>
+                            <h4 class="text-xs md:text-sm font-bold mb-4 md:mb-6 opacity-80 tracking-wider uppercase relative z-10">Key Performance</h4>
+                            <div class="text-5xl md:text-7xl font-extrabold mb-1 md:mb-2 relative z-10">-80<span class="text-3xl md:text-4xl">%</span></div>
+                            <p class="text-indigo-100 mb-6 md:mb-8 font-medium text-sm md:text-lg relative z-10">악성 체화 재고 감축</p>
                             
-                            <div class="grid grid-cols-2 gap-3 relative z-10">
+                            <div class="grid grid-cols-2 gap-2 md:gap-3 relative z-10">
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">762%</div>
-                                    <div class="text-xs md:text-sm text-indigo-100">프로모션 투자 ROI</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">762%</div>
+                                    <div class="text-[10px] md:text-sm text-indigo-100">프로모션 투자 ROI</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">+21억</div>
-                                    <div class="text-xs md:text-sm text-indigo-100">리오더 추가 매출</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">+21억</div>
+                                    <div class="text-[10px] md:text-sm text-indigo-100">리오더 추가 매출</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">$3.6M</div>
-                                    <div class="text-xs md:text-sm text-indigo-100">체화 재고 소진액</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">$3.6M</div>
+                                    <div class="text-[10px] md:text-sm text-indigo-100">체화 재고 소진액</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">Data 설득</div>
-                                    <div class="text-xs md:text-sm text-indigo-100">브랜드·MD 전략적 합의</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">Data 설득</div>
+                                    <div class="text-[10px] md:text-sm text-indigo-100">브랜드·MD 협의</div>
                                 </div>
                             </div>
                         </div>
@@ -331,51 +319,51 @@
         </section>
 
         <!-- Section 6: 프로젝트 3 (Sales & Profitability Optimization) -->
-        <section id="section6" class="scroll-mt-16 py-24 bg-gray-50 px-4">
+        <section id="section6" class="scroll-mt-20 py-16 md:py-24 bg-gray-50 px-4">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold text-center mb-16" data-aos="fade-up">Project 03</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-16" data-aos="fade-up">Project 03</h2>
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="fade-up">
                     <div class="grid grid-cols-1 lg:grid-cols-2">
-                        <div class="bg-emerald-600 text-white h-auto flex flex-col justify-center p-8 lg:p-12 relative overflow-hidden">
+                        <div class="bg-emerald-600 text-white h-auto flex flex-col justify-center p-6 sm:p-8 lg:p-12 relative overflow-hidden">
                             <div class="absolute -right-10 -top-10 w-48 h-48 bg-white opacity-5 rounded-full"></div>
                             <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-white opacity-10 rounded-full"></div>
                             
-                            <h4 class="text-sm font-bold mb-6 opacity-80 tracking-wider uppercase relative z-10">Key Performance</h4>
-                            <div class="text-6xl md:text-7xl font-extrabold mb-2 relative z-10">+82<span class="text-3xl md:text-4xl">%</span></div>
-                            <p class="text-emerald-100 mb-8 font-medium text-lg relative z-10">전년 대비 공헌이익률 개선</p>
+                            <h4 class="text-xs md:text-sm font-bold mb-4 md:mb-6 opacity-80 tracking-wider uppercase relative z-10">Key Performance</h4>
+                            <div class="text-5xl md:text-7xl font-extrabold mb-1 md:mb-2 relative z-10">+82<span class="text-3xl md:text-4xl">%</span></div>
+                            <p class="text-emerald-100 mb-6 md:mb-8 font-medium text-sm md:text-lg relative z-10">전년 대비 공헌이익률 개선</p>
                             
-                            <div class="grid grid-cols-2 gap-3 relative z-10">
+                            <div class="grid grid-cols-2 gap-2 md:gap-3 relative z-10">
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">+59%</div>
-                                    <div class="text-xs md:text-sm text-emerald-100">비수기 매출 신장율</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">+59%</div>
+                                    <div class="text-[10px] md:text-sm text-emerald-100">비수기 매출 신장율</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">HHI ↓</div>
-                                    <div class="text-xs md:text-sm text-emerald-100">2500대 초고위험 탈피</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">HHI ↓</div>
+                                    <div class="text-[10px] md:text-sm text-emerald-100">2500대 위험 탈피</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">-15%</div>
-                                    <div class="text-xs md:text-sm text-emerald-100">의도적 매출 볼륨 축소</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">-15%</div>
+                                    <div class="text-[10px] md:text-sm text-emerald-100">의도적 볼륨 축소</div>
                                 </div>
                                 <div class="bg-white/10 p-3 md:p-4 rounded-xl backdrop-blur-sm border border-white/20">
-                                    <div class="text-xl md:text-2xl font-bold mb-1">+5.7%</div>
-                                    <div class="text-xs md:text-sm text-emerald-100">순 공헌이익액 자체 증가</div>
+                                    <div class="text-lg md:text-2xl font-bold mb-0.5 md:mb-1">+5.7%</div>
+                                    <div class="text-[10px] md:text-sm text-emerald-100">순 이익액 자체 증가</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-10 lg:p-12 flex flex-col justify-center">
-                            <span class="text-sm font-semibold text-emerald-600 tracking-wide uppercase mb-2">Sales & Profitability Optimization</span>
-                            <h3 class="text-3xl font-bold mb-4">해외 패션 M브랜드 거래처 다변화 및 수익 구조 최적화</h3>
-                            <p class="text-gray-600 mb-6 leading-relaxed">
+                        <div class="p-6 sm:p-8 lg:p-12 flex flex-col justify-center">
+                            <span class="text-xs md:text-sm font-semibold text-emerald-600 tracking-wide uppercase mb-2">Sales & Profitability</span>
+                            <h3 class="text-xl md:text-3xl font-bold mb-3 md:mb-4 leading-snug">해외 패션 M브랜드 거래처 다변화 및 수익 구조 최적화</h3>
+                            <p class="text-sm md:text-base text-gray-600 mb-5 md:mb-6 leading-relaxed">
                                 HHI(시장 집중도) 지수를 활용해 특정 거래처에 편중된 매출 리스크를 분석하고, B2B 판로 다변화 전략과 판단가 재협상을 통해 공헌이익률을 극대화한 프로젝트입니다.
                             </p>
-                            <div class="flex flex-wrap gap-2 mb-8">
-                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">B2B Sales</span>
-                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">HHI Index</span>
-                                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Communication</span>
+                            <div class="flex flex-wrap gap-2 mb-6 md:mb-8">
+                                <span class="px-2.5 md:px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs md:text-sm">B2B Sales</span>
+                                <span class="px-2.5 md:px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs md:text-sm">HHI Index</span>
+                                <span class="px-2.5 md:px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs md:text-sm">Communication</span>
                             </div>
-                            <button onclick="openModal('proj3', '해외 패션 M브랜드 거래처 다변화 및 수익 구조 최적화')" class="text-emerald-600 font-semibold hover:text-emerald-800 transition-colors inline-flex items-center text-left">
-                                상세 보기 <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            <button onclick="openModal('proj3', '해외 패션 거래처 다변화 및 수익 최적화')" class="text-emerald-600 text-sm md:text-base font-semibold hover:text-emerald-800 transition-colors inline-flex items-center text-left">
+                                상세 보기 <svg class="w-4 h-4 ml-1.5 md:ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                             </button>
                         </div>
                     </div>
@@ -384,32 +372,44 @@
         </section>
     </main>
 
-    <!-- Project STAR-I Modal -->
-    <div id="projectModal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-2xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden relative transform scale-95 transition-transform duration-300" id="modalContent">
+    <!-- 모바일 환경을 배려한 심플한 Footer 및 Contact -->
+    <footer class="bg-gray-800 text-white py-12 text-center px-4">
+        <h3 class="text-xl font-bold mb-4">새로운 도전을 기다립니다.</h3>
+        <p class="text-gray-400 text-sm mb-6">데이터로 현장의 문제를 해결하는 세일즈 매니저, 배민한</p>
+        <a href="mailto:mh201340252@gmail.com" class="inline-flex items-center justify-center px-6 py-2.5 border border-gray-600 rounded-full text-sm font-medium hover:bg-white hover:text-gray-900 transition-all mb-8">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            mh201340252@gmail.com
+        </a>
+        <div class="border-t border-gray-700 pt-6">
+            <p class="text-gray-500 text-xs">© 2026 Minhan Bae Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Project STAR-I Modal (모바일 뷰 최적화 패딩 적용) -->
+    <div id="projectModal" class="fixed inset-0 z-[100] hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-0 md:p-6 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-none md:rounded-2xl w-full max-w-5xl h-full md:h-[85vh] flex flex-col overflow-hidden relative transform md:scale-95 transition-transform duration-300" id="modalContent">
             
-            <div class="flex justify-between items-center p-6 border-b border-gray-100 shrink-0">
-                <h3 id="modalTitle" class="text-xl md:text-2xl font-bold text-gray-800 truncate pr-4">Project Title</h3>
-                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-800 transition-colors p-2 rounded-full hover:bg-gray-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            <!-- 모달 헤더 -->
+            <div class="flex justify-between items-center p-4 md:p-6 border-b border-gray-100 shrink-0">
+                <h3 id="modalTitle" class="text-lg md:text-2xl font-bold text-gray-800 truncate pr-4">Project Title</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-gray-800 transition-colors p-2 rounded-full hover:bg-gray-100 bg-gray-50 md:bg-transparent">
+                    <svg class="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
             
+            <!-- 모달 슬라이드 영역 -->
             <div class="flex-1 overflow-hidden relative bg-gray-50/50">
                 <div id="sliderWrapper" class="flex h-full transition-transform duration-500 ease-in-out"></div>
             </div>
             
-            <div class="p-4 md:p-6 border-t border-gray-100 flex justify-between items-center bg-white shrink-0">
-                <button id="prevBtn" onclick="moveSlide(-1)" class="px-5 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">이전</button>
-                <div id="slideDots" class="flex space-x-2 overflow-x-auto px-4"></div>
-                <button id="nextBtn" onclick="moveSlide(1)" class="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">다음</button>
+            <!-- 모달 하단 네비게이션 -->
+            <div class="p-3 md:p-6 border-t border-gray-100 flex justify-between items-center bg-white shrink-0">
+                <button id="prevBtn" onclick="moveSlide(-1)" class="px-4 py-2 md:px-5 md:py-2.5 bg-gray-100 text-gray-700 text-sm md:text-base font-medium rounded-lg hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">이전</button>
+                <div id="slideDots" class="flex space-x-1.5 md:space-x-2 overflow-x-auto px-2 md:px-4"></div>
+                <button id="nextBtn" onclick="moveSlide(1)" class="px-4 py-2 md:px-5 md:py-2.5 bg-blue-600 text-white text-sm md:text-base font-medium rounded-lg hover:bg-blue-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">다음</button>
             </div>
         </div>
     </div>
-
-    <footer class="bg-gray-50 py-8 border-t border-gray-200 text-center">
-        <p class="text-gray-500 text-sm">© 2026 Minhan Bae Portfolio. All rights reserved.</p>
-    </footer>
 
     <!-- Scripts -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -430,7 +430,7 @@
         });
 
         // 1. AOS 초기화
-        AOS.init({ once: true, offset: 100, duration: 800, easing: 'ease-out-cubic' });
+        AOS.init({ once: true, offset: 50, duration: 600, easing: 'ease-out-cubic' }); // 모바일 최적화 위해 offset/duration 약간 줄임
 
         // 2. Chart.js 레이더 차트
         const ctx = document.getElementById('competencyChart').getContext('2d');
@@ -459,7 +459,12 @@
                         max: 100,         
                         angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
                         grid: { color: 'rgba(0, 0, 0, 0.1)' },
-                        pointLabels: { font: { size: 12 }, color: '#4B5563' },
+                        pointLabels: { 
+                            font: { 
+                                size: window.innerWidth < 768 ? 9 : 12 // 모바일 폰트 사이즈 동적 축소
+                            }, 
+                            color: '#4B5563' 
+                        },
                         ticks: { display: false } 
                     }
                 },
@@ -488,38 +493,42 @@
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${current}`) {
                     link.classList.add('active');
+                    // 모바일 화면에서 활성화된 메뉴가 보이도록 수평 스크롤 이동
+                    if(window.innerWidth < 768) {
+                        link.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    }
                 }
             });
         });
 
-        // 4. STAR-I 프로젝트 모달 슬라이더 로직
+        // 4. STAR-I 프로젝트 모달 슬라이더 로직 (모바일 뷰 가독성 극대화)
         const starData = {
             proj1: [
-                { badge: 'Overview', title: '문제 정의 (Problem Definition)', content: '<div class="space-y-6"><div><h4 class="text-xl font-bold text-gray-800 mb-2">🚨 배경</h4><p class="text-gray-700 leading-relaxed">RFM(Recency, Frequency, Monetary) 분석 결과, 하위 등급(실버) 고객층에서 단발성 소량 구매(1~2개) 패턴이 고착화되어 수익성 극대화에 한계가 있음을 확인했습니다.</p></div><div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-xl shadow-sm"><h4 class="text-lg font-bold text-blue-800 mb-2">🎯 핵심 목표</h4><p class="text-blue-900 leading-relaxed">소량 구매 비중이 높은 실버 등급 고객의 구매 행동을 <strong>1개에서 3개 이상으로 유도</strong>하는 다구성(Piece) 할인 구조 설계.<br/>결과적으로 <strong>UPT(거래당 판매수량)와 AOV(객단가) 동시 개선</strong>.</p></div></div>' },
-                { badge: 'Situation', title: '데이터 환경 및 가설 (Data & Hypothesis)', content: '<div class="mb-6"><h4 class="text-lg font-bold text-gray-800 mb-3">📊 데이터 환경</h4><ul class="list-disc pl-6 space-y-2 text-gray-700 bg-gray-50 p-4 rounded-xl"><li><strong>15개 파일럿 브랜드 구매 이력</strong></li><li>고객 멤버십 번호, 등급, SKU, 구매수량, 총매출, 순매출</li></ul></div><div class="space-y-4"><h4 class="text-lg font-bold text-gray-800 mb-3">💡 핵심 가설</h4><div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"><h5 class="font-bold text-blue-600 mb-2">가설 1. 탄력성 반응</h5><p class="text-gray-700">실버 등급은 가격 탄력성이 높아, 다구성(Piece) 할인 진행 시 객단가 및 거래당 판매수량이 동시 증가할 것이다.</p></div><div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"><h5 class="font-bold text-blue-600 mb-2">가설 2. 이익 볼륨 증대</h5><p class="text-gray-700">PCS 할인 시행으로 1개당 이익률은 낮아지겠지만, 전체 매출 볼륨 상승이 총 이익액(Total Profit) 자체의 상승을 견인할 것이다.</p></div></div>' },
-                { badge: 'Task', title: '탐색적 분석: 수량과 객단가 (EDA)', content: '<div class="grid grid-cols-1 gap-6"><div class="bg-red-50 p-6 rounded-xl border border-red-100"><h4 class="font-bold text-xl mb-3 text-red-600">📉 현황 (As-Is)</h4><p class="text-gray-700 leading-relaxed">전체 주문의 <strong>80%가 1개 구매 건</strong>에 집중되어 있습니다.<br/>특히 이 구간은 쿠폰, 선불카드, 리워즈 등의 중복 적용으로 인해 마진율이 가장 낮게 형성됨을 확인했습니다.</p></div><div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100"><h4 class="font-bold text-xl mb-3 text-indigo-600">🔍 상관분석 결과</h4><p class="text-gray-700 leading-relaxed">SQL 분석 결과, UPT가 1에서 3으로 증가할 때 AOV는 단순 산술 합산을 뛰어넘는 <strong>높은 시너지</strong>를 보였습니다.<br/><span class="text-sm text-indigo-800 mt-2 inline-block bg-indigo-100 px-2 py-1 rounded">* 추가 연계 구매 유도 효과 확인</span></p></div></div>' },
-                { badge: 'Action 1', title: '가격 탄력성 및 마진 시뮬레이션', content: '<div class="space-y-6"><div class="border-b border-gray-200 pb-5"><h4 class="text-lg font-bold text-gray-800 mb-2">📈 분석 기법</h4><p class="text-gray-700 leading-relaxed">과거 프로모션 데이터를 기반으로 브랜드별 수요의 가격 탄력성을 산출했습니다.</p></div><div class="bg-blue-50 p-6 rounded-xl border border-blue-100"><h4 class="text-xl font-bold text-blue-700 mb-3">🛠️ 최적화 시뮬레이션 (Deep Dive)</h4><p class="text-gray-700 leading-relaxed">시뮬레이션을 통해 <strong>3개 구매 시 최대 30%의 할인</strong>을 제공하더라도, 아래 요소들로 인해 <strong>전체 총 이익(Total Profit)은 기존 대비 상승</strong>함을 통계적으로 증명했습니다.</p><ul class="list-disc pl-5 mt-4 space-y-2 text-blue-900 font-medium"><li>AOV(객단가)의 가파른 상승</li><li>기타 할인 수단(쿠폰/리워즈 등) 사용액의 상대적 절감 효과</li></ul></div></div>' },
-                { badge: 'Action 2', title: 'PCS 할인 스킴 설계 (Strategy)', content: '<h4 class="text-xl font-bold text-gray-800 mb-5">계단식 PCS 할인 구조 설계</h4><div class="flex flex-col gap-4 mb-8"><div class="flex flex-col sm:flex-row sm:items-center p-4 bg-gray-50 rounded-xl border border-gray-200"><span class="sm:w-32 font-bold text-gray-500 text-lg mb-2 sm:mb-0">1개 구매</span><span class="text-gray-700">기존 멤버십 할인율 적용</span></div><div class="flex flex-col sm:flex-row sm:items-center p-4 bg-blue-50 rounded-xl border border-blue-200"><span class="sm:w-32 font-bold text-blue-600 text-lg mb-2 sm:mb-0">N개 구매</span><span class="text-blue-800 font-medium">+5~10% 추가 할인</span></div><div class="flex flex-col sm:flex-row sm:items-center p-5 bg-indigo-100 rounded-xl shadow-md border border-indigo-200"><span class="sm:w-32 font-extrabold text-indigo-700 text-xl mb-2 sm:mb-0">N+M개 이상</span><span class="text-indigo-900 font-bold text-lg">+15~20% 최대 할인 (Target Point)</span></div></div><div class="bg-gray-800 text-white p-5 rounded-xl"><h4 class="font-bold mb-2 text-blue-300">💡 차별화 전략</h4><p class="leading-relaxed opacity-90">고단가/저단가 브랜드를 구분해 별도의 스킴을 설계하고, 등급에 따른 차등 없이 동일한 최고 할인율을 제공하여 <strong>하위 등급 고객의 강한 추가 구매 행동을 유도</strong>했습니다.</p></div>' },
-                { badge: 'Result', title: '실행 및 성과 분석 (Results)', content: '<div class="mb-5"><p class="text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200"><strong>🚀 테스트 진행:</strong> 15개 파일럿 브랜드 선적용 후, 성과 검증을 거쳐 <strong>105개 브랜드로 전사 확대 적용</strong>했습니다.</p></div><div class="flex flex-col md:flex-row gap-5"><div class="w-full md:w-1/2 bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-8 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"><h4 class="font-medium opacity-80 mb-2">전체 AOV 상승</h4><div class="text-5xl font-extrabold mb-3">+22.7%</div><p class="bg-white/20 px-3 py-1 rounded-full text-sm mt-2">실버 등급 AOV +32.8% (최고 반응)</p></div><div class="w-full md:w-1/2 flex flex-col justify-center space-y-4"><div class="bg-green-50 border border-green-200 p-5 rounded-2xl"><p class="text-green-800 font-bold text-lg flex items-center mb-1">✅ 성과 개선 성공률 83%</p><p class="text-gray-600 text-sm leading-relaxed">105개 브랜드 중 87개에서 유의미한 KPI 개선 확인</p></div><div class="bg-blue-50 border border-blue-200 p-5 rounded-2xl"><p class="text-blue-800 font-bold text-lg flex items-center mb-1">✅ 가설 2 검증 완료 (이익 증대)</p><p class="text-gray-600 text-sm leading-relaxed">카테고리 전체 이익률은 3.8%p 감소했으나, 전체 매출액 <strong>+28.5%</strong> 및 총 이익액 <strong>+15.2%</strong> 동반 상승</p></div></div></div>' },
-                { badge: 'Insight', title: '비즈니스 임팩트 (Conclusion)', content: '<div class="space-y-6"><div class="bg-gray-50 p-6 rounded-2xl border border-gray-200"><h4 class="text-xl font-bold text-gray-800 mb-3">🧠 행동 설계의 중요성</h4><p class="text-gray-700 leading-relaxed">단순히 단가를 낮추는 제살깎기(치킨게임) 프로모션이 아니라, <strong>"많이 살수록 고객에게 이득"</strong>이라는 인식을 심어 구매 단위 자체를 구조적으로 변화시키는 것이 진정한 프로모션임을 배웠습니다.</p></div><div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100"><h4 class="text-xl font-bold text-indigo-800 mb-3">🔄 확장성 (Scalability)</h4><p class="text-indigo-900 leading-relaxed"><strong>\'PCS 할인 프로모션 효과 분석 쿼리\'</strong>를 자동화하여 구축했습니다. 이를 통해 신규 브랜드 입점 시 프로모션 진행 여부에 대한 의사결정 속도를 대폭 높이고, 일부 한국 패션 브랜드까지 성공적으로 확대 적용하는 시스템적 기반을 마련했습니다.</p></div></div>' }
+                { badge: 'Overview', title: '문제 정의 (Problem Definition)', content: '<div class="space-y-4 md:space-y-6"><div><h4 class="text-base md:text-xl font-bold text-gray-800 mb-2">🚨 배경</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">RFM(Recency, Frequency, Monetary) 분석 결과, 하위 등급(실버) 고객층에서 단발성 소량 구매(1~2개) 패턴이 고착화되어 수익성 극대화에 한계가 있음을 확인했습니다.</p></div><div class="bg-blue-50 border-l-4 border-blue-500 p-4 md:p-5 rounded-r-xl shadow-sm"><h4 class="text-base md:text-lg font-bold text-blue-800 mb-2">🎯 핵심 목표</h4><p class="text-sm md:text-base text-blue-900 leading-relaxed">소량 구매 비중이 높은 실버 등급 고객의 구매 행동을 <strong>1개에서 3개 이상으로 유도</strong>하는 다구성(Piece) 할인 구조 설계.<br/>결과적으로 <strong>UPT(거래당 판매수량)와 AOV(객단가) 동시 개선</strong>.</p></div></div>' },
+                { badge: 'Situation', title: '데이터 환경 및 가설 (Data & Hypothesis)', content: '<div class="mb-4 md:mb-6"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">📊 데이터 환경</h4><ul class="list-disc pl-5 md:pl-6 space-y-1 md:space-y-2 text-sm md:text-base text-gray-700 bg-gray-50 p-4 rounded-xl"><li><strong>15개 파일럿 브랜드 구매 이력</strong></li><li>고객 멤버십 번호, 등급, SKU, 구매수량, 총매출, 순매출</li></ul></div><div class="space-y-3 md:space-y-4"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">💡 핵심 가설</h4><div class="bg-white p-4 md:p-5 rounded-xl border border-gray-200 shadow-sm"><h5 class="text-sm md:text-base font-bold text-blue-600 mb-1.5 md:mb-2">가설 1. 탄력성 반응</h5><p class="text-sm md:text-base text-gray-700 leading-relaxed">실버 등급은 가격 탄력성이 높아, 다구성(Piece) 할인 진행 시 객단가 및 거래당 판매수량이 동시 증가할 것이다.</p></div><div class="bg-white p-4 md:p-5 rounded-xl border border-gray-200 shadow-sm"><h5 class="text-sm md:text-base font-bold text-blue-600 mb-1.5 md:mb-2">가설 2. 이익 볼륨 증대</h5><p class="text-sm md:text-base text-gray-700 leading-relaxed">PCS 할인 시행으로 1개당 이익률은 낮아지겠지만, 전체 매출 볼륨 상승이 총 이익액(Total Profit) 자체의 상승을 견인할 것이다.</p></div></div>' },
+                { badge: 'Task', title: '탐색적 분석: 수량과 객단가 (EDA)', content: '<div class="grid grid-cols-1 gap-4 md:gap-6"><div class="bg-red-50 p-4 md:p-6 rounded-xl border border-red-100"><h4 class="font-bold text-lg md:text-xl mb-2 md:mb-3 text-red-600">📉 현황 (As-Is)</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">전체 주문의 <strong>80%가 1개 구매 건</strong>에 집중되어 있습니다.<br/>특히 이 구간은 쿠폰, 선불카드, 리워즈 등의 중복 적용으로 인해 마진율이 가장 낮게 형성됨을 확인했습니다.</p></div><div class="bg-indigo-50 p-4 md:p-6 rounded-xl border border-indigo-100"><h4 class="font-bold text-lg md:text-xl mb-2 md:mb-3 text-indigo-600">🔍 상관분석 결과</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">SQL 분석 결과, UPT가 1에서 3으로 증가할 때 AOV는 단순 산술 합산을 뛰어넘는 <strong>높은 시너지</strong>를 보였습니다.<br/><span class="text-xs md:text-sm text-indigo-800 mt-2 inline-block bg-indigo-100 px-2 py-1 rounded">* 추가 연계 구매 유도 효과 확인</span></p></div></div>' },
+                { badge: 'Action 1', title: '가격 탄력성 및 마진 시뮬레이션', content: '<div class="space-y-4 md:space-y-6"><div class="border-b border-gray-200 pb-4 md:pb-5"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2">📈 분석 기법</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">과거 프로모션 데이터를 기반으로 브랜드별 수요의 가격 탄력성을 산출했습니다.</p></div><div class="bg-blue-50 p-4 md:p-6 rounded-xl border border-blue-100"><h4 class="text-lg md:text-xl font-bold text-blue-700 mb-2 md:mb-3">🛠️ 최적화 시뮬레이션 (Deep Dive)</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">시뮬레이션을 통해 <strong>3개 구매 시 최대 30%의 할인</strong>을 제공하더라도, 아래 요소들로 인해 <strong>전체 총 이익(Total Profit)은 기존 대비 상승</strong>함을 통계적으로 증명했습니다.</p><ul class="list-disc pl-5 mt-3 md:mt-4 space-y-1.5 md:space-y-2 text-sm md:text-base text-blue-900 font-medium"><li>AOV(객단가)의 가파른 상승</li><li>기타 할인 수단(쿠폰/리워즈 등) 사용액의 상대적 절감 효과</li></ul></div></div>' },
+                { badge: 'Action 2', title: 'PCS 할인 스킴 설계 (Strategy)', content: '<h4 class="text-lg md:text-xl font-bold text-gray-800 mb-4 md:mb-5">계단식 PCS 할인 구조 설계</h4><div class="flex flex-col gap-3 md:gap-4 mb-6 md:mb-8"><div class="flex flex-col md:flex-row md:items-center p-4 bg-gray-50 rounded-xl border border-gray-200"><span class="w-full md:w-32 font-bold text-gray-500 text-base md:text-lg mb-1 md:mb-0 md:text-center inline-block">1개 구매</span><span class="text-sm md:text-base text-gray-700 flex-1 md:ml-3">기존 멤버십 할인율 적용</span></div><div class="flex flex-col md:flex-row md:items-center p-4 bg-blue-50 rounded-xl border border-blue-200"><span class="w-full md:w-32 font-bold text-blue-600 text-base md:text-lg mb-1 md:mb-0 md:text-center inline-block">N개 구매</span><span class="text-sm md:text-base text-blue-800 font-medium flex-1 md:ml-3">+5~10% 추가 할인</span></div><div class="flex flex-col md:flex-row md:items-center p-5 bg-indigo-100 rounded-xl shadow-sm border border-indigo-200"><span class="w-full md:w-32 font-extrabold text-indigo-700 text-lg md:text-xl mb-1 md:mb-0 md:text-center inline-block">N+M개 이상</span><span class="text-base md:text-lg text-indigo-900 font-bold flex-1 md:ml-3">+15~20% 최대 할인 (Target Point)</span></div></div><div class="bg-gray-800 text-white p-4 md:p-5 rounded-xl"><h4 class="text-sm md:text-base font-bold mb-1.5 md:mb-2 text-blue-300">💡 차별화 전략</h4><p class="text-xs md:text-sm leading-relaxed opacity-90">고단가/저단가 브랜드를 구분해 별도의 스킴을 설계하고, 등급에 따른 차등 없이 동일한 최고 할인율을 제공하여 <strong>하위 등급 고객의 강한 추가 구매 행동을 유도</strong>했습니다.</p></div>' },
+                { badge: 'Result', title: '실행 및 성과 분석 (Results)', content: '<div class="mb-4 md:mb-5"><p class="text-sm md:text-base text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200"><strong>🚀 테스트 진행:</strong> 15개 파일럿 브랜드 선적용 후, 성과 검증을 거쳐 <strong>105개 브랜드로 전사 확대 적용</strong></p></div><div class="flex flex-col md:flex-row gap-4 md:gap-5"><div class="w-full md:w-1/2 bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-6 md:p-8 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"><h4 class="text-sm md:text-base font-medium opacity-80 mb-2">전체 AOV 상승</h4><div class="text-4xl md:text-5xl font-extrabold mb-2 md:mb-3">+22.7%</div><p class="bg-white/20 px-3 py-1 rounded-full text-xs md:text-sm mt-1 md:mt-2">실버 등급 AOV +32.8% (최고 반응)</p></div><div class="w-full md:w-1/2 flex flex-col justify-center space-y-3 md:space-y-4"><div class="bg-green-50 border border-green-200 p-4 md:p-5 rounded-2xl"><p class="text-green-800 font-bold text-base md:text-lg flex items-center mb-1">✅ 성과 개선 성공률 83%</p><p class="text-xs md:text-sm text-gray-600 leading-relaxed">105개 브랜드 중 87개에서 유의미한 KPI 개선 확인</p></div><div class="bg-blue-50 border border-blue-200 p-4 md:p-5 rounded-2xl"><p class="text-blue-800 font-bold text-base md:text-lg flex items-center mb-1">✅ 가설 2 검증 (이익 증대)</p><p class="text-xs md:text-sm text-gray-600 leading-relaxed">이익률 3.8%p 감소에도, 전체 매출 <strong>+28.5%</strong> 및 총 이익액 <strong>+15.2%</strong> 동반 상승</p></div></div></div>' },
+                { badge: 'Insight', title: '비즈니스 임팩트 (Conclusion)', content: '<div class="space-y-4 md:space-y-6"><div class="bg-gray-50 p-5 md:p-6 rounded-2xl border border-gray-200"><h4 class="text-lg md:text-xl font-bold text-gray-800 mb-2 md:mb-3">🧠 행동 설계의 중요성</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">단순히 단가를 낮추는 제살깎기 프로모션이 아니라, <strong>"많이 살수록 고객에게 이득"</strong>이라는 인식을 심어 구매 단위 자체를 구조적으로 변화시키는 것이 진정한 프로모션임을 배웠습니다.</p></div><div class="bg-indigo-50 p-5 md:p-6 rounded-2xl border border-indigo-100"><h4 class="text-lg md:text-xl font-bold text-indigo-800 mb-2 md:mb-3">🔄 확장성 (Scalability)</h4><p class="text-sm md:text-base text-indigo-900 leading-relaxed"><strong>\'PCS 할인 효과 분석 쿼리\'</strong>를 자동화했습니다. 이를 통해 신규 브랜드 입점 시 진행 여부에 대한 의사결정 속도를 높이고, 일부 한국 패션 브랜드까지 성공적으로 확대 적용했습니다.</p></div></div>' }
             ],
             proj2: [
-                { badge: 'Overview', title: '문제 정의 (Problem Definition)', content: '<div class="space-y-6"><div><h4 class="text-xl font-bold text-gray-800 mb-2">🚨 배경</h4><p class="text-gray-700 leading-relaxed">특정 해외 패션 브랜드의 체화 재고 비중이 과다하여 재고 회전율이 저하되고, 이로 인한 <strong>OTB(Open-To-Buy) 발주 버젯 축소로 매출 정체가 심화</strong>되는 악순환이 발생했습니다.</p></div><div class="bg-indigo-50 border-l-4 border-indigo-500 p-5 rounded-r-xl shadow-sm"><h4 class="text-lg font-bold text-indigo-800 mb-2">🎯 핵심 목표</h4><p class="text-indigo-900 leading-relaxed">데이터 기반의 재고 연령 분석과 ABC 등급제를 도입하여 <strong>체화 재고를 50% 이상 감축</strong>하고, <strong>OTB 버젯 확보 및 베스트 리오더</strong>를 통해 재고 건전화와 매출 활성화를 동시에 달성합니다.</p></div></div>' },
-                { badge: 'Situation', title: '데이터 환경 및 분석 지표 (Data & Metrics)', content: '<div class="mb-6"><h4 class="text-lg font-bold text-gray-800 mb-3">📊 데이터 환경</h4><ul class="list-disc pl-6 space-y-2 text-gray-700 bg-gray-50 p-4 rounded-xl"><li><strong>SKU 및 Aging 기준 입고-판매 이력</strong></li><li>잔여 재고 금액 (매가, 원가 기준)</li></ul></div><div class="space-y-4"><h4 class="text-lg font-bold text-gray-800 mb-3">💡 핵심 분석 지표 (Key Metrics)</h4><div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col sm:flex-row sm:items-center"><span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded text-sm mb-3 sm:mb-0 sm:mr-4 whitespace-nowrap">Turnover</span><div><h5 class="font-bold text-gray-800">재고 회전율 (Inventory Turnover)</h5><p class="text-gray-600 text-sm mt-1">자산의 현금화 속도를 파악하는 건전성 지표</p></div></div><div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col sm:flex-row sm:items-center"><span class="bg-indigo-100 text-indigo-800 font-bold px-3 py-1 rounded text-sm mb-3 sm:mb-0 sm:mr-4 whitespace-nowrap">GMROI</span><div><h5 class="font-bold text-gray-800">재고 투자 대비 이익률</h5><p class="text-gray-600 text-sm mt-1">"재고에 1원을 투자했을 때 얼마의 이익을 남겼는가?"를 측정하는 자산 효율성 지표</p></div></div></div>' },
-                { badge: 'Task', title: '체화 재고 및 원인 분석 (EDA & Root Cause)', content: '<div class="grid grid-cols-1 gap-6"><div class="bg-red-50 p-6 rounded-xl border border-red-100"><h4 class="font-bold text-xl mb-3 text-red-600">📉 재고 연령(Aging) 분석</h4><p class="text-gray-700 leading-relaxed mb-3">SQL을 활용해 12개월 이상 미판매된 \'체화 재고\'와 6개월 이상된 \'예비체화 재고\'를 산출했습니다.</p><div class="bg-white/60 p-3 rounded-lg"><p class="text-red-800 font-bold">👉 분석 결과: 체화 및 예비체화 재고가 전체의 80%에 육박함을 확인</p></div></div><div class="bg-orange-50 p-6 rounded-xl border border-orange-100"><h4 class="font-bold text-xl mb-3 text-orange-600">🔍 구조적 원인 파악</h4><ul class="list-decimal pl-5 space-y-3 text-gray-800 font-medium"><li><strong>외부적 요인:</strong> 코로나19로 인한 20SS-22FW 거래 단절로 해당 기간 입고 재고의 판매 기회 상실</li><li><strong>내부적 요인:</strong> 수요 예측 없는 \'시즌별 일괄 입고\' 고수<br/><span class="text-sm font-normal text-gray-600 block mt-1">➔ 베스트(A등급)는 조기 품절되고 비인기(C등급)는 과다 입고되는 불균형 현상을 데이터로 확인</span></li></ul></div></div>' },
-                { badge: 'Action 1', title: '운영 전략 재설계 (Strategy)', content: '<div class="space-y-6"><div class="border-b border-gray-200 pb-5"><h4 class="text-xl font-bold text-gray-800 mb-3">전략: ABC 분석 도입</h4><p class="text-gray-700 leading-relaxed">모든 상품을 동일하게 취급하던 방식에서 벗어나, 매출 기여도에 따른 <strong>ABC 재고 등급화 전략</strong>을 수립했습니다.</p></div><div class="flex flex-col gap-4"><div class="flex flex-col sm:flex-row sm:items-center p-5 bg-indigo-50 rounded-xl border border-indigo-100"><span class="sm:w-32 font-bold text-indigo-700 text-xl mb-2 sm:mb-0">A 등급</span><p class="text-gray-700">매출을 견인하는 핵심 베스트 상품 ➔ <strong>절대 품절 방지 로직 적용</strong></p></div><div class="flex flex-col sm:flex-row sm:items-center p-5 bg-gray-50 rounded-xl border border-gray-200"><span class="sm:w-32 font-bold text-gray-500 text-xl mb-2 sm:mb-0">C 등급</span><p class="text-gray-700">매출 기여도가 낮고 공간만 차지하는 상품 ➔ <strong>과감한 소진 전략 기획</strong></p></div></div><div class="bg-gray-800 text-white p-5 rounded-xl mt-4"><h4 class="font-bold mb-2 text-indigo-300">🗣️ 커뮤니케이션 & 데이터 기반 설득</h4><p class="leading-relaxed opacity-90">일괄 입고 방식이 고착화된 상황에서, SKU별 데이터와 재고 연령 지표를 바탕으로 <strong>브랜드 본사 및 내부 MD를 객관적으로 설득</strong>하여 재고 효율화를 위한 전략적 합의를 성공적으로 이끌어냈습니다.</p></div></div>' },
-                { badge: 'Action 2', title: '소진 설계 프로모션 (Execution)', content: '<div class="space-y-6"><div><h4 class="text-xl font-bold text-gray-800 mb-3">소진 설계 프로모션</h4><p class="text-gray-700 leading-relaxed">C등급으로 분류된 체화/예비체화 재고를 빠르게 현금화하기 위한 공격적인 프로모션을 기획했습니다.</p></div><div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100"><h4 class="text-xl font-bold text-indigo-700 mb-3">🛠️ 재고자산평가손해액 반영 모델링</h4><p class="text-gray-700 leading-relaxed mb-4">단순한 감에 의존한 할인이 아닌, 창고 보관 비용 및 <strong>재고자산평가손해액을 정밀하게 반영하여 최적의 할인율을 산정</strong>했습니다.</p><div class="bg-white p-4 rounded-lg shadow-sm border border-indigo-50"><p class="text-indigo-900 font-medium leading-relaxed">👉 <strong>"비용 8억 투입 시나리오"</strong>: 공격적인 재고 건전화 프로모션 비용(8억)을 투입하여 잠재적 손실을 차단하고, 즉각적인 현금을 확보하는 것이 장기 보관보다 재무적으로 우수함을 증명하여 내부 승인 도출.</p></div></div></div>' },
-                { badge: 'Result', title: '실행 및 성과 (Results)', content: '<div class="mb-5"><p class="text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200"><strong>🚀 실행 성과:</strong> ABC 등급제 및 데이터 기반 할인 프로모션을 통한 완벽한 재고 턴어라운드 및 GMROI 극대화 달성</p></div><div class="flex flex-col md:flex-row gap-5"><div class="w-full md:w-1/2 bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-8 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"><h4 class="font-medium opacity-80 mb-2">악성 체화 재고 감축</h4><div class="text-5xl font-extrabold mb-3">-80%</div><p class="bg-white/20 px-3 py-1 rounded-full text-sm mt-2">24.09~25.12 기간 총 $3.6M 판매</p></div><div class="w-full md:w-1/2 flex flex-col justify-center space-y-4"><div class="bg-blue-50 border border-blue-200 p-5 rounded-2xl"><p class="text-blue-800 font-bold text-lg flex items-center mb-1">✅ +21억 원 추가 매출 창출</p><p class="text-gray-600 text-sm leading-relaxed">체화 소진 버젯을 베스트 리오더에 재투자<br/><strong class="text-blue-700">(25.10 기네스 매출 16억 달성 포함)</strong></p></div><div class="bg-green-50 border border-green-200 p-5 rounded-2xl"><p class="text-green-800 font-bold text-lg flex items-center mb-1">✅ 투자 대비 효율(ROI) 762% 달성</p><p class="text-gray-600 text-sm leading-relaxed"><strong>프로모션 비용 8억 원 투자</strong>로, 체화 소진액(약 48억)과 추가 리오더 매출(21억)을 합산한 <strong>총 69억 원의 매출 볼륨 견인 (GMROI 대폭 개선)</strong></p></div></div></div>' },
-                { badge: 'Insight', title: '프로젝트 차별점 및 한계 극복 (Conclusion)', content: '<div class="space-y-4"><div class="bg-gray-50 p-5 rounded-2xl border border-gray-200"><h4 class="text-lg font-bold text-gray-800 mb-2">💎 자산 가치 중심의 접근 (GMROI 기반)</h4><p class="text-gray-700 leading-relaxed">체화 소진으로 확보한 발주 버젯(OTB)을 <strong>신상품/베스트 상품 리오더로 연결하는 선순환 구조</strong>를 구축하여 전사적 자본 효율성을 증명했습니다.</p></div><div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100"><h4 class="text-lg font-bold text-indigo-800 mb-2">🤝 데이터 기반의 커뮤니케이션 스킬</h4><p class="text-indigo-900 leading-relaxed">단순히 현상에 대한 불만을 제기하는 것이 아니라, 구체적 지표(재고연령, 평가손해액)를 통해 <strong>이해관계자(브랜드 본사, MD)를 논리적으로 설득해 낸 고도의 협업 사례</strong>입니다.</p></div><div class="bg-orange-50 p-5 rounded-2xl border border-orange-100"><h4 class="text-lg font-bold text-orange-800 mb-2">💡 현실적 한계 돌파 (Alternative Action)</h4><p class="text-orange-900 leading-relaxed">계약 관계상 A/C등급 발주 비율 자체를 전면 조정하지는 못했습니다. <strong class="text-orange-700">대신 Best(A등급) 리오더 주기를 연 2회에서 4회로 증가시키는 현실적인 협의점</strong>을 도출하여 수익성을 완벽히 방어했습니다.</p></div></div>' }
+                { badge: 'Overview', title: '문제 정의 (Problem Definition)', content: '<div class="space-y-4 md:space-y-6"><div><h4 class="text-base md:text-xl font-bold text-gray-800 mb-2">🚨 배경</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">특정 해외 패션 브랜드의 체화 재고 비중이 과다하여 재고 회전율이 저하되고, 이로 인한 <strong>OTB(Open-To-Buy) 발주 버젯 축소로 매출 정체가 심화</strong>되는 악순환이 발생했습니다.</p></div><div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 md:p-5 rounded-r-xl shadow-sm"><h4 class="text-base md:text-lg font-bold text-indigo-800 mb-2">🎯 핵심 목표</h4><p class="text-sm md:text-base text-indigo-900 leading-relaxed">데이터 기반의 재고 연령 분석과 ABC 등급제를 도입하여 <strong>체화 재고를 50% 이상 감축</strong>하고, <strong>OTB 버젯 확보 및 베스트 리오더</strong>를 통해 재고 건전화와 매출 활성화를 동시에 달성합니다.</p></div></div>' },
+                { badge: 'Situation', title: '데이터 환경 및 분석 지표 (Data & Metrics)', content: '<div class="mb-4 md:mb-6"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">📊 데이터 환경</h4><ul class="list-disc pl-5 md:pl-6 space-y-1 md:space-y-2 text-sm md:text-base text-gray-700 bg-gray-50 p-4 rounded-xl"><li><strong>SKU 및 Aging 기준 입고-판매 이력</strong></li><li>잔여 재고 금액 (매가, 원가 기준)</li></ul></div><div class="space-y-3 md:space-y-4"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">💡 핵심 분석 지표</h4><div class="bg-white p-4 md:p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center"><span class="inline-block w-fit bg-blue-100 text-blue-800 font-bold px-3 py-1.5 rounded text-xs md:text-sm mb-2 md:mb-0 md:mr-4">Turnover</span><div class="flex-1"><h5 class="text-sm md:text-base font-bold text-gray-800">재고 회전율 (Inventory Turnover)</h5><p class="text-xs md:text-sm text-gray-600 mt-1">자산의 현금화 속도를 파악하는 건전성 지표</p></div></div><div class="bg-white p-4 md:p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center"><span class="inline-block w-fit bg-indigo-100 text-indigo-800 font-bold px-3 py-1.5 rounded text-xs md:text-sm mb-2 md:mb-0 md:mr-4">GMROI</span><div class="flex-1"><h5 class="text-sm md:text-base font-bold text-gray-800">재고 투자 대비 이익률</h5><p class="text-xs md:text-sm text-gray-600 mt-1">"재고에 1원을 투자했을 때 얼마의 이익을 남겼는가?"</p></div></div></div>' },
+                { badge: 'Task', title: '체화 재고 및 원인 분석 (EDA & Root Cause)', content: '<div class="grid grid-cols-1 gap-4 md:gap-6"><div class="bg-red-50 p-4 md:p-6 rounded-xl border border-red-100"><h4 class="font-bold text-lg md:text-xl mb-2 md:mb-3 text-red-600">📉 재고 연령(Aging) 분석</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed mb-3">SQL을 활용해 12개월 이상 미판매된 \'체화 재고\'와 6개월 이상된 \'예비체화 재고\'를 산출했습니다.</p><div class="bg-white/60 p-3 rounded-lg"><p class="text-xs md:text-sm text-red-800 font-bold">👉 분석 결과: 전체 재고의 80% 육박 확인</p></div></div><div class="bg-orange-50 p-4 md:p-6 rounded-xl border border-orange-100"><h4 class="font-bold text-lg md:text-xl mb-2 md:mb-3 text-orange-600">🔍 구조적 원인 파악</h4><ul class="list-decimal pl-4 md:pl-5 space-y-2 md:space-y-3 text-sm md:text-base text-gray-800 font-medium"><li><strong>외부적 요인:</strong> 코로나19 거래 단절로 기회 상실</li><li><strong>내부적 요인:</strong> 수요 예측 없는 \'시즌별 일괄 입고\' 고수<br/><span class="text-xs md:text-sm font-normal text-gray-600 block mt-1">➔ A등급 품절, C등급 과다 입고 악순환 데이터 확인</span></li></ul></div></div>' },
+                { badge: 'Action 1', title: '운영 전략 재설계 (Strategy)', content: '<div class="space-y-4 md:space-y-6"><div class="border-b border-gray-200 pb-4 md:pb-5"><h4 class="text-base md:text-xl font-bold text-gray-800 mb-2">전략: ABC 분석 도입</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">매출 기여도에 따른 <strong>ABC 재고 등급화 전략</strong>을 수립했습니다.</p></div><div class="flex flex-col gap-3 md:gap-4"><div class="flex flex-col md:flex-row md:items-center p-4 bg-indigo-50 rounded-xl border border-indigo-100"><span class="w-full md:w-32 font-bold text-indigo-700 text-base md:text-xl mb-1 md:mb-0 md:text-center inline-block">A 등급</span><p class="text-sm md:text-base text-gray-700 flex-1 md:ml-3">핵심 베스트 상품 ➔ <strong>절대 품절 방지 로직 적용</strong></p></div><div class="flex flex-col md:flex-row md:items-center p-4 bg-gray-50 rounded-xl border border-gray-200"><span class="w-full md:w-32 font-bold text-gray-500 text-base md:text-xl mb-1 md:mb-0 md:text-center inline-block">C 등급</span><p class="text-sm md:text-base text-gray-700 flex-1 md:ml-3">낮은 기여도 상품 ➔ <strong>과감한 소진 전략 기획</strong></p></div></div><div class="bg-gray-800 text-white p-4 md:p-5 rounded-xl mt-2 md:mt-4"><h4 class="text-sm md:text-base font-bold mb-1.5 md:mb-2 text-indigo-300">🗣️ 커뮤니케이션 & 설득</h4><p class="text-xs md:text-sm leading-relaxed opacity-90">SKU별 데이터와 재고 연령 지표를 바탕으로 <strong>브랜드 본사 및 내부 MD를 객관적으로 설득</strong>하여 전략적 합의를 이끌어냈습니다.</p></div></div>' },
+                { badge: 'Action 2', title: '소진 설계 프로모션 (Execution)', content: '<div class="space-y-4 md:space-y-6"><div><h4 class="text-base md:text-xl font-bold text-gray-800 mb-2 md:mb-3">소진 설계 프로모션</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">C등급으로 분류된 체화 재고를 빠르게 현금화하기 위한 공격적인 프로모션을 기획했습니다.</p></div><div class="bg-indigo-50 p-4 md:p-6 rounded-xl border border-indigo-100"><h4 class="text-base md:text-xl font-bold text-indigo-700 mb-2 md:mb-3">🛠️ 재고자산평가손해액 반영 모델링</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed mb-3 md:mb-4">단순한 감에 의존한 할인이 아닌, 창고 보관 비용 및 <strong>재고자산평가손해액을 정밀하게 반영하여 최적의 할인율을 산정</strong>했습니다.</p><div class="bg-white p-4 rounded-lg shadow-sm border border-indigo-50"><p class="text-sm md:text-base text-indigo-900 font-medium leading-relaxed">👉 <strong>"비용 8억 투입 시나리오"</strong>: 재고 건전화 비용(8억)을 투입해 잠재적 손실을 차단하고, 현금을 확보하는 것이 재무적으로 우수함을 증명해 내부 승인 도출.</p></div></div></div>' },
+                { badge: 'Result', title: '실행 및 성과 (Results)', content: '<div class="mb-4 md:mb-5"><p class="text-sm md:text-base text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200"><strong>🚀 실행 성과:</strong> ABC 등급제 및 데이터 기반 할인 프로모션으로 완벽한 재고 턴어라운드</p></div><div class="flex flex-col md:flex-row gap-4 md:gap-5"><div class="w-full md:w-1/2 bg-gradient-to-br from-indigo-600 to-purple-700 text-white p-6 md:p-8 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"><h4 class="text-sm md:text-base font-medium opacity-80 mb-2">악성 체화 재고 감축</h4><div class="text-4xl md:text-5xl font-extrabold mb-2 md:mb-3">-80%</div><p class="bg-white/20 px-3 py-1 rounded-full text-xs md:text-sm mt-1 md:mt-2">총 $3.6M 판매</p></div><div class="w-full md:w-1/2 flex flex-col justify-center space-y-3 md:space-y-4"><div class="bg-blue-50 border border-blue-200 p-4 md:p-5 rounded-2xl"><p class="text-blue-800 font-bold text-base md:text-lg flex items-center mb-1">✅ +21억 원 추가 매출 창출</p><p class="text-xs md:text-sm text-gray-600 leading-relaxed">베스트 리오더 재투자 <strong class="text-blue-700">(기네스 매출 16억 포함)</strong></p></div><div class="bg-green-50 border border-green-200 p-4 md:p-5 rounded-2xl"><p class="text-green-800 font-bold text-base md:text-lg flex items-center mb-1">✅ 투자 대비 효율(ROI) 762%</p><p class="text-xs md:text-sm text-gray-600 leading-relaxed"><strong>비용 8억 투자</strong>로 체화 소진+리오더 합산 <strong>총 69억 창출</strong></p></div></div></div>' },
+                { badge: 'Insight', title: '프로젝트 차별점 (Conclusion)', content: '<div class="space-y-3 md:space-y-4"><div class="bg-gray-50 p-4 md:p-5 rounded-2xl border border-gray-200"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-1.5 md:mb-2">💎 자산 가치 중심의 접근</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">확보한 버젯(OTB)을 <strong>신상품 리오더로 연결하는 선순환 구조</strong> 구축.</p></div><div class="bg-indigo-50 p-4 md:p-5 rounded-2xl border border-indigo-100"><h4 class="text-base md:text-lg font-bold text-indigo-800 mb-1.5 md:mb-2">🤝 데이터 커뮤니케이션</h4><p class="text-sm md:text-base text-indigo-900 leading-relaxed">구체적 지표(평가손해액)를 통해 <strong>이해관계자를 논리적으로 설득</strong>해 낸 협업 사례.</p></div><div class="bg-orange-50 p-4 md:p-5 rounded-2xl border border-orange-100"><h4 class="text-base md:text-lg font-bold text-orange-800 mb-1.5 md:mb-2">💡 현실적 한계 돌파</h4><p class="text-sm md:text-base text-orange-900 leading-relaxed">계약상 발주 비율 전면 조정 대신 <strong class="text-orange-700">Best(A등급) 리오더 주기를 연 2회에서 4회로 증가시키는 현실적 협의점</strong> 도출.</p></div></div>' }
             ],
             proj3: [
-                { badge: 'Overview', title: '문제 정의 (Problem Definition)', content: '<div class="space-y-6"><div><h4 class="text-xl font-bold text-gray-800 mb-2">🚨 배경</h4><p class="text-gray-700 leading-relaxed">M브랜드의 <strong>특정 거래처(Buyer) 매출 의존도가 85%</strong>에 달해 리스크가 높았으며, 이 거래처가 낮은 공헌이익률을 제공함에도 불구하고 협상 우위를 점하기 어려운 구조였습니다.<br/><span class="text-red-600 font-medium">특히 비수기(6~8월)에는 해당 거래처가 발주를 중단하는 행태를 보여, 성-비수기 간 매출 편차가 심화되는 문제</span>가 있었습니다.</p></div><div class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-xl shadow-sm"><h4 class="text-lg font-bold text-emerald-800 mb-2">🎯 핵심 목표</h4><p class="text-emerald-900 leading-relaxed">거래처 다변화(Client Diversification)를 통해 매출 집중도(HHI) 지수를 낮추고, 신규 판로 개척 및 거래 조건 개선을 통해 <strong>전년 대비 해당 브랜드의 공헌이익률을 +3%p 이상 개선</strong>합니다.</p></div></div>' },
-                { badge: 'Situation', title: '데이터 환경 및 분석 지표 (Data & Metrics)', content: '<div class="mb-6"><h4 class="text-lg font-bold text-gray-800 mb-3">📊 데이터 환경</h4><ul class="list-disc pl-6 space-y-2 text-gray-700 bg-gray-50 p-4 rounded-xl"><li><strong>거래처별 매출 및 시즌별 매입 패턴</strong></li><li>계약 세부 거래 조건 (할인율 / 지원금 / 원가보상 내역 등)</li></ul></div><div class="space-y-4"><h4 class="text-lg font-bold text-gray-800 mb-3">💡 핵심 분석 지표 (Key Metrics)</h4><div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col sm:flex-row sm:items-center"><span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded text-sm mb-3 sm:mb-0 sm:mr-4 whitespace-nowrap">HHI Index</span><div><h5 class="font-bold text-gray-800">매출 집중도 리스크</h5><p class="text-gray-600 text-sm mt-1">시장이나 거래처가 특정 소수에게 얼마나 집중되어 있는지 측정하는 독과점 평가 지수</p></div></div><div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col sm:flex-row sm:items-center"><span class="bg-teal-100 text-teal-800 font-bold px-3 py-1 rounded text-sm mb-3 sm:mb-0 sm:mr-4 whitespace-nowrap">Cont. Margin</span><div><h5 class="font-bold text-gray-800">공헌이익률</h5><p class="text-gray-600 text-sm mt-1">매출액에서 변동비를 차감한 금액의 비율로, 고정비를 회수하고 실질적 이익을 창출하는 기여도</p></div></div></div>' },
-                { badge: 'Task', title: '매출 집중도 및 수익성 역설 (EDA)', content: '<div class="grid grid-cols-1 gap-6"><div class="bg-red-50 p-6 rounded-xl border border-red-100"><h4 class="font-bold text-xl mb-3 text-red-600">📉 수익성 역설 (Profitability Paradox)</h4><p class="text-gray-700 leading-relaxed">매출 규모와 공헌이익률의 상관관계를 분석한 결과, <strong>메인 거래처(A)는 당사 매출의 85%를 사가지만 제공 마진율은 최하위권</strong>에 머물렀습니다.<br/>반면, 중소형/신규 거래처(B, C)는 소규모 매입에도 불구하고 이익 기여도가 A거래처 대비 <strong>5~8%p 더 높음을 확인</strong>했습니다.</p></div><div class="bg-orange-50 p-6 rounded-xl border border-orange-100"><h4 class="font-bold text-xl mb-3 text-orange-600">🔍 구조적 한계 파악</h4><p class="text-gray-700 leading-relaxed">단일 대형 거래처에 의존하는 구조는 <strong>비수기 매출 하락의 90%를 초래</strong>하는 주요 원인이었습니다. 즉, 매출 편중은 단순한 이익률 저하뿐만 아니라 시즌 변동성(Volatility)에 매우 취약한 구조적 결함을 야기하고 있었습니다.</p></div></div>' },
-                { badge: 'Action 1', title: '판로 믹스 다변화 전략 (Strategy)', content: '<div class="space-y-6"><div class="border-b border-gray-200 pb-5"><h4 class="text-xl font-bold text-gray-800 mb-3">전략: Client Portfolio 최적화</h4><p class="text-gray-700 leading-relaxed">리스크를 분산하고 전사적 수익성을 확보하기 위해, 각 거래처의 역할을 수익률에 맞게 재조정하는 <strong>판로 믹스(Mix) 다변화 전략</strong>을 실행했습니다.</p></div><div class="flex flex-col gap-4"><div class="flex flex-col sm:flex-row sm:items-center p-5 bg-gray-50 rounded-xl border border-gray-200"><span class="sm:w-36 font-bold text-gray-600 text-xl mb-2 sm:mb-0">Core Client</span><div class="flex-1"><p class="text-gray-800 font-bold mb-1">매출 85%의 기존 대형 거래처</p><p class="text-gray-600 text-sm">효율 중심의 대량 도매 물량만 유지하며, <strong>전체 점유율을 50% 수준으로 하향 조정</strong></p></div></div><div class="flex flex-col sm:flex-row sm:items-center p-5 bg-emerald-50 rounded-xl border border-emerald-200"><span class="sm:w-36 font-bold text-emerald-700 text-xl mb-2 sm:mb-0">Strategic Client</span><div class="flex-1"><p class="text-emerald-900 font-bold mb-1">고마진의 중소형 신규 거래처</p><p class="text-emerald-700 text-sm">마진율이 높은 트렌드/비수기 대응 상품군을 집중 공급하여 <strong>전략적 핵심 판로로 육성</strong></p></div></div></div></div>' },
-                { badge: 'Action 2', title: '시뮬레이션 기반 협상력 강화 (Execution)', content: '<div class="space-y-6"><div><h4 class="text-xl font-bold text-gray-800 mb-3">데이터 기반 세일즈 협상</h4><p class="text-gray-700 leading-relaxed">판로 다변화 설계를 바탕으로, 실질적인 계약 조건(판단가) 변경을 위해 대형 거래처와 <strong>재협상(Renegotiation) 테이블</strong>을 마련했습니다.</p></div><div class="bg-emerald-50 p-6 rounded-xl border border-emerald-100"><h4 class="text-xl font-bold text-emerald-800 mb-3">🗣️ Bargaining Power 확보 및 관철</h4><p class="text-gray-700 leading-relaxed mb-4">신규 거래처라는 <strong>복수 판로 확보를 레버리지(Leverage) 삼아 협상 우위를 선점</strong>했습니다.</p><div class="bg-white p-4 rounded-lg shadow-sm border border-emerald-100"><ul class="list-disc pl-5 space-y-2 text-emerald-900 font-medium"><li>신규 거래처의 높은 공헌이익률 데이터를 메인 거래처에 투명하게 제시</li><li>안정적 물량 공급을 보장하는 대신, <strong>제공 할인율 축소 및 판단가 인상을 요구하는 원가/손익 시뮬레이션 제시</strong></li><li>논리적 설득을 통해 기존 불공정했던 거래 조건의 긍정적 합의 도출</li></ul></div></div></div>' },
-                { badge: 'Result', title: '실행 및 성과 (Results)', content: '<div class="mb-5"><p class="text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200"><strong>🚀 실행 성과:</strong> 구조 개편과 거래선 다변화를 통해 압도적인 이익률 개선 및 초고위험 리스크 해소 달성</p></div><div class="flex flex-col md:flex-row gap-5"><div class="w-full md:w-1/2 bg-gradient-to-br from-emerald-500 to-teal-700 text-white p-8 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"><h4 class="font-medium opacity-80 mb-2">전년 대비 공헌이익률 개선</h4><div class="text-5xl font-extrabold mb-3">+82%</div><p class="bg-white/20 px-3 py-1 rounded-full text-sm mt-2">수익성 중심의 구조적 체질 개선</p></div><div class="w-full md:w-1/2 flex flex-col justify-center space-y-4"><div class="bg-blue-50 border border-blue-200 p-5 rounded-2xl"><p class="text-blue-800 font-bold text-lg flex items-center mb-1">✅ HHI 2,500대 초고위험 탈피</p><p class="text-gray-600 text-sm leading-relaxed">특정 거래처 독점 매출에 의존하던 리스크를 완벽하게 해소하고 건전한 매출 파이프라인 구축</p></div><div class="bg-teal-50 border border-teal-200 p-5 rounded-2xl"><p class="text-teal-800 font-bold text-lg flex items-center mb-1">✅ 비수기 매출 전년비 +59% 신장</p><p class="text-gray-600 text-sm leading-relaxed">비수기 특화 상품군의 안정적 공급을 통해 고질적인 여름 시즌 매출 하락폭 완벽 방어</p></div></div></div>' },
-                { badge: 'Insight', title: '프로젝트 차별점 (Conclusion)', content: '<div class="space-y-4"><div class="bg-gray-50 p-5 rounded-2xl border border-gray-200"><h4 class="text-lg font-bold text-gray-800 mb-2">💎 수익성 중심의 KPI 패러다임 전환</h4><p class="text-gray-700 leading-relaxed">단순히 "매출액(Revenue)" 볼륨이 큰 거래처에 끌려다니던 기존 관행을 깨고, <strong>"이익(Profitability)"과 "안정성" 중심으로 전사 영업 전략을 전환</strong>시켰습니다.<br/><span class="text-blue-600 font-semibold mt-2 inline-block">👉 의도적 볼륨 축소로 전체 매출액은 15% 줄었으나, 순 공헌이익액 자체는 5.7% 상승하는 "Quality of Sales" 증명.</span></p></div><div class="bg-emerald-50 p-5 rounded-2xl border border-emerald-100"><h4 class="text-lg font-bold text-emerald-800 mb-2">🤝 데이터로 증명한 실전 세일즈 협상력</h4><p class="text-emerald-900 leading-relaxed">데이터는 화면 속 분석에서 끝나는 것이 아니라, 내부 판촉팀을 설득하고 나아가 <strong>실제 외부 파트너사와의 팽팽한 판매 계약 조건(판단가)까지 우리에게 유리하게 변경해 내는 가장 강력한 무기</strong>임을 실전에서 입증했습니다.</p></div></div>' }
+                { badge: 'Overview', title: '문제 정의 (Problem Definition)', content: '<div class="space-y-4 md:space-y-6"><div><h4 class="text-base md:text-xl font-bold text-gray-800 mb-2 md:mb-3">🚨 배경</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">M브랜드의 <strong>특정 거래처(Buyer) 매출 의존도가 85%</strong>에 달해 리스크가 높았습니다.<br/><span class="text-xs md:text-sm text-red-600 font-medium mt-1 md:mt-2 block bg-red-50 p-2 rounded">특히 비수기(6~8월)에는 해당 거래처가 발주를 중단하여 성-비수기 간 매출 편차가 심화되는 문제 발생</span></p></div><div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 md:p-5 rounded-r-xl shadow-sm"><h4 class="text-base md:text-lg font-bold text-emerald-800 mb-1.5 md:mb-2">🎯 핵심 목표</h4><p class="text-sm md:text-base text-emerald-900 leading-relaxed">거래처 다변화를 통해 매출 집중도(HHI) 지수를 낮추고, 거래 조건 개선을 통해 <strong>전년 대비 공헌이익률을 대폭 향상</strong>시킵니다.</p></div></div>' },
+                { badge: 'Situation', title: '데이터 환경 및 분석 지표 (Data & Metrics)', content: '<div class="mb-4 md:mb-6"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">📊 데이터 환경</h4><ul class="list-disc pl-5 md:pl-6 space-y-1 md:space-y-2 text-sm md:text-base text-gray-700 bg-gray-50 p-4 rounded-xl"><li><strong>거래처별 매출 및 시즌별 매입 패턴</strong></li><li>계약 세부 거래 조건 (할인율 / 지원금 / 원가보상 내역 등)</li></ul></div><div class="space-y-3 md:space-y-4"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2 md:mb-3">💡 핵심 분석 지표</h4><div class="bg-white p-4 md:p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center"><span class="inline-block w-fit bg-emerald-100 text-emerald-800 font-bold px-3 py-1.5 rounded text-xs md:text-sm mb-2 md:mb-0 md:mr-4">HHI Index</span><div class="flex-1"><h5 class="text-sm md:text-base font-bold text-gray-800">매출 집중도 리스크</h5><p class="text-xs md:text-sm text-gray-600 mt-1">거래처가 특정 소수에게 얼마나 집중되어 있는지 측정</p></div></div><div class="bg-white p-4 md:p-5 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center"><span class="inline-block w-fit bg-teal-100 text-teal-800 font-bold px-3 py-1.5 rounded text-xs md:text-sm mb-2 md:mb-0 md:mr-4">Cont. Margin</span><div class="flex-1"><h5 class="text-sm md:text-base font-bold text-gray-800">공헌이익률</h5><p class="text-xs md:text-sm text-gray-600 mt-1">매출액에서 변동비를 차감, 실질적 이익을 창출하는 기여도</p></div></div></div>' },
+                { badge: 'Task', title: '매출 집중도 및 수익성 역설 (EDA)', content: '<div class="grid grid-cols-1 gap-4 md:gap-6"><div class="bg-red-50 p-4 md:p-6 rounded-xl border border-red-100"><h4 class="font-bold text-lg md:text-xl mb-2 md:mb-3 text-red-600">📉 수익성 역설 (Paradox)</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed"><strong>메인 거래처(A)는 매출의 85%를 차지하나 마진율은 최하위권</strong>에 머물렀습니다. 반면, 소규모 신규 거래처(B, C)는 이익 기여도가 <strong>5~8%p 더 높음</strong>을 데이터로 확인했습니다.</p></div><div class="bg-orange-50 p-4 md:p-6 rounded-xl border border-orange-100"><h4 class="font-bold text-lg md:text-xl mb-2 md:mb-3 text-orange-600">🔍 구조적 한계 파악</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">단일 대형 거래처 의존 구조는 <strong>비수기 매출 하락의 90%를 초래</strong>하는 원인이었습니다. 이는 시즌 변동성(Volatility)에 매우 취약한 구조적 결함이었습니다.</p></div></div>' },
+                { badge: 'Action 1', title: '판로 믹스 다변화 전략 (Strategy)', content: '<div class="space-y-4 md:space-y-6"><div class="border-b border-gray-200 pb-4 md:pb-5"><h4 class="text-base md:text-xl font-bold text-gray-800 mb-2">전략: Client Portfolio 최적화</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">각 거래처의 역할을 수익률에 맞게 재조정하는 <strong>판로 믹스(Mix) 다변화 전략</strong>을 실행했습니다.</p></div><div class="flex flex-col gap-3 md:gap-4"><div class="flex flex-col md:flex-row md:items-center p-4 bg-gray-50 rounded-xl border border-gray-200"><span class="w-full md:w-36 font-bold text-gray-600 text-base md:text-lg mb-1 md:mb-0 md:text-center inline-block">Core Client</span><div class="flex-1 md:ml-4"><p class="text-sm md:text-base text-gray-800 font-bold mb-1">기존 대형 거래처</p><p class="text-xs md:text-sm text-gray-600">대량 도매 물량만 유지, <strong>전체 점유율 50% 하향 조정</strong></p></div></div><div class="flex flex-col md:flex-row md:items-center p-4 bg-emerald-50 rounded-xl border border-emerald-200"><span class="w-full md:w-36 font-bold text-emerald-700 text-base md:text-lg mb-1 md:mb-0 md:text-center inline-block">Strategic</span><div class="flex-1 md:ml-4"><p class="text-sm md:text-base text-emerald-900 font-bold mb-1">고마진 신규 거래처</p><p class="text-xs md:text-sm text-emerald-700">비수기 대응 상품군 집중 공급 ➔ <strong>전략적 육성</strong></p></div></div></div></div>' },
+                { badge: 'Action 2', title: '시뮬레이션 기반 협상력 강화 (Execution)', content: '<div class="space-y-4 md:space-y-6"><div><h4 class="text-base md:text-xl font-bold text-gray-800 mb-2 md:mb-3">데이터 기반 세일즈 협상</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">실질적인 판단가 변경을 위해 대형 거래처와 <strong>재협상(Renegotiation) 테이블</strong>을 마련했습니다.</p></div><div class="bg-emerald-50 p-4 md:p-6 rounded-xl border border-emerald-100"><h4 class="text-base md:text-xl font-bold text-emerald-800 mb-2 md:mb-3">🗣️ Bargaining Power 관철</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed mb-3 md:mb-4">복수 판로 확보를 레버리지 삼아 협상 우위를 선점했습니다.</p><div class="bg-white p-4 md:p-5 rounded-lg shadow-sm border border-emerald-100"><ul class="list-disc pl-4 md:pl-5 space-y-2 md:space-y-3 text-sm md:text-base text-emerald-900 font-medium"><li>신규 거래처의 고마진 데이터를 투명하게 제시</li><li>안정적 물량 보장 조건으로 <strong>할인율 축소 원가 시뮬레이션 제시</strong></li><li>불공정했던 거래 조건의 긍정적 합의 도출</li></ul></div></div></div>' },
+                { badge: 'Result', title: '실행 및 성과 (Results)', content: '<div class="mb-4 md:mb-5"><p class="text-sm md:text-base text-gray-700 bg-gray-50 p-4 rounded-lg border border-gray-200"><strong>🚀 실행 성과:</strong> 구조 개편을 통한 압도적인 이익률 개선 및 리스크 해소</p></div><div class="flex flex-col md:flex-row gap-4 md:gap-5"><div class="w-full md:w-1/2 bg-gradient-to-br from-emerald-500 to-teal-700 text-white p-6 md:p-8 rounded-2xl shadow-lg flex flex-col justify-center items-center text-center"><h4 class="text-sm md:text-base font-medium opacity-80 mb-2">전년비 공헌이익률</h4><div class="text-4xl md:text-5xl font-extrabold mb-2 md:mb-3">+82%</div><p class="bg-white/20 px-3 py-1 rounded-full text-xs md:text-sm mt-1 md:mt-2">수익성 중심의 구조적 체질 개선</p></div><div class="w-full md:w-1/2 flex flex-col justify-center space-y-3 md:space-y-4"><div class="bg-blue-50 border border-blue-200 p-4 md:p-5 rounded-2xl"><p class="text-blue-800 font-bold text-base md:text-lg flex items-center mb-1">✅ HHI 2,500대 위험 탈피</p><p class="text-xs md:text-sm text-gray-600 leading-relaxed">독점 의존도를 낮춰 건전한 매출 파이프라인 구축</p></div><div class="bg-teal-50 border border-teal-200 p-4 md:p-5 rounded-2xl"><p class="text-teal-800 font-bold text-base md:text-lg flex items-center mb-1">✅ 비수기 매출 +59% 신장</p><p class="text-xs md:text-sm text-gray-600 leading-relaxed">비수기 고질적인 여름 시즌 매출 하락폭 완벽 방어</p></div></div></div>' },
+                { badge: 'Insight', title: '프로젝트 차별점 (Conclusion)', content: '<div class="space-y-4 md:space-y-6"><div class="bg-gray-50 p-5 md:p-6 rounded-2xl border border-gray-200"><h4 class="text-base md:text-lg font-bold text-gray-800 mb-2">💎 수익성 중심 KPI 패러다임 전환</h4><p class="text-sm md:text-base text-gray-700 leading-relaxed">"매출액" 볼륨보다 <strong>"이익"과 "안정성" 중심으로 전사 영업 전략을 전환</strong>시켰습니다.<br/><span class="text-blue-600 font-semibold mt-2 inline-block bg-blue-50 px-2 py-1 rounded">👉 의도적 볼륨 축소로 전체 매출액은 15% 줄었으나, 순 공헌이익액 자체는 5.7% 상승하는 "Quality of Sales" 증명.</span></p></div><div class="bg-emerald-50 p-5 md:p-6 rounded-2xl border border-emerald-100"><h4 class="text-base md:text-lg font-bold text-emerald-800 mb-2">🤝 실전 세일즈 협상력</h4><p class="text-sm md:text-base text-emerald-900 leading-relaxed">데이터는 분석에서 끝나는 것이 아니라, <strong>실제 외부 파트너사와의 팽팽한 판단가 계약 조건까지 우리에게 유리하게 변경해 내는 가장 강력한 무기</strong>임을 입증했습니다.</p></div></div>' }
             ]
         };
 
@@ -540,9 +549,15 @@
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; 
             
+            // 모달 열릴 때 최상단으로 스크롤 강제 이동
             setTimeout(() => {
+                const wrapper = document.getElementById('sliderWrapper');
+                if(wrapper && wrapper.children[0]) {
+                    wrapper.children[0].scrollTop = 0;
+                }
                 modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
+                modalContent.classList.remove('translate-y-full', 'scale-95');
+                modalContent.classList.add('translate-y-0');
             }, 10);
         }
 
@@ -551,7 +566,8 @@
             const modalContent = document.getElementById('modalContent');
             
             modal.classList.add('opacity-0');
-            modalContent.classList.add('scale-95');
+            modalContent.classList.remove('translate-y-0');
+            modalContent.classList.add('translate-y-full', 'md:translate-y-0', 'scale-95'); // 모바일은 아래로, PC는 축소
             document.body.style.overflow = ''; 
             
             setTimeout(() => {
@@ -574,14 +590,15 @@
                 if(initial === 'I') badgeColor = 'bg-purple-100 text-purple-800';
 
                 const slideEl = document.createElement('div');
-                slideEl.className = 'min-w-full h-full p-6 md:p-10 overflow-y-auto flex flex-col justify-center items-center';
+                // 모바일에서 상단 정렬(justify-start) 적용하여 내용 짤림 방지
+                slideEl.className = 'min-w-full h-full p-4 sm:p-6 md:p-10 overflow-y-auto flex flex-col items-center justify-start md:justify-center';
                 slideEl.innerHTML = `
-                    <div class="max-w-3xl w-full bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-gray-100">
-                        <div class="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-bold mb-6 ${badgeColor}">
+                    <div class="max-w-3xl w-full bg-white md:rounded-2xl p-6 sm:p-8 md:p-12 md:shadow-sm md:border border-gray-100 my-auto">
+                        <div class="inline-flex items-center justify-center px-3 py-1.5 rounded-full text-[11px] md:text-sm font-bold mb-4 md:mb-6 ${badgeColor}">
                             ${slide.badge}
                         </div>
-                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-8 pb-4 border-b border-gray-100">${slide.title}</h2>
-                        <div class="prose prose-lg max-w-none text-gray-700">
+                        <h2 class="text-xl md:text-4xl font-extrabold text-gray-900 mb-5 md:mb-8 pb-3 md:pb-4 border-b border-gray-100 break-keep leading-snug">${slide.title}</h2>
+                        <div class="text-gray-700 w-full">
                             ${slide.content}
                         </div>
                     </div>
@@ -597,7 +614,7 @@
             
             currentSlides.forEach((_, index) => {
                 const dot = document.createElement('button');
-                dot.className = `w-10 h-2.5 md:w-12 md:h-3 rounded-full transition-all duration-300 ${index === currentSlideIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'}`;
+                dot.className = `w-8 h-2 md:w-12 md:h-3 rounded-full transition-all duration-300 ${index === currentSlideIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'}`;
                 dot.onclick = () => goToSlide(index);
                 dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
                 dotsContainer.appendChild(dot);
@@ -608,12 +625,17 @@
             const wrapper = document.getElementById('sliderWrapper');
             wrapper.style.transform = `translateX(-${currentSlideIndex * 100}%)`;
             
+            // 네비게이션 시 스크롤 최상단으로 복귀
+            if(wrapper.children[currentSlideIndex]) {
+                wrapper.children[currentSlideIndex].scrollTop = 0;
+            }
+            
             document.getElementById('prevBtn').disabled = currentSlideIndex === 0;
             document.getElementById('nextBtn').innerText = currentSlideIndex === currentSlides.length - 1 ? '완료' : '다음';
             
             const dots = document.getElementById('slideDots').children;
             Array.from(dots).forEach((dot, index) => {
-                dot.className = `w-10 h-2.5 md:w-12 md:h-3 rounded-full transition-all duration-300 ${index === currentSlideIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'}`;
+                dot.className = `w-8 h-2 md:w-12 md:h-3 rounded-full transition-all duration-300 ${index === currentSlideIndex ? 'bg-blue-600' : 'bg-gray-300 hover:bg-gray-400'}`;
             });
         }
 
@@ -635,4 +657,3 @@
     </script>
 </body>
 </html>
-```
